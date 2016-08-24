@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <title>TraderUI</title>
+    <link rel="stylesheet" href="assets/css/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+
+    <div class='panel panel-default'>
+    <form class='form-inline' action='/order' method='POST' id='order-ticket'>
+      <p>
+        <div class='form-group'>
+          <label for='side'>Side</label>
+          <select class='form-control' name='side'>
+            <option value='1'>Buy</option>
+            <option value='2'>Sell</option>
+            <option value='5'>Sell Short</option>
+            <option value='6'>Sell Short Exempt</option>
+            <option value='8'>Cross</option>
+            <option value='9'>Cross Short</option>
+            <option value='A'>Cross Short Exempt</option>
+          </select>
+        </div>
+
+        <div class='form-group'>
+          <label for='quantity'>Quantity</label>
+          <input type='number' class='form-control' id='quantity' name='quantity' placeholder='Quantity' required>
+        </div>
+
+        <div class='form-group'>
+          <label for='symbol'>Symbol</label>
+          <input type='text' class='form-control' name='symbol' id='symbol' placeholder='Symbol' required>
+        </div>
+      </p>
+      <p>
+        <div class='form-group'>
+          <label for='ordType'>Type</label>
+          <select class='form-control' name='ordType' id='ordType'>
+            <option value='1'>Market</option>
+            <option value='2'>Limit</option>
+            <option value='3'>Stop</option>
+            <option value='4'>Stop Limit</option>
+          </select>
+        </div>
+
+        <div class='form-group'>
+          <label for='limit'>Limit</label>
+          <input type='number' step='.01' class='form-control' id='limit' placeholder='Limit' name='price'>
+        </div>
+
+        <div class='form-group'>
+          <label for='stop'>Stop</label>
+          <input type='number' step='.01' class='form-control' id='stop' placeholder='Stop' name='stopPrice'>
+        </div>
+      </p>
+
+      <p>
+        <div class='form-group'>
+          <label for='account'>Account</label>
+          <input type='text' class='form-control' id='account' placeholder='Account' name='account' required>
+        </div>
+
+        <div class='form-group'>
+          <label for='type'>TIF</label>
+          <select class='form-control'>
+            <option value='0'>Day</option>
+            <option value='3'>IOC</option>
+            <option value='2'>OPG</option>
+            <option value='1'>GTC</option>
+            <option value='5'>GTX</option>
+          </select>
+        </div>
+      </p>
+
+      <p>
+        <div class='form-group'>
+          <label for='session'>Session</label>
+          <select class='form-control' id='session' name='session'>
+            {{ range .SessionIDs }}
+            <option>{{.}}</option>
+            {{ end }}
+          </select>
+        </div>
+      </p>
+      <button type='submit' class='btn btn-default'>Submit</button>
+    </form>
+    </div>
+    {{ template "orders.html"}}
+    <script src="/assets/js/jquery-3.1.0.min.js"></script>
+    <script src="/assets/js/site.js"></script>
+  </body>
+</html>
