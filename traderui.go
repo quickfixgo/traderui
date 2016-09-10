@@ -1,74 +1,91 @@
 package main
 
 import (
-	"errors"
+	"encoding/json"
 	"flag"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"path"
-	"strconv"
 	"sync"
-	"time"
+	"text/template"
 
+	"github.com/gorilla/mux"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
-
-	fix40nos "github.com/quickfixgo/quickfix/fix40/newordersingle"
-	fix41nos "github.com/quickfixgo/quickfix/fix41/newordersingle"
-	fix42nos "github.com/quickfixgo/quickfix/fix42/newordersingle"
-	fix43nos "github.com/quickfixgo/quickfix/fix43/newordersingle"
-	fix44nos "github.com/quickfixgo/quickfix/fix44/newordersingle"
-	fix50nos "github.com/quickfixgo/quickfix/fix50/newordersingle"
-
+	"github.com/quickfixgo/traderui/internal"
 	"github.com/shopspring/decimal"
 )
 
+type fixFactory interface {
+	NewOrderSingle(ord internal.Order) (msg quickfix.Messagable, err error)
+	OrderCancelRequest(ord internal.Order, clOrdID string) (msg quickfix.Messagable, err error)
+}
+
+type clOrdIDFactory interface {
+	NextClOrdID() string
+}
+
 var clOrdIDLock sync.Mutex
 var clOrdID = 0
+var factory internal.BasicFIXFactory
+var idFactory = new(internal.BasicClOrdIDFactory)
 
-var app = newTradeClient()
+var app = newTradeClient(factory, idFactory)
 
-func nextClOrdID() string {
+func nextOrderID() int {
 	clOrdIDLock.Lock()
 	defer clOrdIDLock.Unlock()
 
 	clOrdID++
-	return strconv.Itoa(clOrdID)
-}
-
-type order struct {
-	SessionID quickfix.SessionID
-	ClOrdID   string
-	Symbol    string
-	Quantity  decimal.Decimal
-	Account   string
-	Session   string
-	Side      string
-	OrdType   string
-	Price     decimal.Decimal
-	StopPrice decimal.Decimal
-	Closed    string
-	Open      decimal.Decimal
-	AvgPx     string
+	return clOrdID
 }
 
 type tradeClient struct {
 	SessionIDs map[string]quickfix.SessionID
-	Orders     map[string]*order
+	Orders     map[string]*internal.Order
 	OrderLock  sync.Mutex
+	fixFactory
+	clOrdIDFactory
 }
 
-func newTradeClient() *tradeClient {
+func newTradeClient(factory fixFactory, idFactory clOrdIDFactory) *tradeClient {
 	tc := &tradeClient{
-		SessionIDs: make(map[string]quickfix.SessionID),
-		Orders:     make(map[string]*order),
+		SessionIDs:     make(map[string]quickfix.SessionID),
+		Orders:         make(map[string]*internal.Order),
+		fixFactory:     factory,
+		clOrdIDFactory: idFactory,
 	}
 
 	return tc
+}
+
+func (e *tradeClient) SessionsAsJSON() (s string, err error) {
+	sessionIDs := make([]string, 0, len(e.SessionIDs))
+
+	for s := range e.SessionIDs {
+		sessionIDs = append(sessionIDs, s)
+	}
+
+	var b []byte
+	b, err = json.Marshal(sessionIDs)
+	s = string(b)
+	return
+}
+
+func (e *tradeClient) OrdersAsJSON() (string, error) {
+	e.OrderLock.Lock()
+	defer e.OrderLock.Unlock()
+
+	var orders = make([]*internal.Order, 0, len(e.Orders))
+	for _, v := range e.Orders {
+		orders = append(orders, v)
+	}
+
+	b, err := json.Marshal(orders)
+	return string(b), err
 }
 
 func (e *tradeClient) OnLogon(sessionID quickfix.SessionID)                       {}
@@ -128,245 +145,169 @@ func (e *tradeClient) OnExecutionReport(msg quickfix.Message, sessionID quickfix
 		return err
 	}
 
+	var leavesQty field.LeavesQtyField
+	if err := msg.Body.Get(&leavesQty); err != nil {
+		return err
+	}
+
 	order.Closed = cumQty.String()
-	order.Open = order.Quantity.Sub(cumQty.Decimal)
+	order.Open = leavesQty.String()
 	order.AvgPx = avgPx.String()
 
 	return nil
 }
 
-var templates = template.Must(template.New("traderui").Funcs(tmplFuncs).ParseFiles("tmpl/index.html", "tmpl/orders.html"))
-
 func traderView(w http.ResponseWriter, r *http.Request) {
+	var templates = template.Must(template.New("traderui").ParseFiles("tmpl/index.html"))
 	if err := templates.ExecuteTemplate(w, "index.html", app); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
-func orders(w http.ResponseWriter, r *http.Request) {
-	if err := templates.ExecuteTemplate(w, "orders.html", app); err != nil {
+func getOrder(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	app.OrderLock.Lock()
+	defer app.OrderLock.Unlock()
+
+	order, ok := app.Orders[id]
+	if !ok {
+		http.Error(w, "Unknown Order", http.StatusNotFound)
+		return
+	}
+
+	outgoingJSON, err := json.Marshal(order)
+	if err != nil {
+		log.Printf("[ERROR] err = %+v\n", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(w, string(outgoingJSON))
+}
+
+func deleteOrder(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	app.OrderLock.Lock()
+	defer app.OrderLock.Unlock()
+
+	order, ok := app.Orders[id]
+	if !ok {
+		http.Error(w, "Unknown Order", http.StatusNotFound)
+		return
+	}
+
+	clOrdID := app.NextClOrdID()
+	app.Orders[clOrdID] = order
+
+	msg, err := app.OrderCancelRequest(*order, clOrdID)
+	if err != nil {
+		log.Printf("[ERROR] err = %+v\n", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = quickfix.SendToTarget(msg, order.SessionID)
+	if err != nil {
+		log.Printf("[ERROR] err = %+v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func getOrders(w http.ResponseWriter, r *http.Request) {
+	app.OrderLock.Lock()
+	defer app.OrderLock.Unlock()
+
+	var orders = make([]*internal.Order, 0, len(app.Orders))
+	for _, v := range app.Orders {
+		orders = append(orders, v)
+	}
+
+	outgoingJSON, err := json.Marshal(orders)
+	if err != nil {
+		log.Printf("[ERROR] err = %+v\n", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(w, string(outgoingJSON))
 }
 
 func newOrder(w http.ResponseWriter, r *http.Request) {
-	symbol := r.FormValue("symbol")
-	account := r.FormValue("account")
-	ordType := r.FormValue("ordType")
-	side := r.FormValue("side")
+	var order internal.Order
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&order)
 
-	sessionID, ok := app.SessionIDs[r.FormValue("session")]
-
-	if !ok {
-		http.Error(w, "Invalid SessionID", http.StatusBadRequest)
-		return
-	}
-
-	qty, err := decimal.NewFromString(r.FormValue("quantity"))
 	if err != nil {
-		http.Error(w, "Invalid Qty", http.StatusBadRequest)
+		log.Printf("[ERROR] %v\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
+
+	err = initOrder(&order)
+	if err != nil {
+		log.Printf("[ERROR] %v\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
-	}
-
-	ord := order{
-		SessionID: sessionID,
-		ClOrdID:   nextClOrdID(),
-		Symbol:    symbol,
-		Quantity:  qty,
-		Open:      qty,
-		Closed:    "0",
-		Account:   account,
-		Session:   sessionID.String(),
-		Side:      side,
-		OrdType:   ordType,
-	}
-
-	switch ordType {
-	case enum.OrdType_LIMIT, enum.OrdType_STOP_LIMIT:
-		price, err := decimal.NewFromString(r.FormValue("price"))
-
-		if err != nil {
-			http.Error(w, "Invalid Price", http.StatusBadRequest)
-			return
-		}
-
-		ord.Price = price
-	}
-
-	switch ordType {
-	case enum.OrdType_STOP, enum.OrdType_STOP_LIMIT:
-		stopPrice, err := decimal.NewFromString(r.FormValue("stopPrice"))
-
-		if err != nil {
-			http.Error(w, "Invalid StopPrice", http.StatusBadRequest)
-			return
-		}
-
-		ord.StopPrice = stopPrice
 	}
 
 	app.OrderLock.Lock()
-	app.Orders[ord.ClOrdID] = &ord
+	app.Orders[order.ClOrdID] = &order
 	app.OrderLock.Unlock()
 
-	switch sessionID.BeginString {
-	case enum.BeginStringFIX40:
-		err = send40NOS(ord)
-	case enum.BeginStringFIX41:
-		err = send41NOS(ord)
-	case enum.BeginStringFIX42:
-		err = send42NOS(ord)
-	case enum.BeginStringFIX43:
-		err = send43NOS(ord)
-	case enum.BeginStringFIX44:
-		err = send44NOS(ord)
-	case enum.BeginStringFIXT11:
-		err = send50NOS(ord)
-	default:
-		err = errors.New("Unhandled BeginString")
+	msg, err := app.NewOrderSingle(order)
+	if err != nil {
+		log.Printf("[ERROR] %v\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
+
+	err = quickfix.SendToTarget(msg, order.SessionID)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
-func populateOrder(genMessage quickfix.Messagable, ord order) (msg quickfix.Message) {
-	msg = genMessage.ToMessage()
+func initOrder(order *internal.Order) error {
+	if sessionID, ok := app.SessionIDs[order.Session]; ok {
+		order.SessionID = sessionID
+	} else {
+		return fmt.Errorf("Invalid SessionID")
+	}
 
-	switch ord.OrdType {
+	if qty, err := decimal.NewFromString(order.Quantity); err == nil {
+		order.QuantityDecimal = qty
+	} else {
+		return fmt.Errorf("Invalid Qty")
+	}
+
+	switch order.OrdType {
 	case enum.OrdType_LIMIT, enum.OrdType_STOP_LIMIT:
-		msg.Body.Set(field.NewPrice(ord.Price, 2))
+		if price, err := decimal.NewFromString(order.Price); err == nil {
+			order.PriceDecimal = price
+		} else {
+			return fmt.Errorf("Invalid Price")
+		}
 	}
 
-	switch ord.OrdType {
+	switch order.OrdType {
 	case enum.OrdType_STOP, enum.OrdType_STOP_LIMIT:
-		msg.Body.Set(field.NewStopPx(ord.StopPrice, 2))
+		if stopPrice, err := decimal.NewFromString(order.StopPrice); err == nil {
+			order.StopPriceDecimal = stopPrice
+		} else {
+			return fmt.Errorf("Invalid StopPrice")
+		}
 	}
 
-	return
-}
+	order.ID = nextOrderID()
+	order.ClOrdID = app.NextClOrdID()
 
-func send40NOS(ord order) error {
-	nos := fix40nos.New(
-		field.NewClOrdID(ord.ClOrdID),
-		field.NewHandlInst("1"),
-		field.NewSymbol(ord.Symbol),
-		field.NewSide(ord.Side),
-		field.NewOrderQty(ord.Quantity, 0),
-		field.NewOrdType(ord.OrdType),
-	)
-
-	return quickfix.SendToTarget(populateOrder(nos, ord), ord.SessionID)
-}
-
-func send41NOS(ord order) error {
-	nos := fix41nos.New(
-		field.NewClOrdID(ord.ClOrdID),
-		field.NewHandlInst("1"),
-		field.NewSymbol(ord.Symbol),
-		field.NewSide(ord.Side),
-		field.NewOrdType(ord.OrdType),
-	)
-	nos.Set(field.NewOrderQty(ord.Quantity, 0))
-
-	return quickfix.SendToTarget(populateOrder(nos, ord), ord.SessionID)
-}
-
-func send42NOS(ord order) error {
-	nos := fix42nos.New(
-		field.NewClOrdID(ord.ClOrdID),
-		field.NewHandlInst("1"),
-		field.NewSymbol(ord.Symbol),
-		field.NewSide(ord.Side),
-		field.NewTransactTime(time.Now()),
-		field.NewOrdType(ord.OrdType),
-	)
-	nos.Set(field.NewOrderQty(ord.Quantity, 0))
-
-	return quickfix.SendToTarget(populateOrder(nos, ord), ord.SessionID)
-}
-
-func send43NOS(ord order) error {
-	nos := fix43nos.New(
-		field.NewClOrdID(ord.ClOrdID),
-		field.NewHandlInst("1"),
-		field.NewSide(ord.Side),
-		field.NewTransactTime(time.Now()),
-		field.NewOrdType(ord.OrdType),
-	)
-	nos.Set(field.NewSymbol(ord.Symbol))
-	nos.Set(field.NewOrderQty(ord.Quantity, 0))
-
-	return quickfix.SendToTarget(populateOrder(nos, ord), ord.SessionID)
-}
-
-func send44NOS(ord order) error {
-	nos := fix44nos.New(
-		field.NewClOrdID(ord.ClOrdID),
-		field.NewSide(ord.Side),
-		field.NewTransactTime(time.Now()),
-		field.NewOrdType(ord.OrdType),
-	)
-	nos.Set(field.NewSymbol(ord.Symbol))
-	nos.Set(field.NewHandlInst("1"))
-	nos.Set(field.NewOrderQty(ord.Quantity, 0))
-
-	return quickfix.SendToTarget(populateOrder(nos, ord), ord.SessionID)
-}
-
-func send50NOS(ord order) error {
-	nos := fix50nos.New(
-		field.NewClOrdID(ord.ClOrdID),
-		field.NewSide(ord.Side),
-		field.NewTransactTime(time.Now()),
-		field.NewOrdType(ord.OrdType),
-	)
-	nos.Set(field.NewHandlInst("1"))
-	nos.Set(field.NewSymbol(ord.Symbol))
-	nos.Set(field.NewOrderQty(ord.Quantity, 0))
-
-	return quickfix.SendToTarget(populateOrder(nos, ord), ord.SessionID)
-}
-
-func prettyOrdType(e string) string {
-	switch e {
-	case enum.OrdType_LIMIT:
-		return "Limit"
-	case enum.OrdType_MARKET:
-		return "Market"
-	case enum.OrdType_STOP:
-		return "Stop"
-	case enum.OrdType_STOP_LIMIT:
-		return "Stop Limit"
-	}
-
-	return e
-}
-
-func prettySide(e string) string {
-	switch e {
-	case enum.Side_BUY:
-		return "Buy"
-	case enum.Side_SELL:
-		return "Sell"
-	case enum.Side_SELL_SHORT:
-		return "Sell Short"
-	case enum.Side_SELL_SHORT_EXEMPT:
-		return "Sell Short Exempt"
-	case enum.Side_CROSS:
-		return "Cross"
-	case enum.Side_CROSS_SHORT:
-		return "Cross Short"
-	case enum.Side_CROSS_SHORT_EXEMPT:
-		return "Cross Short Exempt"
-	}
-	return e
-}
-
-var tmplFuncs = template.FuncMap{
-	"prettySide":    prettySide,
-	"prettyOrdType": prettyOrdType,
+	return nil
 }
 
 func main() {
@@ -399,9 +340,13 @@ func main() {
 	}
 	defer initiator.Stop()
 
-	http.HandleFunc("/", traderView)
-	http.HandleFunc("/order", newOrder)
-	http.HandleFunc("/orders", orders)
-	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/orders", newOrder).Methods("POST")
+	router.HandleFunc("/orders", getOrders).Methods("GET")
+	router.HandleFunc("/orders/{id:[0-9]+}", getOrder).Methods("GET")
+	router.HandleFunc("/orders/{id:[0-9]+}", deleteOrder).Methods("DELETE")
+	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+	router.HandleFunc("/", traderView)
+
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
