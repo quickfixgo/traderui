@@ -69,6 +69,12 @@
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
+			"checksumSHA1": "9AMB3Qf8TlY+rrXKW1PeELD9smw=",
+			"path": "github.com/quickfixgo/quickfix/fix42/ordercancelrequest",
+			"revision": "dd86744eeaf9fe724a96d2e114aa999464bd9fef",
+			"revisionTime": "2016-09-03T15:37:54Z"
+		},
+		{
 			"checksumSHA1": "0n6KKUwJe2/cznaGk5CPSCSiXh8=",
 			"path": "github.com/quickfixgo/quickfix/fix43",
 			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
