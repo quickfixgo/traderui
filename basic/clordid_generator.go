@@ -1,16 +1,16 @@
-package internal
+package basic
 
 import (
 	"strconv"
 	"sync"
 )
 
-type BasicClOrdIDFactory struct {
+type ClOrdIDGenerator struct {
 	clOrdIDLock sync.Mutex
 	clOrdID     int
 }
 
-func (f *BasicClOrdIDFactory) NextClOrdID() string {
+func (f *ClOrdIDGenerator) Next() string {
 	f.clOrdIDLock.Lock()
 	defer f.clOrdIDLock.Unlock()
 

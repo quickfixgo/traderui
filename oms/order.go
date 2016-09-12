@@ -1,10 +1,11 @@
-package internal
+package oms
 
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/shopspring/decimal"
 )
 
+//Order is the order type
 type Order struct {
 	ID               int                `json:"id"`
 	SessionID        quickfix.SessionID `json:"-"`

@@ -8,172 +8,82 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"sync"
+	"strconv"
 	"text/template"
 
 	"github.com/gorilla/mux"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
-	"github.com/quickfixgo/traderui/internal"
+	"github.com/quickfixgo/traderui/basic"
+	"github.com/quickfixgo/traderui/oms"
 	"github.com/shopspring/decimal"
 )
 
 type fixFactory interface {
-	NewOrderSingle(ord internal.Order) (msg quickfix.Messagable, err error)
-	OrderCancelRequest(ord internal.Order, clOrdID string) (msg quickfix.Messagable, err error)
-}
-
-type clOrdIDFactory interface {
-	NextClOrdID() string
-}
-
-var clOrdIDLock sync.Mutex
-var clOrdID = 0
-var factory internal.BasicFIXFactory
-var idFactory = new(internal.BasicClOrdIDFactory)
-
-var app = newTradeClient(factory, idFactory)
-
-func nextOrderID() int {
-	clOrdIDLock.Lock()
-	defer clOrdIDLock.Unlock()
-
-	clOrdID++
-	return clOrdID
+	NewOrderSingle(ord oms.Order) (msg quickfix.Messagable, err error)
+	OrderCancelRequest(ord oms.Order, clOrdID string) (msg quickfix.Messagable, err error)
 }
 
 type tradeClient struct {
 	SessionIDs map[string]quickfix.SessionID
-	Orders     map[string]*internal.Order
-	OrderLock  sync.Mutex
 	fixFactory
-	clOrdIDFactory
+	*oms.OrderManager
 }
 
-func newTradeClient(factory fixFactory, idFactory clOrdIDFactory) *tradeClient {
+func newTradeClient(factory fixFactory, idGen oms.ClOrdIDGenerator) *tradeClient {
 	tc := &tradeClient{
-		SessionIDs:     make(map[string]quickfix.SessionID),
-		Orders:         make(map[string]*internal.Order),
-		fixFactory:     factory,
-		clOrdIDFactory: idFactory,
+		SessionIDs:   make(map[string]quickfix.SessionID),
+		fixFactory:   factory,
+		OrderManager: oms.NewOrderManager(idGen),
 	}
 
 	return tc
 }
 
-func (e *tradeClient) SessionsAsJSON() (s string, err error) {
-	sessionIDs := make([]string, 0, len(e.SessionIDs))
+func (c tradeClient) SessionsAsJSON() (string, error) {
+	sessionIDs := make([]string, 0, len(c.SessionIDs))
 
-	for s := range e.SessionIDs {
+	for s := range c.SessionIDs {
 		sessionIDs = append(sessionIDs, s)
 	}
 
-	var b []byte
-	b, err = json.Marshal(sessionIDs)
-	s = string(b)
-	return
-}
-
-func (e *tradeClient) OrdersAsJSON() (string, error) {
-	e.OrderLock.Lock()
-	defer e.OrderLock.Unlock()
-
-	var orders = make([]*internal.Order, 0, len(e.Orders))
-	for _, v := range e.Orders {
-		orders = append(orders, v)
-	}
-
-	b, err := json.Marshal(orders)
+	b, err := json.Marshal(sessionIDs)
 	return string(b), err
 }
 
-func (e *tradeClient) OnLogon(sessionID quickfix.SessionID)                       {}
-func (e *tradeClient) OnLogout(sessionID quickfix.SessionID)                      {}
-func (e *tradeClient) ToAdmin(msg quickfix.Message, sessionID quickfix.SessionID) {}
-func (e *tradeClient) OnCreate(sessionID quickfix.SessionID) {
-	if e.SessionIDs == nil {
-		e.SessionIDs = make(map[string]quickfix.SessionID)
-	}
-	e.SessionIDs[sessionID.String()] = sessionID
+func (c tradeClient) OrdersAsJSON() (string, error) {
+	c.RLock()
+	defer c.RUnlock()
+
+	b, err := json.Marshal(c.GetAll())
+	return string(b), err
 }
 
-func (e *tradeClient) FromAdmin(msg quickfix.Message, sessionID quickfix.SessionID) (reject quickfix.MessageRejectError) {
-	return
-}
-
-func (e *tradeClient) ToApp(msg quickfix.Message, sessionID quickfix.SessionID) (err error) {
-	return
-}
-
-func (e *tradeClient) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-	var msgType field.MsgTypeField
-	if err := msg.Header.Get(&msgType); err != nil {
-		return err
-	}
-
-	switch msgType.String() {
-	case enum.MsgType_EXECUTION_REPORT:
-		return e.OnExecutionReport(msg, sessionID)
-	}
-
-	return quickfix.UnsupportedMessageType()
-}
-
-func (e *tradeClient) OnExecutionReport(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-	e.OrderLock.Lock()
-	defer e.OrderLock.Unlock()
-
-	var clOrdID field.ClOrdIDField
-	if err := msg.Body.Get(&clOrdID); err != nil {
-		return err
-	}
-
-	order, ok := e.Orders[clOrdID.String()]
-	if !ok {
-		log.Printf("[ERROR] could not find order with clordid %v", clOrdID.String())
-		return nil
-	}
-
-	var cumQty field.CumQtyField
-	if err := msg.Body.Get(&cumQty); err != nil {
-		return err
-	}
-
-	var avgPx field.AvgPxField
-	if err := msg.Body.Get(&avgPx); err != nil {
-		return err
-	}
-
-	var leavesQty field.LeavesQtyField
-	if err := msg.Body.Get(&leavesQty); err != nil {
-		return err
-	}
-
-	order.Closed = cumQty.String()
-	order.Open = leavesQty.String()
-	order.AvgPx = avgPx.String()
-
-	return nil
-}
-
-func traderView(w http.ResponseWriter, r *http.Request) {
+func (c tradeClient) traderView(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("traderui").ParseFiles("tmpl/index.html"))
-	if err := templates.ExecuteTemplate(w, "index.html", app); err != nil {
+	if err := templates.ExecuteTemplate(w, "index.html", c); err != nil {
+		log.Printf("[ERROR] err = %+v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
-func getOrder(w http.ResponseWriter, r *http.Request) {
+func (c tradeClient) fetchRequestedOrder(r *http.Request) (*oms.Order, error) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		panic(err)
+	}
 
-	app.OrderLock.Lock()
-	defer app.OrderLock.Unlock()
+	return c.Get(id)
+}
 
-	order, ok := app.Orders[id]
-	if !ok {
-		http.Error(w, "Unknown Order", http.StatusNotFound)
+func (c tradeClient) getOrder(w http.ResponseWriter, r *http.Request) {
+	c.RLock()
+	defer c.RUnlock()
+
+	order, err := c.fetchRequestedOrder(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 
@@ -188,23 +98,18 @@ func getOrder(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, string(outgoingJSON))
 }
 
-func deleteOrder(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
+func (c tradeClient) deleteOrder(w http.ResponseWriter, r *http.Request) {
+	c.Lock()
+	defer c.Unlock()
 
-	app.OrderLock.Lock()
-	defer app.OrderLock.Unlock()
-
-	order, ok := app.Orders[id]
-	if !ok {
-		http.Error(w, "Unknown Order", http.StatusNotFound)
+	order, err := c.fetchRequestedOrder(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 
-	clOrdID := app.NextClOrdID()
-	app.Orders[clOrdID] = order
-
-	msg, err := app.OrderCancelRequest(*order, clOrdID)
+	clOrdID := c.AssignNextClOrdID(order)
+	msg, err := c.OrderCancelRequest(*order, clOrdID)
 	if err != nil {
 		log.Printf("[ERROR] err = %+v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -218,16 +123,8 @@ func deleteOrder(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getOrders(w http.ResponseWriter, r *http.Request) {
-	app.OrderLock.Lock()
-	defer app.OrderLock.Unlock()
-
-	var orders = make([]*internal.Order, 0, len(app.Orders))
-	for _, v := range app.Orders {
-		orders = append(orders, v)
-	}
-
-	outgoingJSON, err := json.Marshal(orders)
+func (c tradeClient) getOrders(w http.ResponseWriter, r *http.Request) {
+	outgoingJSON, err := c.OrdersAsJSON()
 	if err != nil {
 		log.Printf("[ERROR] err = %+v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -235,31 +132,30 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprint(w, string(outgoingJSON))
+	fmt.Fprint(w, outgoingJSON)
 }
 
-func newOrder(w http.ResponseWriter, r *http.Request) {
-	var order internal.Order
+func (c tradeClient) newOrder(w http.ResponseWriter, r *http.Request) {
+	var order oms.Order
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&order)
-
 	if err != nil {
 		log.Printf("[ERROR] %v\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 
-	err = initOrder(&order)
+	err = c.initOrder(&order)
 	if err != nil {
 		log.Printf("[ERROR] %v\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	app.OrderLock.Lock()
-	app.Orders[order.ClOrdID] = &order
-	app.OrderLock.Unlock()
+	c.Lock()
+	c.OrderManager.Save(&order)
+	c.Unlock()
 
-	msg, err := app.NewOrderSingle(order)
+	msg, err := c.NewOrderSingle(order)
 	if err != nil {
 		log.Printf("[ERROR] %v\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -273,8 +169,8 @@ func newOrder(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func initOrder(order *internal.Order) error {
-	if sessionID, ok := app.SessionIDs[order.Session]; ok {
+func (c tradeClient) initOrder(order *oms.Order) error {
+	if sessionID, ok := c.SessionIDs[order.Session]; ok {
 		order.SessionID = sessionID
 	} else {
 		return fmt.Errorf("Invalid SessionID")
@@ -304,9 +200,6 @@ func initOrder(order *internal.Order) error {
 		}
 	}
 
-	order.ID = nextOrderID()
-	order.ClOrdID = app.NextClOrdID()
-
 	return nil
 }
 
@@ -330,7 +223,14 @@ func main() {
 
 	logFactory := quickfix.NewScreenLogFactory()
 
-	initiator, err := quickfix.NewInitiator(app, quickfix.NewMemoryStoreFactory(), appSettings, logFactory)
+	var app = newTradeClient(basic.FIXFactory{}, new(basic.ClOrdIDGenerator))
+
+	fixApp := &basic.FIXApplication{
+		SessionIDs:   app.SessionIDs,
+		OrderManager: app.OrderManager,
+	}
+
+	initiator, err := quickfix.NewInitiator(fixApp, quickfix.NewMemoryStoreFactory(), appSettings, logFactory)
 	if err != nil {
 		log.Fatalf("Unable to create Initiator: %s\n", err)
 	}
@@ -341,12 +241,12 @@ func main() {
 	defer initiator.Stop()
 
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/orders", newOrder).Methods("POST")
-	router.HandleFunc("/orders", getOrders).Methods("GET")
-	router.HandleFunc("/orders/{id:[0-9]+}", getOrder).Methods("GET")
-	router.HandleFunc("/orders/{id:[0-9]+}", deleteOrder).Methods("DELETE")
+	router.HandleFunc("/orders", app.newOrder).Methods("POST")
+	router.HandleFunc("/orders", app.getOrders).Methods("GET")
+	router.HandleFunc("/orders/{id:[0-9]+}", app.getOrder).Methods("GET")
+	router.HandleFunc("/orders/{id:[0-9]+}", app.deleteOrder).Methods("DELETE")
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-	router.HandleFunc("/", traderView)
+	router.HandleFunc("/", app.traderView)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
