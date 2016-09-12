@@ -13,10 +13,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/traderui/basic"
 	"github.com/quickfixgo/traderui/oms"
-	"github.com/shopspring/decimal"
 )
 
 type fixFactory interface {
@@ -142,10 +140,18 @@ func (c tradeClient) newOrder(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("[ERROR] %v\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
-	err = c.initOrder(&order)
-	if err != nil {
+	if sessionID, ok := c.SessionIDs[order.Session]; ok {
+		order.SessionID = sessionID
+	} else {
+		log.Println("[ERROR] Invalid SessionID")
+		http.Error(w, "Invalid SessionID", http.StatusBadRequest)
+		return
+	}
+
+	if err = order.Init(); err != nil {
 		log.Printf("[ERROR] %v\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -169,41 +175,9 @@ func (c tradeClient) newOrder(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (c tradeClient) initOrder(order *oms.Order) error {
-	if sessionID, ok := c.SessionIDs[order.Session]; ok {
-		order.SessionID = sessionID
-	} else {
-		return fmt.Errorf("Invalid SessionID")
-	}
-
-	if qty, err := decimal.NewFromString(order.Quantity); err == nil {
-		order.QuantityDecimal = qty
-	} else {
-		return fmt.Errorf("Invalid Qty")
-	}
-
-	switch order.OrdType {
-	case enum.OrdType_LIMIT, enum.OrdType_STOP_LIMIT:
-		if price, err := decimal.NewFromString(order.Price); err == nil {
-			order.PriceDecimal = price
-		} else {
-			return fmt.Errorf("Invalid Price")
-		}
-	}
-
-	switch order.OrdType {
-	case enum.OrdType_STOP, enum.OrdType_STOP_LIMIT:
-		if stopPrice, err := decimal.NewFromString(order.StopPrice); err == nil {
-			order.StopPriceDecimal = stopPrice
-		} else {
-			return fmt.Errorf("Invalid StopPrice")
-		}
-	}
-
-	return nil
-}
-
 func main() {
+	flag.Parse()
+
 	cfgFileName := path.Join("config", "tradeclient.cfg")
 	if flag.NArg() > 0 {
 		cfgFileName = flag.Arg(0)
@@ -223,14 +197,16 @@ func main() {
 
 	logFactory := quickfix.NewScreenLogFactory()
 
-	var app = newTradeClient(basic.FIXFactory{}, new(basic.ClOrdIDGenerator))
+	var fixApp quickfix.Application
+	var app *tradeClient
 
-	fixApp := &basic.FIXApplication{
+	app = newTradeClient(basic.FIXFactory{}, new(basic.ClOrdIDGenerator))
+	fixApp = &basic.FIXApplication{
 		SessionIDs:   app.SessionIDs,
 		OrderManager: app.OrderManager,
 	}
 
-	initiator, err := quickfix.NewInitiator(fixApp, quickfix.NewMemoryStoreFactory(), appSettings, logFactory)
+	initiator, err := quickfix.NewInitiator(fixApp, quickfix.NewFileStoreFactory(appSettings), appSettings, logFactory)
 	if err != nil {
 		log.Fatalf("Unable to create Initiator: %s\n", err)
 	}

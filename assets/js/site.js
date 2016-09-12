@@ -176,10 +176,44 @@ App.Views.OrderTicket = Backbone.View.extend({
       <label for='quantity'>Quantity</label>
       <input type='number' class='form-control' name='quantity' placeholder='Quantity' required>
     </div>
+  </p>
+
+  <p>
+    <div class='form-group'>
+      <label for='security_type'>SecurityType</label>
+      <select class='form-control' name='security_type' id='security_type'>
+        <option value='CS'>Common Stock</option>
+        <option value='FUT'>Future</option>
+        <option value='OPT'>Option</option>
+      </select>
+    </div>
 
     <div class='form-group'>
       <label for='symbol'>Symbol</label>
       <input type='text' class='form-control' name='symbol' placeholder='Symbol' required>
+    </div>
+
+    <div class='form-group'>
+      <label for='maturity_month_year'>Maturity Month Year</label>
+      <input type='text' class='form-control' name='maturity_month_year' id='maturity_month_year' placeholder='Maturity Month Year' disabled>
+    </div>
+
+    <div class='form-group'>
+      <label for='maturity_day'>Maturity Day</label>
+      <input type='number' class='form-control' name='maturity_day' id='maturity_day' placeholder='Maturity Day' disabled>
+    </div>
+
+    <div class='form-group'>
+      <label for='put_or_call'>Put or Call</label>
+      <select class='form-control' name='put_or_call' id='put_or_call' disabled>
+        <option value=1>Call</option>
+        <option value=0>Put</option>
+      </select>
+    </div>
+
+    <div class='form-group'>
+      <label for='strike_price'>Strike Price</label>
+      <input type='number' class='form-control' name='strike_price' id='strike_price' placeholder='Strike Price' disabled>
     </div>
   </p>
   <p>
@@ -240,6 +274,7 @@ App.Views.OrderTicket = Backbone.View.extend({
 
   events: {
     "change #ordType": "updateOrdType",
+    "change #security_type": "updateSecurityType",
     submit: "submit"
   },
 
@@ -247,18 +282,65 @@ App.Views.OrderTicket = Backbone.View.extend({
     e.preventDefault();
     var order = new App.Models.Order();
     order.set({
-      side:       this.$('select[name=side]').val(),
-      quantity:   this.$('input[name=quantity]').val(),
-      symbol:     this.$('input[name=symbol]').val(),
-      ord_type:   this.$('select[name=ordType]').val(),
-      price:      this.$('input[name=price]').val(),
-      stop_price: this.$('input[name=stopPrice]').val(),
-      account:    this.$('input[name=account]').val(),
-      tif:        this.$('select[name=tif]').val(),
-      session_id: this.$('select[name=session]').val()
+      side:                 this.$('select[name=side]').val(),
+      quantity:             this.$('input[name=quantity]').val(),
+      symbol:               this.$('input[name=symbol]').val(),
+      ord_type:             this.$('select[name=ordType]').val(),
+      price:                this.$('input[name=price]').val(),
+      stop_price:           this.$('input[name=stopPrice]').val(),
+      account:              this.$('input[name=account]').val(),
+      tif:                  this.$('select[name=tif]').val(),
+      session_id:           this.$('select[name=session]').val(),
+      security_type:        this.$('select[name=security_type]').val(),
+      maturity_month_year:  this.$('input[name=maturity_month_year]').val(),
+      maturity_day:         parseInt(this.$('input[name=maturity_day]').val()),
+      put_or_call:          parseInt(this.$('select[name=put_or_call]').val()),
+      strike_price:         this.$('input[name=strike_price]').val(),
     });
 
     order.save();
+  },
+
+  updateSecurityType: function() {
+    switch(this.$("#security_type option:selected").text()) {
+      case "Common Stock":
+        this.$("#maturity_month_year").attr({disabled: true, required: false});
+        this.$("#maturity_day").attr({disabled: true});
+        this.$("#put_or_call").attr({disabled: true, required: false});
+        this.$("#strike_price").attr({disabled: true, required: false});
+        break;
+      case "Future":
+        this.$("#maturity_month_year").attr({disabled: false, required: true});
+        this.$("#maturity_day").attr({disabled: false});
+        this.$("#put_or_call").attr({disabled: true, required: false});
+        this.$("#strike_price").attr({disabled: true, required: false});
+        break;
+      case "Option":
+        this.$("#maturity_month_year").attr({disabled: false, required: true});
+        this.$("#maturity_day").attr({disabled: false});
+        this.$("#put_or_call").attr({disabled: false, required: true});
+        this.$("#strike_price").attr({disabled: false, required: true});
+        break;
+    }
+  },
+
+  updateOrdType: function() {
+    switch(this.$("#ordType option:selected").text()) {
+      case "Limit":
+        this.$("#limit").prop("disabled", false);
+        this.$("#limit").prop("required", true);
+        this.$("#stop").prop("disabled", true);
+        this.$("#stop").prop("required", false);
+      break;
+
+      case "Stop":
+        this.$("#limit").prop("disabled", true);
+        this.$("#limit").prop("required", false);
+        this.$("#stop").prop("disabled", false);
+        this.$("#stop").prop("required", true);
+      break;
+
+    }
   },
 
   updateOrdType: function() {
