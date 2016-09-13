@@ -22,29 +22,80 @@ var App = new( Backbone.View.extend({
   Views: {},
   Collections: {},
 
+  events: {
+    'click a[data-internal]': function(e) {
+      e.preventDefault();
+      Backbone.history.navigate(e.target.pathname, {trigger: true});
+    }
+  },
+
   start: function(options) {
     var orderTicket = new App.Models.OrderTicket({
       session_ids: options.session_ids  
     });
-    var orderTicketView = new App.Views.OrderTicket({model: orderTicket});
 
+    this.securityDefinitionForm = new App.Models.SecurityDefinitionForm({
+      session_ids: options.session_ids  
+    });
+
+    this.orderTicketView = new App.Views.OrderTicket({model: orderTicket});
     this.orders = new App.Collections.Orders(options.orders);
-    var ordersView = new App.Views.OrdersView({collection: this.orders});
+    this.ordersView = new App.Views.OrdersView({collection: this.orders});
+    var router = new App.Router({App: this});
 
-    this.$el.append(orderTicketView.render().el);
-    this.$el.append(ordersView.render().el);
+    Backbone.history.start({pushState: true});
   },
-}))({el: $("app")});
+
+  showOrders: function() {
+    $("#app").html(this.orderTicketView.render().el);
+    $("#app").append(this.ordersView.render().el);
+    $("#nav-order").addClass("active");
+    $("#nav-secdef").removeClass("active");
+  },
+
+  showSecurityDefinitions: function() {
+    var secDefReq = new App.Views.SecurityDefinitionRequest({model: this.securityDefinitionForm});
+    $("#app").html(secDefReq.render().el);
+    $("#nav-order").removeClass("active");
+    $("#nav-secdef").addClass("active");
+  }
+}))({el: document.body});
+
+App.Router = Backbone.Router.extend({
+  initialize: function(options) {
+    this.app = options.App;
+  },
+
+  routes: {
+    "": "index", 
+    "orders": "index",
+    "secdefs": "secdefs"
+  },
+
+  index: function(){
+    this.app.showOrders();
+  },
+
+  secdefs: function() {
+    this.app.showSecurityDefinitions();
+  }
+});
 
 App.Models.Order = Backbone.Model.extend({
   urlRoot: "/orders"
 });
 
+App.Models.SecurityDefinitionRequest = Backbone.Model.extend({
+  urlRoot: "securitydefinitionrequest"
+});
+
+App.Models.OrderTicket = Backbone.Model.extend({});
+App.Models.SecurityDefinitionForm = Backbone.Model.extend({});
+
 App.Collections.Orders = Backbone.Collection.extend({
   url: '/orders',
   comparator: 'id'
 });
-App.Models.OrderTicket = Backbone.Model.extend({});
 
 App.Views.OrderRowView = Backbone.View.extend({
   tagName: 'tr',
@@ -152,6 +203,71 @@ App.Views.OrdersView = Backbone.View.extend({
   addOne: function(order) {
     var row = new App.Views.OrderRowView({model: order});
     this.$("tbody").append(row.render().el);
+  }
+});
+
+App.Views.SecurityDefinitionRequest = Backbone.View.extend({
+  template: _.template(`
+<form class='form-inline'>
+  <p>
+    <div class='form-group'>
+      <label for="security_request_type">Security Request Type</label>
+      <select class='form-control' name='security_request_type'>
+        <option value="0">Security Identity and Specifications</option>
+        <option value="1">Security Identity for the Specifications Provided</option>
+        <option value="2">List Security Types</option>
+        <option value="3">List Securities</option>
+      </select>
+    </div>
+
+    <div class='form-group'>
+      <label for='security_type'>SecurityType</label>
+      <select class='form-control' name='security_type' id='security_type'>
+        <option value='CS'>Common Stock</option>
+        <option value='FUT'>Future</option>
+        <option value='OPT'>Option</option>
+      </select>
+    </div>
+
+    <div class='form-group'>
+      <label for='symbol'>Symbol</label>
+      <input type='text' class='form-control' name='symbol' placeholder='Symbol'>
+    </div>
+  </p>
+
+  <p>
+  <div class='form-group'>
+    <label for='session'>Session</label>
+    <select class='form-control' name='session'>
+      <% _.each(session_ids, function(i){ %><option><%= i %></option><% }); %>
+    </select>
+  </div>
+
+  <button type='submit' class='btn btn-default'>Submit</button>
+  </p>
+</form>
+  `),
+
+  events: {
+    submit: "submit"
+  },
+
+  submit: function(e) {
+    e.preventDefault();
+    var req = new App.Models.SecurityDefinitionRequest();
+    req.set({
+      session_id:             this.$('select[name=session]').val(),
+      security_request_type:  parseInt(this.$('select[name=security_request_type]').val()), 
+      security_type:          this.$('select[name=security_type]').val(),
+      symbol:                 this.$('input[name=symbol]').val(),
+    });
+    console.log(this.$('select[name=security_type]').val());
+    req.save();
+  },
+
+  render: function() {
+    this.$el.html(this.template(this.model.attributes));
+    return this;
   }
 });
 

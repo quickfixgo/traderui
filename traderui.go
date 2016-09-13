@@ -15,11 +15,13 @@ import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/traderui/basic"
 	"github.com/quickfixgo/traderui/oms"
+	"github.com/quickfixgo/traderui/secmaster"
 )
 
 type fixFactory interface {
 	NewOrderSingle(ord oms.Order) (msg quickfix.Messagable, err error)
 	OrderCancelRequest(ord oms.Order, clOrdID string) (msg quickfix.Messagable, err error)
+	SecurityDefinitionRequest(req secmaster.SecurityDefinitionRequest) (msg quickfix.Messagable, err error)
 }
 
 type tradeClient struct {
@@ -133,6 +135,40 @@ func (c tradeClient) getOrders(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, outgoingJSON)
 }
 
+func (c tradeClient) newSecurityDefintionRequest(w http.ResponseWriter, r *http.Request) {
+	var secDefRequest secmaster.SecurityDefinitionRequest
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&secDefRequest)
+	if err != nil {
+		log.Printf("[ERROR] %v\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	log.Printf("secDefRequest = %+v\n", secDefRequest)
+
+	if sessionID, ok := c.SessionIDs[secDefRequest.Session]; ok {
+		secDefRequest.SessionID = sessionID
+	} else {
+		log.Println("[ERROR] Invalid SessionID")
+		http.Error(w, "Invalid SessionID", http.StatusBadRequest)
+		return
+	}
+
+	msg, err := c.fixFactory.SecurityDefinitionRequest(secDefRequest)
+	if err != nil {
+		log.Printf("[ERROR] %v\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	err = quickfix.SendToTarget(msg, secDefRequest.SessionID)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func (c tradeClient) newOrder(w http.ResponseWriter, r *http.Request) {
 	var order oms.Order
 	decoder := json.NewDecoder(r.Body)
@@ -221,6 +257,9 @@ func main() {
 	router.HandleFunc("/orders", app.getOrders).Methods("GET")
 	router.HandleFunc("/orders/{id:[0-9]+}", app.getOrder).Methods("GET")
 	router.HandleFunc("/orders/{id:[0-9]+}", app.deleteOrder).Methods("DELETE")
+
+	router.HandleFunc("/securitydefinitionrequest", app.newSecurityDefintionRequest).Methods("POST")
+
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	router.HandleFunc("/", app.traderView)
 
