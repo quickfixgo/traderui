@@ -37,26 +37,27 @@ type Order struct {
 
 //Init initialized computed fields on order from user input
 func (order *Order) Init() error {
-	if qty, err := decimal.NewFromString(order.Quantity); err == nil {
-		order.QuantityDecimal = qty
-	} else {
+	var err error
+	if order.QuantityDecimal, err = decimal.NewFromString(order.Quantity); err != nil {
 		return errors.New("Invalid Qty")
+	}
+
+	if order.StrikePrice != "" {
+		if order.StrikePriceDecimal, err = decimal.NewFromString(order.StrikePrice); err != nil {
+			return errors.New("Invalid StrikePrice")
+		}
 	}
 
 	switch order.OrdType {
 	case enum.OrdType_LIMIT, enum.OrdType_STOP_LIMIT:
-		if price, err := decimal.NewFromString(order.Price); err == nil {
-			order.PriceDecimal = price
-		} else {
+		if order.PriceDecimal, err = decimal.NewFromString(order.Price); err != nil {
 			return errors.New("Invalid Price")
 		}
 	}
 
 	switch order.OrdType {
 	case enum.OrdType_STOP, enum.OrdType_STOP_LIMIT:
-		if stopPrice, err := decimal.NewFromString(order.StopPrice); err == nil {
-			order.StopPriceDecimal = stopPrice
-		} else {
+		if order.StopPriceDecimal, err = decimal.NewFromString(order.StopPrice); err != nil {
 			return errors.New("Invalid StopPrice")
 		}
 	}

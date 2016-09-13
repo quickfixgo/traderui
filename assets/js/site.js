@@ -30,7 +30,7 @@ var App = new( Backbone.View.extend({
   },
 
   start: function(options) {
-    var orderTicket = new App.Models.OrderTicket({
+    this.orderTicket = new App.Models.OrderTicket({
       session_ids: options.session_ids  
     });
 
@@ -38,17 +38,18 @@ var App = new( Backbone.View.extend({
       session_ids: options.session_ids  
     });
 
-    this.orderTicketView = new App.Views.OrderTicket({model: orderTicket});
     this.orders = new App.Collections.Orders(options.orders);
-    this.ordersView = new App.Views.OrdersView({collection: this.orders});
     var router = new App.Router({App: this});
 
     Backbone.history.start({pushState: true});
   },
 
   showOrders: function() {
-    $("#app").html(this.orderTicketView.render().el);
-    $("#app").append(this.ordersView.render().el);
+    var orderTicketView = new App.Views.OrderTicket({model: this.orderTicket});
+    var ordersView = new App.Views.OrdersView({collection: this.orders});
+
+    $("#app").html(orderTicketView.render().el);
+    $("#app").append(ordersView.render().el);
     $("#nav-order").addClass("active");
     $("#nav-secdef").removeClass("active");
   },
@@ -219,7 +220,8 @@ App.Views.SecurityDefinitionRequest = Backbone.View.extend({
         <option value="3">List Securities</option>
       </select>
     </div>
-
+  </p>
+  <p>
     <div class='form-group'>
       <label for='security_type'>SecurityType</label>
       <select class='form-control' name='security_type' id='security_type'>
@@ -329,7 +331,7 @@ App.Views.OrderTicket = Backbone.View.extend({
 
     <div class='form-group'>
       <label for='strike_price'>Strike Price</label>
-      <input type='number' class='form-control' name='strike_price' id='strike_price' placeholder='Strike Price' disabled>
+      <input type='number' step='.01' class='form-control' name='strike_price' id='strike_price' placeholder='Strike Price' disabled>
     </div>
   </p>
   <p>
@@ -357,7 +359,7 @@ App.Views.OrderTicket = Backbone.View.extend({
   <p>
     <div class='form-group'>
       <label for='account'>Account</label>
-      <input type='text' class='form-control' placeholder='Account' name='account' required>
+      <input type='text' class='form-control' placeholder='Account' name='account'>
     </div>
 
     <div class='form-group'>
