@@ -14,6 +14,7 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li id="nav-order"><a href="/orders" data-internal='true'>Orders</a></li>
+            <li id="nav-execution"><a href="/executions" data-internal='true'>Executions</a></li>
             <li id="nav-secdef"><a href="/secdefs" data-internal='true'>Security Definitions</a></li>
           </ul>
         </div>
@@ -28,7 +29,8 @@
     <script type="text/javascript">
 var bootstrap = {
   session_ids: {{ .SessionsAsJSON }},
-  orders: {{ .OrdersAsJSON }}
+  orders: {{ .OrdersAsJSON }},
+  executions: {{ .ExecutionsAsJSON }}
 };
 
 App.render();

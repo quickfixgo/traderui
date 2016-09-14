@@ -59,6 +59,14 @@ func (c tradeClient) OrdersAsJSON() (string, error) {
 	return string(b), err
 }
 
+func (c tradeClient) ExecutionsAsJSON() (string, error) {
+	c.RLock()
+	defer c.RUnlock()
+
+	b, err := json.Marshal(c.GetAllExecutions())
+	return string(b), err
+}
+
 func (c tradeClient) traderView(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("traderui").ParseFiles("tmpl/index.html"))
 	if err := templates.ExecuteTemplate(w, "index.html", c); err != nil {
@@ -77,6 +85,16 @@ func (c tradeClient) fetchRequestedOrder(r *http.Request) (*oms.Order, error) {
 	return c.Get(id)
 }
 
+func (c tradeClient) fetchRequestedExecution(r *http.Request) (*oms.Execution, error) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		panic(err)
+	}
+
+	return c.GetExecution(id)
+}
+
 func (c tradeClient) getOrder(w http.ResponseWriter, r *http.Request) {
 	c.RLock()
 	defer c.RUnlock()
@@ -88,6 +106,27 @@ func (c tradeClient) getOrder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	outgoingJSON, err := json.Marshal(order)
+	if err != nil {
+		log.Printf("[ERROR] err = %+v\n", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(w, string(outgoingJSON))
+}
+
+func (c tradeClient) getExecution(w http.ResponseWriter, r *http.Request) {
+	c.RLock()
+	defer c.RUnlock()
+
+	exec, err := c.fetchRequestedExecution(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	outgoingJSON, err := json.Marshal(exec)
 	if err != nil {
 		log.Printf("[ERROR] err = %+v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -125,6 +164,18 @@ func (c tradeClient) deleteOrder(w http.ResponseWriter, r *http.Request) {
 
 func (c tradeClient) getOrders(w http.ResponseWriter, r *http.Request) {
 	outgoingJSON, err := c.OrdersAsJSON()
+	if err != nil {
+		log.Printf("[ERROR] err = %+v\n", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(w, outgoingJSON)
+}
+
+func (c tradeClient) getExecutions(w http.ResponseWriter, r *http.Request) {
+	outgoingJSON, err := c.ExecutionsAsJSON()
 	if err != nil {
 		log.Printf("[ERROR] err = %+v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -253,10 +304,14 @@ func main() {
 	defer initiator.Stop()
 
 	router := mux.NewRouter().StrictSlash(true)
+
 	router.HandleFunc("/orders", app.newOrder).Methods("POST")
 	router.HandleFunc("/orders", app.getOrders).Methods("GET")
 	router.HandleFunc("/orders/{id:[0-9]+}", app.getOrder).Methods("GET")
 	router.HandleFunc("/orders/{id:[0-9]+}", app.deleteOrder).Methods("DELETE")
+
+	router.HandleFunc("/executions", app.getExecutions).Methods("GET")
+	router.HandleFunc("/executions/{id:[0-9]+}", app.getExecution).Methods("GET")
 
 	router.HandleFunc("/securitydefinitionrequest", app.newSecurityDefintionRequest).Methods("POST")
 

@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/tag"
 	"github.com/quickfixgo/traderui/oms"
 )
 
@@ -87,6 +88,27 @@ func (a *FIXApplication) onExecutionReport(msg quickfix.Message, sessionID quick
 	order.Closed = cumQty.String()
 	order.Open = leavesQty.String()
 	order.AvgPx = avgPx.String()
+
+	if msg.Body.Has(tag.LastShares) {
+		var lastShares field.LastSharesField
+		if err := msg.Body.Get(&lastShares); err != nil {
+			return err
+		}
+
+		var price field.LastPxField
+		if err := msg.Body.Get(&price); err != nil {
+			return err
+		}
+
+		exec := new(oms.Execution)
+		exec.Symbol = order.Symbol
+		exec.Side = order.Side
+		exec.Session = order.Session
+
+		exec.Quantity = lastShares.String()
+		exec.Price = price.String()
+		a.SaveExecution(exec)
+	}
 
 	return nil
 }

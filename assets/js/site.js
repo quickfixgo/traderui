@@ -14,6 +14,7 @@ $(function() {
 
 setInterval(function() {
   App.orders.fetch({reset: true});
+  App.executions.fetch({reset: true});
   
 }, 1000);
 
@@ -39,6 +40,7 @@ var App = new( Backbone.View.extend({
     });
 
     this.orders = new App.Collections.Orders(options.orders);
+    this.executions = new App.Collections.Executions(options.executions);
     this.router = new App.Router();
 
     Backbone.history.start({pushState: true});
@@ -51,6 +53,18 @@ var App = new( Backbone.View.extend({
     $("#app").html(orderTicketView.render().el);
     $("#app").append(ordersView.render().el);
     $("#nav-order").addClass("active");
+    $("#nav-execution").removeClass("active");
+    $("#nav-secdef").removeClass("active");
+  },
+
+  showExecutions: function() {
+    var orderTicketView = new App.Views.OrderTicket({model: this.orderTicket});
+    var executionsView = new App.Views.Executions({collection: this.executions});
+
+    $("#app").html(orderTicketView.render().el);
+    $("#app").append(executionsView.render().el);
+    $("#nav-order").removeClass("active");
+    $("#nav-execution").addClass("active");
     $("#nav-secdef").removeClass("active");
   },
 
@@ -58,15 +72,28 @@ var App = new( Backbone.View.extend({
     var secDefReq = new App.Views.SecurityDefinitionRequest({model: this.securityDefinitionForm});
     $("#app").html(secDefReq.render().el);
     $("#nav-order").removeClass("active");
+    $("#nav-execution").removeClass("active");
     $("#nav-secdef").addClass("active");
   },
 
-  showDetails: function(id) {
+  showOrderDetails: function(id) {
     var order = new App.Models.Order({id: id});
     order.fetch({
       success: function() {
         var orderView = new App.Views.OrderDetails({model: order});
         $("#app").html(orderView.render().el);
+      },
+      error: function() {
+        console.log('Failed to fetch!');
+      }
+    });
+  },
+  showExecutionDetails: function(id) {
+    var execution = new App.Models.Execution({id: id});
+    execution.fetch({
+      success: function() {
+        var executionView = new App.Views.ExecutionDetails({model: execution});
+        $("#app").html(executionView.render().el);
       },
       error: function() {
         console.log('Failed to fetch!');
@@ -79,25 +106,39 @@ App.Router = Backbone.Router.extend({
   routes: {
     "": "index", 
     "orders": "index",
+    "executions": "executions",
     "secdefs": "secdefs",
-    "orders/:id": "details",
+    "orders/:id": "orderDetails",
+    "executions/:id": "executionDetails",
   },
 
   index: function(){
     App.showOrders();
   },
 
+  executions: function() {
+    App.showExecutions();
+  },
+
   secdefs: function() {
     App.showSecurityDefinitions();
   },
 
-  details: function(id) {
-    App.showDetails(id)
+  orderDetails: function(id) {
+    App.showOrderDetails(id)
+  },
+
+  executionDetails: function(id) {
+    App.showExecutionDetails(id)
   }
 });
 
 App.Models.Order = Backbone.Model.extend({
   urlRoot: "/orders"
+});
+
+App.Models.Execution = Backbone.Model.extend({
+  urlRoot: "/executions"
 });
 
 App.Models.SecurityDefinitionRequest = Backbone.Model.extend({
@@ -111,6 +152,40 @@ App.Collections.Orders = Backbone.Collection.extend({
   url: '/orders',
   comparator: 'id'
 });
+
+App.Collections.Executions = Backbone.Collection.extend({
+  url: '/executions',
+  comparator: 'id'
+});
+
+App.Views.ExecutionDetails = Backbone.View.extend({
+  template: _.template(`
+<dl class="dl-horizontal">
+  <dt>ID</dt><dd><%= id %></dd> 
+	<dt>Symbol</dt><dd><%= symbol %></dd>
+	<dt>Quantity</dt><dd><%= quantity %></dd>
+	<dt>Session</dt><dd><%= session_id %></dd>
+	<dt>Side</dt><dd><%= side %></dd>
+	<dt>Price</dt><dd><%= price %></dd>
+</ul>
+
+</div>
+  <a href='#' data-internal='true'>Back</a>
+</div>
+`),
+  render: function() {
+    this.$el.html(this.template(this.model.attributes));
+    return this;
+  },
+  events: {
+    'click a[data-internal]': function(e) {
+      e.preventDefault();
+      window.history.back();
+    }
+  }
+});
+
+
 
 App.Views.OrderDetails = Backbone.View.extend({
   template: _.template(`
@@ -150,6 +225,55 @@ App.Views.OrderDetails = Backbone.View.extend({
     }
   }
 });
+
+App.Views.ExecutionRowView = Backbone.View.extend({
+  tagName: 'tr',
+  template: _.template(`
+<td>
+<button class="btn btn-info details">Details</button>
+</td>
+<td><%= symbol %></td>
+<td><%= quantity %></td>
+<td><%= prettySide %></td>
+<td><%= price %></td>
+<td><%= session_id %></td>
+`),
+
+  prettySide: function() {
+    var sideEnum = this.model.get("side");
+    switch(sideEnum) {
+      case "1":
+        return "Buy";
+      case "2":
+        return "Sell";
+      case "5":
+        return "Sell Short";
+      case "6":
+        return "Sell Short Exempt";
+      case "8":
+        return "Cross";
+      case "9":
+        return "Cross Short";
+      case "A":
+        return "Cross Short Exempt";
+    }
+
+    return sideEnum;
+  },
+  render: function() {
+    var attribs = _.clone(this.model.attributes);
+    attribs.prettySide = this.prettySide();
+    this.$el.html(this.template(attribs));
+    return this;
+  },
+  events: {
+    "click .details": "details"
+  },
+  details: function(e) {
+    Backbone.history.navigate("/executions/" + this.model.get("id"), {trigger: true});
+  }
+});
+
 
 App.Views.OrderRowView = Backbone.View.extend({
   tagName: 'tr',
@@ -221,6 +345,45 @@ App.Views.OrderRowView = Backbone.View.extend({
 
   details: function(e) {
     Backbone.history.navigate("/orders/" + this.model.get("id"), {trigger: true});
+  }
+});
+
+App.Views.Executions = Backbone.View.extend({
+  initialize: function() {
+    this.listenTo(this.collection, 'reset', this.addAll);
+  },
+
+  render: function() {
+    this.$el.html(`
+<table class='table table-striped' id='executions'>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Symbol</th>
+      <th>Quantity</th>
+      <th>Side</th>
+      <th>Price</th>
+      <th>Session</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>`);
+
+    this.addAll();
+
+    return this;
+  },
+
+  addAll: function() {
+    this.$("tbody").empty();
+    this.collection.forEach(this.addOne, this);
+    return this;
+  },
+
+  addOne: function(execution) {
+    var row = new App.Views.ExecutionRowView({model: execution});
+    this.$("tbody").append(row.render().el);
   }
 });
 
