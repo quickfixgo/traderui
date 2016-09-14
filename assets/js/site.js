@@ -39,7 +39,7 @@ var App = new( Backbone.View.extend({
     });
 
     this.orders = new App.Collections.Orders(options.orders);
-    var router = new App.Router({App: this});
+    this.router = new App.Router();
 
     Backbone.history.start({pushState: true});
   },
@@ -59,26 +59,40 @@ var App = new( Backbone.View.extend({
     $("#app").html(secDefReq.render().el);
     $("#nav-order").removeClass("active");
     $("#nav-secdef").addClass("active");
+  },
+
+  showDetails: function(id) {
+    var order = new App.Models.Order({id: id});
+    order.fetch({
+      success: function() {
+        var orderView = new App.Views.OrderDetails({model: order});
+        $("#app").html(orderView.render().el);
+      },
+      error: function() {
+        console.log('Failed to fetch!');
+      }
+    });
   }
 }))({el: document.body});
 
 App.Router = Backbone.Router.extend({
-  initialize: function(options) {
-    this.app = options.App;
-  },
-
   routes: {
     "": "index", 
     "orders": "index",
-    "secdefs": "secdefs"
+    "secdefs": "secdefs",
+    "orders/:id": "details",
   },
 
   index: function(){
-    this.app.showOrders();
+    App.showOrders();
   },
 
   secdefs: function() {
-    this.app.showSecurityDefinitions();
+    App.showSecurityDefinitions();
+  },
+
+  details: function(id) {
+    App.showDetails(id)
   }
 });
 
@@ -98,10 +112,52 @@ App.Collections.Orders = Backbone.Collection.extend({
   comparator: 'id'
 });
 
+App.Views.OrderDetails = Backbone.View.extend({
+  template: _.template(`
+<dl class="dl-horizontal">
+  <dt>ID</dt><dd><%= id %></dd> 
+	<dt>ClOrdID</dt><dd><%=clord_id %></dd>
+	<dt>Symbol</dt><dd><%= symbol %></dd>
+	<dt>Quantity</dt><dd><%= quantity %></dd>
+	<dt>Account</dt><dd><%= account %></dd>
+	<dt>Session</dt><dd><%= session_id %></dd>
+	<dt>Side</dt><dd><%= side %></dd>
+	<dt>OrdType</dt><dd><%= ord_type %></dd>
+	<dt>Price</dt><dd><%= price %></dd>
+	<dt>StopPrice</dt><dd><%= stop_price %></dd>
+	<dt>Closed</dt><dd><%= closed %></dd>
+	<dt>Open</dt><dd><%= open %></dd>
+	<dt>AvgPx</dt><dd><%= avg_px %></dd>
+	<dt>SecurityType</dt><dd><%= security_type %></dd>
+	<dt>MaturityMonthYear</dt><dd><%= maturity_month_year %></dd>
+	<dt>MaturityDay</dt><dd><%= maturity_day %></dd>
+	<dt>PutOrCall</dt><dd><%= put_or_call %></dd>
+	<dt>StrikePrice</dt><dd><%= strike_price %></dd>
+</ul>
+
+</div>
+  <a href='#' data-internal='true'>Back</a>
+</div>
+`),
+  render: function() {
+    this.$el.html(this.template(this.model.attributes));
+    return this;
+  },
+  events: {
+    'click a[data-internal]': function(e) {
+      e.preventDefault();
+      window.history.back();
+    }
+  }
+});
+
 App.Views.OrderRowView = Backbone.View.extend({
   tagName: 'tr',
   template: _.template(`
-<td><% if(open !== "0"){%><button class="btn btn-danger">Cancel</button><% }%></td>
+<td>
+<% if(open !== "0"){%><button class="btn btn-danger cancel">Cancel</button><% }%>
+<button class="btn btn-info details">Details</button>
+</td>
 <td><%= symbol %></td>
 <td><%= quantity %></td>
 <td><%= account %></td>
@@ -156,10 +212,15 @@ App.Views.OrderRowView = Backbone.View.extend({
     return this;
   },
   events: {
-    "click button": "cancel"
+    "click .cancel": "cancel",
+    "click .details": "details"
   },
   cancel: function(e) {
     this.model.destroy();
+  },
+
+  details: function(e) {
+    Backbone.history.navigate("/orders/" + this.model.get("id"), {trigger: true});
   }
 });
 
