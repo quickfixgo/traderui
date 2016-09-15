@@ -134,7 +134,7 @@ App.Router = Backbone.Router.extend({
 });
 
 App.Models.Order = Backbone.Model.extend({
-  urlRoot: "/orders"
+  urlRoot: "/orders",
 });
 
 App.Models.Execution = Backbone.Model.extend({
@@ -189,29 +189,133 @@ App.Views.ExecutionDetails = Backbone.View.extend({
 
 App.Views.OrderDetails = Backbone.View.extend({
   template: _.template(`
-<dl class="dl-horizontal">
-  <dt>ID</dt><dd><%= id %></dd> 
-	<dt>ClOrdID</dt><dd><%=clord_id %></dd>
-	<dt>Symbol</dt><dd><%= symbol %></dd>
-	<dt>Quantity</dt><dd><%= quantity %></dd>
-	<dt>Account</dt><dd><%= account %></dd>
-	<dt>Session</dt><dd><%= session_id %></dd>
-	<dt>Side</dt><dd><%= side %></dd>
-	<dt>OrdType</dt><dd><%= ord_type %></dd>
-	<dt>Price</dt><dd><%= price %></dd>
-	<dt>StopPrice</dt><dd><%= stop_price %></dd>
-	<dt>Closed</dt><dd><%= closed %></dd>
-	<dt>Open</dt><dd><%= open %></dd>
-	<dt>AvgPx</dt><dd><%= avg_px %></dd>
-	<dt>SecurityType</dt><dd><%= security_type %></dd>
-	<dt>MaturityMonthYear</dt><dd><%= maturity_month_year %></dd>
-	<dt>MaturityDay</dt><dd><%= maturity_day %></dd>
-	<dt>PutOrCall</dt><dd><%= put_or_call %></dd>
-	<dt>StrikePrice</dt><dd><%= strike_price %></dd>
-</ul>
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">ID</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= id %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">ClOrID</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= clord_id %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Symbol</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= symbol %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Account</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= account %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Session</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= session_id %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Side</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= App.prettySide(side) %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">OrdType</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= App.prettyOrdType(ord_type) %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Closed</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= closed %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Open</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= open %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Avg Px</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= avg_px %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Security Type</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= security_type %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Maturity Month Year</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= maturity_month_year %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Maturity Day</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= maturity_day %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Put or Call</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= put_or_call %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Strike Price</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= strike_price %></p>
+    </div>
+  </div>
 
+  <% if (open == "0") { %>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Quantity</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= quantity %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Price</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= price %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Stop Price</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= stop_price %></p>
+    </div>
+  </div>
+
+  <% } else { %>
+
+  <div class="form-group">
+    <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="quantity" placeholder="Quantity" value="<%= quantity %>" required>
+    </div>
+  </div>
+  <% } %>
+
+</form>
 </div>
-  <a href='#' data-internal='true'>Back</a>
+  <button class="btn btn-danger cancel" <% if(open == "0"){%>disabled<% }%>>Cancel</button>
+  <button class="btn btn-warning amend" <% if(open == "0"){%>disabled<% }%>>Amend</button>
+  <button class="btn btn-info back">Back</button>
 </div>
 `),
   render: function() {
@@ -219,11 +323,27 @@ App.Views.OrderDetails = Backbone.View.extend({
     return this;
   },
   events: {
-    'click a[data-internal]': function(e) {
-      e.preventDefault();
+    'click .back': function(e) {
       window.history.back();
+    },
+
+    'click .cancel': function(e) {
+      this.model.destroy({
+        success: function() {
+          Backbone.history.navigate("/orders", {trigger: true});
+        },
+        error: function(model, response) {
+          console.log('Failed to cancel!');
+          console.log(model);
+          console.log(response);
+        }
+      });
+    },
+
+    'click .amend': function(e) {
+      
     }
-  }
+  },
 });
 
 App.Views.ExecutionRowView = Backbone.View.extend({
@@ -234,36 +354,14 @@ App.Views.ExecutionRowView = Backbone.View.extend({
 </td>
 <td><%= symbol %></td>
 <td><%= quantity %></td>
-<td><%= prettySide %></td>
+<td><%= App.prettySide(side) %></td>
 <td><%= price %></td>
 <td><%= session_id %></td>
 `),
 
-  prettySide: function() {
-    var sideEnum = this.model.get("side");
-    switch(sideEnum) {
-      case "1":
-        return "Buy";
-      case "2":
-        return "Sell";
-      case "5":
-        return "Sell Short";
-      case "6":
-        return "Sell Short Exempt";
-      case "8":
-        return "Cross";
-      case "9":
-        return "Cross Short";
-      case "A":
-        return "Cross Short Exempt";
-    }
 
-    return sideEnum;
-  },
   render: function() {
-    var attribs = _.clone(this.model.attributes);
-    attribs.prettySide = this.prettySide();
-    this.$el.html(this.template(attribs));
+    this.$el.html(this.template(this.model.attributes));
     return this;
   },
   events: {
@@ -279,7 +377,7 @@ App.Views.OrderRowView = Backbone.View.extend({
   tagName: 'tr',
   template: _.template(`
 <td>
-<% if(open !== "0"){%><button class="btn btn-danger cancel">Cancel</button><% }%>
+<button class="btn btn-danger cancel" <% if(open == "0"){%>disabled<% }%>>Cancel</button>
 <button class="btn btn-info details">Details</button>
 </td>
 <td><%= symbol %></td>
@@ -287,52 +385,16 @@ App.Views.OrderRowView = Backbone.View.extend({
 <td><%= account %></td>
 <td><%= open %></td>
 <td><%= closed %></td>
-<td><%= prettySide %></td>
-<td><%= prettyOrdType %></td>
+<td><%= App.prettySide(side) %></td>
+<td><%= App.prettyOrdType(ord_type) %></td>
 <td><%= price %></td>
 <td><%= stop_price %></td>
 <td><%= avg_px %></td>
 <td><%= session_id %></td>
 `),
 
-  prettySide: function() {
-    var sideEnum = this.model.get("side");
-    switch(sideEnum) {
-      case "1":
-        return "Buy";
-      case "2":
-        return "Sell";
-      case "5":
-        return "Sell Short";
-      case "6":
-        return "Sell Short Exempt";
-      case "8":
-        return "Cross";
-      case "9":
-        return "Cross Short";
-      case "A":
-        return "Cross Short Exempt";
-    }
-
-    return sideEnum;
-  },
-  prettyOrdType: function() {
-    var ordTypeEnum = this.model.get("ord_type");
-    switch (ordTypeEnum) {
-      case "1": return "Market";
-      case "2": return "Limit";
-      case "3": return "Stop";
-      case "4": return "Stop Limit";
-    };
-
-    return ordTypeEnum;
-  },
-
   render: function() {
-    var attribs = _.clone(this.model.attributes);
-    attribs.prettySide = this.prettySide();
-    attribs.prettyOrdType = this.prettyOrdType();
-    this.$el.html(this.template(attribs));
+    this.$el.html(this.template(this.model.attributes));
     return this;
   },
   events: {
@@ -716,5 +778,39 @@ App.Views.OrderTicket = Backbone.View.extend({
     }
   }
 });
+
+App.prettySide = function(sideEnum) {
+  switch(sideEnum) {
+    case "1":
+      return "Buy";
+    case "2":
+      return "Sell";
+    case "5":
+      return "Sell Short";
+    case "6":
+      return "Sell Short Exempt";
+    case "8":
+      return "Cross";
+    case "9":
+      return "Cross Short";
+    case "A":
+      return "Cross Short Exempt";
+  }
+
+  return sideEnum;
+};
+
+App.prettyOrdType = function(ordTypeEnum) {
+  switch (ordTypeEnum) {
+    case "1": return "Market";
+    case "2": return "Limit";
+    case "3": return "Stop";
+    case "4": return "Stop Limit";
+  };
+
+  return ordTypeEnum;
+};
+
+
 
 

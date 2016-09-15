@@ -105,6 +105,10 @@ func (c tradeClient) getOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	c.writeOrderJSON(w, order)
+}
+
+func (c tradeClient) writeOrderJSON(w http.ResponseWriter, order *oms.Order) {
 	outgoingJSON, err := json.Marshal(order)
 	if err != nil {
 		log.Printf("[ERROR] err = %+v\n", err)
@@ -160,6 +164,8 @@ func (c tradeClient) deleteOrder(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[ERROR] err = %+v\n", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+
+	c.writeOrderJSON(w, order)
 }
 
 func (c tradeClient) getOrders(w http.ResponseWriter, r *http.Request) {
