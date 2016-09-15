@@ -250,21 +250,29 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	return
 }
 
-func (state inSession) processReject(session *session, msg Message, rej MessageRejectError) (nextState sessionState) {
+func (state inSession) processReject(session *session, msg Message, rej MessageRejectError) sessionState {
 	switch TypedError := rej.(type) {
 	case targetTooHigh:
 
-		switch session.State.(type) {
-		default:
-			if err := session.doTargetTooHigh(TypedError); err != nil {
-				return handleStateError(session, err)
-			}
+		var nextState resendState
+		switch currentState := session.State.(type) {
 		case resendState:
 			//assumes target too high reject already sent
+			nextState = currentState
+		default:
+			var err error
+			if nextState, err = session.doTargetTooHigh(TypedError); err != nil {
+				return handleStateError(session, err)
+			}
 		}
 
-		session.messageStash[TypedError.ReceivedTarget] = msg
-		return resendState{}
+		if nextState.messageStash == nil {
+			nextState.messageStash = make(map[int]Message)
+		}
+
+		nextState.messageStash[TypedError.ReceivedTarget] = msg
+
+		return nextState
 
 	case targetTooLow:
 		return state.doTargetTooLow(session, msg, TypedError)
@@ -299,44 +307,46 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 
 func (state inSession) doTargetTooLow(session *session, msg Message, rej targetTooLow) (nextState sessionState) {
 	var posDupFlag FIXBoolean
-	if err := msg.Header.GetField(tagPossDupFlag, &posDupFlag); err == nil && posDupFlag {
-
-		origSendingTime := new(FIXUTCTimestamp)
-		if err = msg.Header.GetField(tagOrigSendingTime, origSendingTime); err != nil {
-			if rejErr := session.doReject(msg, RequiredTagMissing(tagOrigSendingTime)); rejErr != nil {
+	if msg.Header.Has(tagPossDupFlag) {
+		if err := msg.Header.GetField(tagPossDupFlag, &posDupFlag); err != nil {
+			if rejErr := session.doReject(msg, err); rejErr != nil {
 				return handleStateError(session, rejErr)
 			}
 			return state
 		}
+	}
 
-		sendingTime := new(FIXUTCTimestamp)
-		if err = msg.Header.GetField(tagSendingTime, sendingTime); err != nil {
-			return state.processReject(session, msg, err)
-		}
-
-		if sendingTime.Before(origSendingTime.Time) {
-			if err := session.doReject(msg, sendingTimeAccuracyProblem()); err != nil {
-				return handleStateError(session, err)
-			}
-
-			if err := session.initiateLogout(""); err != nil {
-				return handleStateError(session, err)
-			}
-			return logoutState{}
-		}
-
-		if appReject := session.fromCallback(msg); appReject != nil {
-			if err := session.doReject(msg, appReject); err != nil {
-				return handleStateError(session, err)
-			}
-
-			if err := session.initiateLogout(""); err != nil {
-				return handleStateError(session, err)
-			}
-			return logoutState{}
-		}
-	} else {
+	if !posDupFlag.Bool() {
 		if err := session.initiateLogout(rej.Error()); err != nil {
+			return handleStateError(session, err)
+		}
+		return logoutState{}
+	}
+
+	if !msg.Header.Has(tagOrigSendingTime) {
+		session.doReject(msg, RequiredTagMissing(tagOrigSendingTime))
+		return state
+	}
+
+	var origSendingTime FIXUTCTimestamp
+	if err := msg.Header.GetField(tagOrigSendingTime, &origSendingTime); err != nil {
+		if rejErr := session.doReject(msg, err); rejErr != nil {
+			return handleStateError(session, rejErr)
+		}
+		return state
+	}
+
+	sendingTime := new(FIXUTCTimestamp)
+	if err := msg.Header.GetField(tagSendingTime, sendingTime); err != nil {
+		return state.processReject(session, msg, err)
+	}
+
+	if sendingTime.Before(origSendingTime.Time) {
+		if err := session.doReject(msg, sendingTimeAccuracyProblem()); err != nil {
+			return handleStateError(session, err)
+		}
+
+		if err := session.initiateLogout(""); err != nil {
 			return handleStateError(session, err)
 		}
 		return logoutState{}

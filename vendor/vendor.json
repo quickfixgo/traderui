@@ -3,123 +3,135 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "0uXODBa1R1q95dewfVw3zYM5mXk=",
-			"path": "github.com/quickfixgo/quickfix",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
-			"revisionTime": "2016-08-23T17:11:35Z"
+			"checksumSHA1": "oDsOWp1nBMGpQ9gCFnczGADwZTE=",
+			"path": "github.com/gorilla/mux",
+			"revision": "0a192a193177452756c362c20087ddafcf6829c4",
+			"revisionTime": "2016-09-02T15:33:43Z"
 		},
 		{
-			"checksumSHA1": "9CnqEW06npSjK6BdqbeDG9EuKD8=",
+			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
+			"path": "github.com/pmezard/go-difflib/difflib",
+			"revision": "792786c7400a136282c1664665ae0a8db921c6c2",
+			"revisionTime": "2016-01-10T10:55:54Z"
+		},
+		{
+			"checksumSHA1": "GqbrmgL66p0NqdK2z1YFyTCM7Vo=",
+			"path": "github.com/quickfixgo/quickfix",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
+			"revisionTime": "2016-09-11T14:11:37Z"
+		},
+		{
+			"checksumSHA1": "NM0j2xeK3vaYn+RFNFvPLJNqc50=",
 			"path": "github.com/quickfixgo/quickfix/config",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
-			"revisionTime": "2016-08-23T17:11:35Z"
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
+			"revisionTime": "2016-09-11T14:11:37Z"
 		},
 		{
 			"checksumSHA1": "xI+yIzVkLijTjZSLMj7FYjlYbJ4=",
 			"path": "github.com/quickfixgo/quickfix/datadictionary",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "7vbog/p6qHM83fj/tf8+t/9BFNc=",
 			"path": "github.com/quickfixgo/quickfix/enum",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
-			"revisionTime": "2016-08-23T17:11:35Z"
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
+			"revisionTime": "2016-09-11T14:11:37Z"
 		},
 		{
 			"checksumSHA1": "ftEVBlTm+aVJUNAn7CVNCmXd9xk=",
 			"path": "github.com/quickfixgo/quickfix/field",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "SccUGK1rp+651wucUvGhsR5OYB8=",
 			"path": "github.com/quickfixgo/quickfix/fix40",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "NZ/yJZ+LTxf91BynJ+vnVJAUGJA=",
 			"path": "github.com/quickfixgo/quickfix/fix40/newordersingle",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "o5jle4y4miPIERVzfTjIAeHEgqc=",
 			"path": "github.com/quickfixgo/quickfix/fix41",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "bqJXPT0COhgScLpFLyOH9PZKAGA=",
 			"path": "github.com/quickfixgo/quickfix/fix41/newordersingle",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "BNGNuU9P+LRDe/5h5cd+uFC3llc=",
 			"path": "github.com/quickfixgo/quickfix/fix42",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "EROFI3AxLxbJgz4frY8Ef2kqpNs=",
 			"path": "github.com/quickfixgo/quickfix/fix42/newordersingle",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "9AMB3Qf8TlY+rrXKW1PeELD9smw=",
 			"path": "github.com/quickfixgo/quickfix/fix42/ordercancelrequest",
-			"revision": "dd86744eeaf9fe724a96d2e114aa999464bd9fef",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-09-03T15:37:54Z"
 		},
 		{
 			"checksumSHA1": "0n6KKUwJe2/cznaGk5CPSCSiXh8=",
 			"path": "github.com/quickfixgo/quickfix/fix43",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "rFkwLQeucmpsAUxtK7FDaGuxmlc=",
 			"path": "github.com/quickfixgo/quickfix/fix43/newordersingle",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "+FkPQdqSEp0juWcxlx7jamFWbvk=",
 			"path": "github.com/quickfixgo/quickfix/fix44",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "can775Qlg4EaLaZMdh5WK7pUr9s=",
 			"path": "github.com/quickfixgo/quickfix/fix44/newordersingle",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "vea0rPZCRl0RxAGgTGsAhHzIxig=",
 			"path": "github.com/quickfixgo/quickfix/fix50/newordersingle",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
 			"checksumSHA1": "S1ZzSdXOqe//QQUNxPaAksZZzVw=",
 			"path": "github.com/quickfixgo/quickfix/fixt11",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
-			"checksumSHA1": "CbVW0tgVDeYce/7dU0iSmJQ9JiM=",
+			"checksumSHA1": "tWQf1vebQNVaiIpBzcSRyVIE6Sc=",
 			"path": "github.com/quickfixgo/quickfix/internal",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
-			"revisionTime": "2016-08-23T17:11:35Z"
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
+			"revisionTime": "2016-09-11T14:11:37Z"
 		},
 		{
 			"checksumSHA1": "N8Ite5SbLcV2jVE6uiuKuL4rNY4=",
 			"path": "github.com/quickfixgo/quickfix/tag",
-			"revision": "ad0acfd50ed227e43ac04dfa1bb15f5a4c1d9ec3",
+			"revision": "4795bef79f9da7955230f2ecbe6f0e9417d596c9",
 			"revisionTime": "2016-08-23T17:11:35Z"
 		},
 		{
@@ -127,6 +139,18 @@
 			"path": "github.com/shopspring/decimal",
 			"revision": "74d668a796fa3734c552fb907d9b83146d0bebee",
 			"revisionTime": "2016-03-11T12:45:26Z"
+		},
+		{
+			"checksumSHA1": "Bn333k9lTndxU3D6n/G5c+GMcYY=",
+			"path": "github.com/stretchr/testify/assert",
+			"revision": "6fe211e493929a8aac0469b93f28b1d0688a9a3a",
+			"revisionTime": "2016-03-05T16:54:46Z"
+		},
+		{
+			"checksumSHA1": "P9FJpir2c4G5PA46qEkaWy3l60U=",
+			"path": "github.com/stretchr/testify/require",
+			"revision": "6fe211e493929a8aac0469b93f28b1d0688a9a3a",
+			"revisionTime": "2016-03-05T16:54:46Z"
 		}
 	],
 	"rootPath": "github.com/quickfixgo/traderui"

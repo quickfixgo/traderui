@@ -2,7 +2,12 @@ package quickfix
 
 import "github.com/quickfixgo/quickfix/internal"
 
-type resendState struct{ loggedOn }
+type resendState struct {
+	loggedOn
+	messageStash          map[int]Message
+	currentResendRangeEnd int
+	resendRangeEnd        int
+}
 
 func (s resendState) String() string { return "Resend" }
 
@@ -23,17 +28,30 @@ func (s resendState) Timeout(session *session, event internal.Event) (nextState 
 func (s resendState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	nextState = inSession{}.FixMsgIn(session, msg)
 
-	if _, stillInResend := nextState.(resendState); stillInResend || !nextState.IsLoggedOn() {
+	if !nextState.IsLoggedOn() {
 		return
 	}
 
-	for len(session.messageStash) > 0 {
-		targetSeqNum := session.store.NextTargetMsgSeqNum()
-		msg, ok := session.messageStash[targetSeqNum]
-		if !ok {
-			return s
+	if s.currentResendRangeEnd != 0 && s.currentResendRangeEnd < session.store.NextTargetMsgSeqNum() {
+		nextResendState, err := session.sendResendRequest(session.store.NextTargetMsgSeqNum(), s.resendRangeEnd)
+		if err != nil {
+			return handleStateError(session, err)
 		}
-		delete(session.messageStash, targetSeqNum)
+		nextResendState.messageStash = s.messageStash
+		return nextResendState
+	}
+
+	if s.resendRangeEnd >= session.store.NextTargetMsgSeqNum() {
+		return s
+	}
+
+	for len(s.messageStash) > 0 {
+		targetSeqNum := session.store.NextTargetMsgSeqNum()
+		msg, ok := s.messageStash[targetSeqNum]
+		if !ok {
+			break
+		}
+		delete(s.messageStash, targetSeqNum)
 
 		nextState = inSession{}.FixMsgIn(session, msg)
 		if !nextState.IsLoggedOn() {
