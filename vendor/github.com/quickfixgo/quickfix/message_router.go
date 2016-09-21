@@ -34,8 +34,8 @@ func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectErro
 		return nil
 	}
 
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+	msgType, err := msg.MsgType()
+	if err != nil {
 		return err
 	}
 
@@ -51,7 +51,7 @@ func (c MessageRouter) tryRoute(beginString string, msgType string, msg Message,
 			applVerID = FIXString(session.TargetDefaultApplicationVersionID())
 		}
 
-		switch string(applVerID) {
+		switch enum.ApplVerID(applVerID) {
 		case enum.ApplVerID_FIX40:
 			fixVersion = enum.BeginStringFIX40
 		case enum.ApplVerID_FIX41:
