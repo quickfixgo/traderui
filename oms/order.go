@@ -18,8 +18,8 @@ type Order struct {
 	Quantity           string             `json:"quantity"`
 	Account            string             `json:"account"`
 	Session            string             `json:"session_id"`
-	Side               string             `json:"side"`
-	OrdType            string             `json:"ord_type"`
+	Side               enum.Side          `json:"side"`
+	OrdType            enum.OrdType       `json:"ord_type"`
 	PriceDecimal       decimal.Decimal    `json:"-"`
 	Price              string             `json:"price"`
 	StopPriceDecimal   decimal.Decimal    `json:"-"`

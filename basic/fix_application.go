@@ -42,12 +42,12 @@ func (a *FIXApplication) ToApp(msg quickfix.Message, sessionID quickfix.SessionI
 
 //FromApp listens for just execution reports
 func (a *FIXApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-	var msgType field.MsgTypeField
-	if err := msg.Header.Get(&msgType); err != nil {
+	msgType, err := msg.MsgType()
+	if err != nil {
 		return err
 	}
 
-	switch msgType.String() {
+	switch msgType {
 	case enum.MsgType_EXECUTION_REPORT:
 		return a.onExecutionReport(msg, sessionID)
 	}
