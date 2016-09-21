@@ -165,7 +165,7 @@ App.Views.ExecutionDetails = Backbone.View.extend({
 	<dt>Symbol</dt><dd><%= symbol %></dd>
 	<dt>Quantity</dt><dd><%= quantity %></dd>
 	<dt>Session</dt><dd><%= session_id %></dd>
-	<dt>Side</dt><dd><%= side %></dd>
+  <dt>Side</dt><dd><%= App.prettySide(side) %></dd>
 	<dt>Price</dt><dd><%= price %></dd>
 </ul>
 
