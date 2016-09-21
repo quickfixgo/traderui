@@ -27,10 +27,10 @@ type Order struct {
 	Closed             string             `json:"closed"`
 	Open               string             `json:"open"`
 	AvgPx              string             `json:"avg_px"`
-	SecurityType       string             `json:"security_type"`
+	SecurityType       enum.SecurityType  `json:"security_type"`
 	MaturityMonthYear  string             `json:"maturity_month_year"`
 	MaturityDay        int                `json:"maturity_day"`
-	PutOrCall          int                `json:"put_or_call"`
+	PutOrCall          enum.PutOrCall     `json:"put_or_call"`
 	StrikePrice        string             `json:"strike_price"`
 	StrikePriceDecimal decimal.Decimal    `json:"-"`
 }

@@ -1,13 +1,16 @@
 package secmaster
 
-import "github.com/quickfixgo/quickfix"
+import (
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
+)
 
 //SecurityDefinitionRequest is the SecurityDefinitionRequest type
 type SecurityDefinitionRequest struct {
-	ID                  int                `json:"id"`
-	SessionID           quickfix.SessionID `json:"-"`
-	Session             string             `json:"session_id"`
-	SecurityRequestType int                `json:"security_request_type"`
-	Symbol              string             `json:"symbol"`
-	SecurityType        string             `json:"security_type"`
+	ID                  int                      `json:"id"`
+	SessionID           quickfix.SessionID       `json:"-"`
+	Session             string                   `json:"session_id"`
+	SecurityRequestType enum.SecurityRequestType `json:"security_request_type"`
+	Symbol              string                   `json:"symbol"`
+	SecurityType        enum.SecurityType        `json:"security_type"`
 }

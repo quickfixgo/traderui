@@ -545,11 +545,10 @@ App.Views.SecurityDefinitionRequest = Backbone.View.extend({
     var req = new App.Models.SecurityDefinitionRequest();
     req.set({
       session_id:             this.$('select[name=session]').val(),
-      security_request_type:  parseInt(this.$('select[name=security_request_type]').val()), 
+      security_request_type:  this.$('select[name=security_request_type]').val(),
       security_type:          this.$('select[name=security_type]').val(),
       symbol:                 this.$('input[name=symbol]').val(),
     });
-    console.log(this.$('select[name=security_type]').val());
     req.save();
   },
 
@@ -698,7 +697,7 @@ App.Views.OrderTicket = Backbone.View.extend({
       security_type:        this.$('select[name=security_type]').val(),
       maturity_month_year:  this.$('input[name=maturity_month_year]').val(),
       maturity_day:         parseInt(this.$('input[name=maturity_day]').val()),
-      put_or_call:          parseInt(this.$('select[name=put_or_call]').val()),
+      put_or_call:          this.$('select[name=put_or_call]').val(),
       strike_price:         this.$('input[name=strike_price]').val(),
     });
 
