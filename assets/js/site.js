@@ -203,6 +203,12 @@ App.Views.OrderDetails = Backbone.View.extend({
     </div>
   </div>
   <div class="form-group">
+    <label class="col-sm-2 control-label">OrderID</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= order_id %></p>
+    </div>
+  </div>
+  <div class="form-group">
     <label class="col-sm-2 control-label">Symbol</label>
     <div class="col-sm-10">
       <p class="form-control-static"><%= symbol %></p>
@@ -254,6 +260,12 @@ App.Views.OrderDetails = Backbone.View.extend({
     <label class="col-sm-2 control-label">Security Type</label>
     <div class="col-sm-10">
       <p class="form-control-static"><%= security_type %></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Security Desc</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><%= security_desc %></p>
     </div>
   </div>
   <div class="form-group">
@@ -597,6 +609,12 @@ App.Views.OrderTicket = Backbone.View.extend({
     </div>
 
     <div class='form-group'>
+      <label for='security_desc'>Security Desc</label>
+      <input type='text' class='form-control' name='security_desc' placeholder='Security Desc'>
+    </div>
+  </p>
+  <p>
+    <div class='form-group'>
       <label for='maturity_month_year'>Maturity Month Year</label>
       <input type='text' class='form-control' name='maturity_month_year' id='maturity_month_year' placeholder='Maturity Month Year' disabled>
     </div>
@@ -695,6 +713,7 @@ App.Views.OrderTicket = Backbone.View.extend({
       tif:                  this.$('select[name=tif]').val(),
       session_id:           this.$('select[name=session]').val(),
       security_type:        this.$('select[name=security_type]').val(),
+      security_desc:        this.$('select[name=security_desc]').val(),
       maturity_month_year:  this.$('input[name=maturity_month_year]').val(),
       maturity_day:         parseInt(this.$('input[name=maturity_day]').val()),
       put_or_call:          this.$('select[name=put_or_call]').val(),

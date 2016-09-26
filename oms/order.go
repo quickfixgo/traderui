@@ -13,6 +13,7 @@ type Order struct {
 	ID                 int                `json:"id"`
 	SessionID          quickfix.SessionID `json:"-"`
 	ClOrdID            string             `json:"clord_id"`
+	OrderID            string             `json:"order_id"`
 	Symbol             string             `json:"symbol"`
 	QuantityDecimal    decimal.Decimal    `json:"-"`
 	Quantity           string             `json:"quantity"`
@@ -28,6 +29,7 @@ type Order struct {
 	Open               string             `json:"open"`
 	AvgPx              string             `json:"avg_px"`
 	SecurityType       enum.SecurityType  `json:"security_type"`
+	SecurityDesc       string             `json:"security_desc"`
 	MaturityMonthYear  string             `json:"maturity_month_year"`
 	MaturityDay        int                `json:"maturity_day"`
 	PutOrCall          enum.PutOrCall     `json:"put_or_call"`
