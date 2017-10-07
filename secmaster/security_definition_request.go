@@ -1,8 +1,8 @@
 package secmaster
 
 import (
+	"github.com/quickfixgo/enum"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
 )
 
 //SecurityDefinitionRequest is the SecurityDefinitionRequest type

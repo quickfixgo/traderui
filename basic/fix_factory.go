@@ -4,20 +4,20 @@ import (
 	"errors"
 	"time"
 
+	"github.com/quickfixgo/enum"
+	"github.com/quickfixgo/field"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/traderui/oms"
 	"github.com/quickfixgo/traderui/secmaster"
 
-	fix40nos "github.com/quickfixgo/quickfix/fix40/newordersingle"
-	fix41nos "github.com/quickfixgo/quickfix/fix41/newordersingle"
-	fix42nos "github.com/quickfixgo/quickfix/fix42/newordersingle"
-	fix43nos "github.com/quickfixgo/quickfix/fix43/newordersingle"
-	fix44nos "github.com/quickfixgo/quickfix/fix44/newordersingle"
-	fix50nos "github.com/quickfixgo/quickfix/fix50/newordersingle"
+	fix40nos "github.com/quickfixgo/fix40/newordersingle"
+	fix41nos "github.com/quickfixgo/fix41/newordersingle"
+	fix42nos "github.com/quickfixgo/fix42/newordersingle"
+	fix43nos "github.com/quickfixgo/fix43/newordersingle"
+	fix44nos "github.com/quickfixgo/fix44/newordersingle"
+	fix50nos "github.com/quickfixgo/fix50/newordersingle"
 
-	fix42cxl "github.com/quickfixgo/quickfix/fix42/ordercancelrequest"
+	fix42cxl "github.com/quickfixgo/fix42/ordercancelrequest"
 )
 
 //FIXFactory builds vanilla fix messages, implements traderui.fixFactory
@@ -25,17 +25,17 @@ type FIXFactory struct{}
 
 func (FIXFactory) NewOrderSingle(order oms.Order) (msg quickfix.Messagable, err error) {
 	switch order.SessionID.BeginString {
-	case enum.BeginStringFIX40:
+	case quickfix.BeginStringFIX40:
 		msg, err = nos40(order)
-	case enum.BeginStringFIX41:
+	case quickfix.BeginStringFIX41:
 		msg, err = nos41(order)
-	case enum.BeginStringFIX42:
+	case quickfix.BeginStringFIX42:
 		msg, err = nos42(order)
-	case enum.BeginStringFIX43:
+	case quickfix.BeginStringFIX43:
 		msg, err = nos43(order)
-	case enum.BeginStringFIX44:
+	case quickfix.BeginStringFIX44:
 		msg, err = nos44(order)
-	case enum.BeginStringFIXT11:
+	case quickfix.BeginStringFIXT11:
 		msg, err = nos50(order)
 	default:
 		err = errors.New("Unhandled BeginString")
@@ -46,7 +46,7 @@ func (FIXFactory) NewOrderSingle(order oms.Order) (msg quickfix.Messagable, err 
 
 func (FIXFactory) OrderCancelRequest(order oms.Order, clOrdID string) (msg quickfix.Messagable, err error) {
 	switch order.SessionID.BeginString {
-	case enum.BeginStringFIX42:
+	case quickfix.BeginStringFIX42:
 		msg, err = cxl42(order, clOrdID)
 	default:
 		err = errors.New("Unhandled BeginString")

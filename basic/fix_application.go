@@ -3,10 +3,10 @@ package basic
 import (
 	"log"
 
+	"github.com/quickfixgo/enum"
+	"github.com/quickfixgo/field"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
-	"github.com/quickfixgo/quickfix/tag"
+	"github.com/quickfixgo/tag"
 	"github.com/quickfixgo/traderui/oms"
 )
 
@@ -23,7 +23,7 @@ func (a *FIXApplication) OnLogon(sessionID quickfix.SessionID) {}
 func (a *FIXApplication) OnLogout(sessionID quickfix.SessionID) {}
 
 //ToAdmin is ignored
-func (a *FIXApplication) ToAdmin(msg quickfix.Message, sessionID quickfix.SessionID) {}
+func (a *FIXApplication) ToAdmin(msg *quickfix.Message, sessionID quickfix.SessionID) {}
 
 //OnCreate initialized SessionIDs
 func (a *FIXApplication) OnCreate(sessionID quickfix.SessionID) {
@@ -31,23 +31,23 @@ func (a *FIXApplication) OnCreate(sessionID quickfix.SessionID) {
 }
 
 //FromAdmin is ignored
-func (a *FIXApplication) FromAdmin(msg quickfix.Message, sessionID quickfix.SessionID) (reject quickfix.MessageRejectError) {
+func (a *FIXApplication) FromAdmin(msg *quickfix.Message, sessionID quickfix.SessionID) (reject quickfix.MessageRejectError) {
 	return
 }
 
 //ToApp is ignored
-func (a *FIXApplication) ToApp(msg quickfix.Message, sessionID quickfix.SessionID) (err error) {
+func (a *FIXApplication) ToApp(msg *quickfix.Message, sessionID quickfix.SessionID) (err error) {
 	return
 }
 
 //FromApp listens for just execution reports
-func (a *FIXApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+func (a *FIXApplication) FromApp(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	msgType, err := msg.MsgType()
 	if err != nil {
 		return err
 	}
 
-	switch msgType {
+	switch enum.MsgType(msgType) {
 	case enum.MsgType_EXECUTION_REPORT:
 		return a.onExecutionReport(msg, sessionID)
 	}
@@ -55,7 +55,7 @@ func (a *FIXApplication) FromApp(msg quickfix.Message, sessionID quickfix.Sessio
 	return quickfix.UnsupportedMessageType()
 }
 
-func (a *FIXApplication) onExecutionReport(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+func (a *FIXApplication) onExecutionReport(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	a.Lock()
 	defer a.Unlock()
 
