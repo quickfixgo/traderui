@@ -1,6 +1,6 @@
 package oms
 
-import "github.com/quickfixgo/quickfix/enum"
+import "github.com/quickfixgo/enum"
 
 //Execution is the execution type
 type Execution struct {

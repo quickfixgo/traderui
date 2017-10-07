@@ -3,8 +3,8 @@ package oms
 import (
 	"errors"
 
+	"github.com/quickfixgo/enum"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/shopspring/decimal"
 )
 
