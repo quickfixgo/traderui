@@ -107,7 +107,7 @@ func (a *FIXApplication) onExecutionReport(msg *quickfix.Message, sessionID quic
 
 		exec.Quantity = lastShares.String()
 		exec.Price = price.String()
-		a.SaveExecution(exec)
+		_ = a.SaveExecution(exec)
 	}
 
 	return nil

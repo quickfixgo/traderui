@@ -19,6 +19,7 @@ make build
 ```sh
 ./bin/traderui
 ```
+This will try to connect to a FIX acceptor on `localhost:5001` and expose the UI on `localhost:8080`.
 
 ## Licensing
 This software is available under the QuickFIX Software License. Please see the [LICENSE](https://github.com/quickfixgo/traderui/blob/main/LICENSE) for the terms specified by the QuickFIX Software License.
