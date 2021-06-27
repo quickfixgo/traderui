@@ -1,35 +1,25 @@
-UI Trader Example Client
-========================
+# UI Trader Example Client
 
-Installation
-------------
-
-To install the QuickFIX/Go Example trading client, use `go get`:
+## Installation
+To install the QuickFIX/Go example trading client, use `go get`:
 
 ```sh
 $ go get github.com/quickfixgo/traderui
 ```
 
 ### Staying up to date
-
 To update the example trading client to the latest version, use `go get -u github.com/quickfixgo/traderui`.
 
-Building the Client
---------------------
-
+## Building the Client
 ```sh
-$ go build
+make build
 ```
 
-Running the Client
---------------------
-
+## Running the Client
 ```sh
-$ ./traderui
+./bin/traderui
 ```
+This will try to connect to a FIX acceptor on `localhost:5001` and expose the UI on `localhost:8080`.
 
-
-Licensing
----------
-
-This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/quickfixgo/traderui/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.
+## Licensing
+This software is available under the QuickFIX Software License. Please see the [LICENSE](https://github.com/quickfixgo/traderui/blob/main/LICENSE) for the terms specified by the QuickFIX Software License.

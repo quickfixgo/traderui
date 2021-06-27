@@ -3,6 +3,7 @@ package datadictionary
 
 import (
 	"encoding/xml"
+	"io"
 	"os"
 )
 
@@ -197,26 +198,7 @@ func (f FieldDef) childTags() []int {
 
 	for _, f := range f.Fields {
 		tags = append(tags, f.Tag())
-		for _, t := range f.childTags() {
-			tags = append(tags, t)
-		}
-	}
-
-	return tags
-}
-
-func (f FieldDef) requiredChildTags() []int {
-	var tags []int
-
-	for _, f := range f.Fields {
-		if !f.Required() {
-			continue
-		}
-
-		tags = append(tags, f.Tag())
-		for _, t := range f.requiredChildTags() {
-			tags = append(tags, t)
-		}
+		tags = append(tags, f.childTags()...)
 	}
 
 	return tags
@@ -324,15 +306,20 @@ func Parse(path string) (*DataDictionary, error) {
 	}
 	defer xmlFile.Close()
 
+	return ParseSrc(xmlFile)
+}
+
+//ParseSrc loads and and build a datadictionary instance from an xml source.
+func ParseSrc(xmlSrc io.Reader) (*DataDictionary, error) {
 	doc := new(XMLDoc)
-	decoder := xml.NewDecoder(xmlFile)
+	decoder := xml.NewDecoder(xmlSrc)
 	if err := decoder.Decode(doc); err != nil {
 		return nil, err
 	}
 
 	b := new(builder)
-	var dict *DataDictionary
-	if dict, err = b.build(doc); err != nil {
+	dict, err := b.build(doc)
+	if err != nil {
 		return nil, err
 	}
 

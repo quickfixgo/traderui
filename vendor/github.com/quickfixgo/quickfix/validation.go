@@ -10,12 +10,14 @@ type validator interface {
 
 type validatorSettings struct {
 	CheckFieldsOutOfOrder bool
+	RejectInvalidMessage  bool
 }
 
 //Default configuration for message validation.
 //See http://www.quickfixengine.org/quickfix/doc/html/configuration.html.
 var defaultValidatorSettings = validatorSettings{
 	CheckFieldsOutOfOrder: true,
+	RejectInvalidMessage:  true,
 }
 
 type fixValidator struct {
@@ -74,12 +76,14 @@ func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, m
 		}
 	}
 
-	if err := validateFields(d, d, msgType, msg); err != nil {
-		return err
-	}
+	if settings.RejectInvalidMessage {
+		if err := validateFields(d, d, msgType, msg); err != nil {
+			return err
+		}
 
-	if err := validateWalk(d, d, msgType, msg); err != nil {
-		return err
+		if err := validateWalk(d, d, msgType, msg); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -112,7 +116,7 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings va
 }
 
 func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
-	if _, validMsgType := d.Messages[msgType]; validMsgType == false {
+	if _, validMsgType := d.Messages[msgType]; !validMsgType {
 		return InvalidMessageType()
 	}
 	return nil

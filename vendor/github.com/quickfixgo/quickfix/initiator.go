@@ -3,9 +3,11 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
-	"net"
+	"strings"
 	"sync"
 	"time"
+
+	"golang.org/x/net/proxy"
 )
 
 //Initiator initiates connections and processes messages for all sessions.
@@ -33,9 +35,14 @@ func (i *Initiator) Start() (err error) {
 			return
 		}
 
+		var dialer proxy.Dialer
+		if dialer, err = loadDialerConfig(settings); err != nil {
+			return
+		}
+
 		i.wg.Add(1)
 		go func(sessID SessionID) {
-			i.handleConnection(i.sessions[sessID], tlsConfig)
+			i.handleConnection(i.sessions[sessID], tlsConfig, dialer)
 			i.wg.Done()
 		}(sessionID)
 	}
@@ -45,6 +52,12 @@ func (i *Initiator) Start() (err error) {
 
 //Stop Initiator.
 func (i *Initiator) Stop() {
+	select {
+	case <-i.stopChan:
+		//closed already
+		return
+	default:
+	}
 	close(i.stopChan)
 	i.wg.Wait()
 }
@@ -96,7 +109,7 @@ func (i *Initiator) waitForInSessionTime(session *session) bool {
 	return true
 }
 
-//watiForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop
+//waitForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop
 func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bool {
 	select {
 	case <-time.After(reconnectInterval):
@@ -107,7 +120,7 @@ func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bo
 	return true
 }
 
-func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config) {
+func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer proxy.Dialer) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -134,27 +147,26 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config) {
 		address := session.SocketConnectAddress[connectionAttempt%len(session.SocketConnectAddress)]
 		session.log.OnEventf("Connecting to: %v", address)
 
-		var netConn net.Conn
-		if tlsConfig != nil {
-			tlsConn, err := tls.Dial("tcp", address, tlsConfig)
-			if err != nil {
-				session.log.OnEventf("Failed to connect: %v", err)
-				goto reconnect
+		netConn, err := dialer.Dial("tcp", address)
+		if err != nil {
+			session.log.OnEventf("Failed to connect: %v", err)
+			goto reconnect
+		} else if tlsConfig != nil {
+			// Unless InsecureSkipVerify is true, server name config is required for TLS
+			// to verify the received certificate
+			if !tlsConfig.InsecureSkipVerify && len(tlsConfig.ServerName) == 0 {
+				serverName := address
+				if c := strings.LastIndex(serverName, ":"); c > 0 {
+					serverName = serverName[:c]
+				}
+				tlsConfig.ServerName = serverName
 			}
-
-			err = tlsConn.Handshake()
-			if err != nil {
-				session.log.OnEventf("Failed handshake:%v", err)
+			tlsConn := tls.Client(netConn, tlsConfig)
+			if err = tlsConn.Handshake(); err != nil {
+				session.log.OnEventf("Failed handshake: %v", err)
 				goto reconnect
 			}
 			netConn = tlsConn
-		} else {
-			var err error
-			netConn, err = net.Dial("tcp", address)
-			if err != nil {
-				session.log.OnEventf("Failed to connect: %v", err)
-				goto reconnect
-			}
 		}
 
 		msgIn = make(chan fixIn)

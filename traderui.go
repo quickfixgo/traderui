@@ -251,7 +251,7 @@ func (c tradeClient) newOrder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	c.Lock()
-	c.OrderManager.Save(&order)
+	_ = c.OrderManager.Save(&order)
 	c.Unlock()
 
 	msg, err := c.NewOrderSingle(order)
@@ -291,9 +291,7 @@ func main() {
 	logFactory := quickfix.NewScreenLogFactory()
 
 	var fixApp quickfix.Application
-	var app *tradeClient
-
-	app = newTradeClient(basic.FIXFactory{}, new(basic.ClOrdIDGenerator))
+	app := newTradeClient(basic.FIXFactory{}, new(basic.ClOrdIDGenerator))
 	fixApp = &basic.FIXApplication{
 		SessionIDs:   app.SessionIDs,
 		OrderManager: app.OrderManager,
