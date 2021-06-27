@@ -1,0 +1,65 @@
+# github.com/armon/go-proxyproto v0.0.0-20210323213023-7e956b284f0a
+github.com/armon/go-proxyproto
+# github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
+github.com/globalsign/mgo
+github.com/globalsign/mgo/bson
+github.com/globalsign/mgo/internal/json
+github.com/globalsign/mgo/internal/sasl
+github.com/globalsign/mgo/internal/scram
+# github.com/gorilla/mux v1.8.0
+## explicit
+github.com/gorilla/mux
+# github.com/mattn/go-sqlite3 v1.14.7
+## explicit
+# github.com/pkg/errors v0.9.1
+github.com/pkg/errors
+# github.com/quickfixgo/enum v0.0.0-20171007195659-2cbed3730c3e
+## explicit
+github.com/quickfixgo/enum
+# github.com/quickfixgo/field v0.0.0-20171007195410-74cea5ec78c7
+## explicit
+github.com/quickfixgo/field
+# github.com/quickfixgo/fix40 v0.0.0-20171007200002-cce875b2c2e7
+## explicit
+github.com/quickfixgo/fix40
+github.com/quickfixgo/fix40/newordersingle
+# github.com/quickfixgo/fix41 v0.0.0-20171007212429-b272ca343ed2
+## explicit
+github.com/quickfixgo/fix41
+github.com/quickfixgo/fix41/newordersingle
+# github.com/quickfixgo/fix42 v0.0.0-20171007212724-86a4567f1c77
+## explicit
+github.com/quickfixgo/fix42
+github.com/quickfixgo/fix42/newordersingle
+github.com/quickfixgo/fix42/ordercancelrequest
+# github.com/quickfixgo/fix43 v0.0.0-20171007213001-a7ff4f2a2470
+## explicit
+github.com/quickfixgo/fix43
+github.com/quickfixgo/fix43/newordersingle
+# github.com/quickfixgo/fix44 v0.0.0-20171007213039-f090a1006218
+## explicit
+github.com/quickfixgo/fix44
+github.com/quickfixgo/fix44/newordersingle
+# github.com/quickfixgo/fix50 v0.0.0-20171007213247-d09e70735b64
+## explicit
+github.com/quickfixgo/fix50/newordersingle
+# github.com/quickfixgo/fixt11 v0.0.0-20171007213433-d9788ca97f5d
+## explicit
+github.com/quickfixgo/fixt11
+# github.com/quickfixgo/quickfix v0.6.1-0.20210618140103-31f5ebe90229
+## explicit
+github.com/quickfixgo/quickfix
+github.com/quickfixgo/quickfix/config
+github.com/quickfixgo/quickfix/datadictionary
+github.com/quickfixgo/quickfix/internal
+# github.com/quickfixgo/tag v0.0.0-20171007194743-cbb465760521
+## explicit
+github.com/quickfixgo/tag
+# github.com/shopspring/decimal v1.2.0
+## explicit
+github.com/shopspring/decimal
+# github.com/stretchr/testify v1.7.0
+## explicit
+# golang.org/x/net v0.0.0-20210614182718-04defd469f4e
+golang.org/x/net/internal/socks
+golang.org/x/net/proxy

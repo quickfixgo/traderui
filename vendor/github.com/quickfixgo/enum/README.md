@@ -1,4 +1,6 @@
-Enum
-===
+[![GoDoc](https://godoc.org/github.com/quickfixgo/enum?status.png)](https://godoc.org/github.com/quickfixgo/enum)
 
-enum is generated from `github.com/quickfixgo/quickfix/cmd/generate-fix` using the specs in `github.com/quickfixgo/quickfix/spec`.
+Licensing
+---------
+
+This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/quickfixgo/quickfix/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.

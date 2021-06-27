@@ -1,3 +1,8 @@
 *.swp
 traderui
 tmp/*
+*.swp
+tmp
+bin
+.exe
+dist/
