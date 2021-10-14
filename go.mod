@@ -15,5 +15,5 @@ require (
 	github.com/quickfixgo/fixt11 v0.0.0-20171007213433-d9788ca97f5d // indirect
 	github.com/quickfixgo/quickfix v0.6.1-0.20210618140103-31f5ebe90229
 	github.com/quickfixgo/tag v0.0.0-20171007194743-cbb465760521
-	github.com/shopspring/decimal v1.2.0
+	github.com/shopspring/decimal v1.3.0
 )
