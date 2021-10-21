@@ -9,8 +9,6 @@ github.com/globalsign/mgo/internal/scram
 # github.com/gorilla/mux v1.8.0
 ## explicit
 github.com/gorilla/mux
-# github.com/mattn/go-sqlite3 v1.14.7
-## explicit
 # github.com/pkg/errors v0.9.1
 github.com/pkg/errors
 # github.com/quickfixgo/enum v0.0.0-20171007195659-2cbed3730c3e
@@ -55,11 +53,9 @@ github.com/quickfixgo/quickfix/internal
 # github.com/quickfixgo/tag v0.0.0-20171007194743-cbb465760521
 ## explicit
 github.com/quickfixgo/tag
-# github.com/shopspring/decimal v1.2.0
+# github.com/shopspring/decimal v1.3.1
 ## explicit
 github.com/shopspring/decimal
-# github.com/stretchr/testify v1.7.0
-## explicit
 # golang.org/x/net v0.0.0-20210614182718-04defd469f4e
 golang.org/x/net/internal/socks
 golang.org/x/net/proxy

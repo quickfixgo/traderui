@@ -42,8 +42,9 @@ github.com/quickfixgo/quickfix v0.6.1-0.20210618140103-31f5ebe90229 h1:LVos+CxgP
 github.com/quickfixgo/quickfix v0.6.1-0.20210618140103-31f5ebe90229/go.mod h1:844QMEWPCQjzoTzsYhCwT3IakDucVAp2VixvVQjG4k4=
 github.com/quickfixgo/tag v0.0.0-20171007194743-cbb465760521 h1:RXfjXtjvXb4wgzBHTTFbyW5uBP04Nrlky9e9lAe8mIE=
 github.com/quickfixgo/tag v0.0.0-20171007194743-cbb465760521/go.mod h1:EKAI2kkSaIuSywW0WbIgXIcuA9vS4IXfCga9U9Oax2E=
-github.com/shopspring/decimal v1.2.0 h1:abSATXmQEYyShuxI4/vyW3tV1MrKAJzCZ/0zLUXYbsQ=
 github.com/shopspring/decimal v1.2.0/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
+github.com/shopspring/decimal v1.3.1 h1:2Usl1nmF/WZucqkFZhnfFYxxxu8LG21F6nPQBE5gKV8=
+github.com/shopspring/decimal v1.3.1/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.3.0 h1:NGXK3lHquSN08v5vWalVI/L8XU9hdzE/G6xsrze47As=
 github.com/stretchr/objx v0.3.0/go.mod h1:qt09Ya8vawLte6SNmTgCsAVtYtaKzEcn8ATUoHMkEqE=
