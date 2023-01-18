@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -275,18 +276,16 @@ func (store *fileStore) CreationTime() time.Time {
 }
 
 func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
-	offset, err := store.bodyFile.Seek(0, os.SEEK_END)
+	offset, err := store.bodyFile.Seek(0, io.SeekEnd)
 	if err != nil {
 		return fmt.Errorf("unable to seek to end of file: %s: %s", store.bodyFname, err.Error())
 	}
-	if _, err := store.headerFile.Seek(0, os.SEEK_END); err != nil {
+	if _, err := store.headerFile.Seek(0, io.SeekEnd); err != nil {
 		return fmt.Errorf("unable to seek to end of file: %s: %s", store.headerFname, err.Error())
 	}
 	if _, err := fmt.Fprintf(store.headerFile, "%d,%d,%d\n", seqNum, offset, len(msg)); err != nil {
 		return fmt.Errorf("unable to write to file: %s: %s", store.headerFname, err.Error())
 	}
-
-	store.offsets[seqNum] = msgDef{offset: offset, size: len(msg)}
 
 	if _, err := store.bodyFile.Write(msg); err != nil {
 		return fmt.Errorf("unable to write to file: %s: %s", store.bodyFname, err.Error())
@@ -297,7 +296,17 @@ func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
 	if err := store.headerFile.Sync(); err != nil {
 		return fmt.Errorf("unable to flush file: %s: %s", store.headerFname, err.Error())
 	}
+
+	store.offsets[seqNum] = msgDef{offset: offset, size: len(msg)}
 	return nil
+}
+
+func (store *fileStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	err := store.SaveMessage(seqNum, msg)
+	if err != nil {
+		return err
+	}
+	return store.IncrNextSenderMsgSeqNum()
 }
 
 func (store *fileStore) getMessage(seqNum int) (msg []byte, found bool, err error) {

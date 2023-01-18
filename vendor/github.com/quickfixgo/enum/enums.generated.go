@@ -1,6 +1,6 @@
 package enum
 
-//Enum values for AccountType
+// AccountType field enumeration values.
 type AccountType string
 
 const (
@@ -13,7 +13,7 @@ const (
 	AccountType_JOINT_BACK_OFFICE_ACCOUNT                                              AccountType = "8"
 )
 
-//Enum values for AcctIDSource
+// AcctIDSource field enumeration values.
 type AcctIDSource string
 
 const (
@@ -25,7 +25,7 @@ const (
 	AcctIDSource_OTHER     AcctIDSource = "99"
 )
 
-//Enum values for Adjustment
+// Adjustment field enumeration values.
 type Adjustment string
 
 const (
@@ -34,7 +34,7 @@ const (
 	Adjustment_CORRECTION Adjustment = "3"
 )
 
-//Enum values for AdjustmentType
+// AdjustmentType field enumeration values.
 type AdjustmentType string
 
 const (
@@ -44,7 +44,7 @@ const (
 	AdjustmentType_FINAL                                 AdjustmentType = "3"
 )
 
-//Enum values for AdvSide
+// AdvSide field enumeration values.
 type AdvSide string
 
 const (
@@ -54,7 +54,7 @@ const (
 	AdvSide_CROSS AdvSide = "X"
 )
 
-//Enum values for AdvTransType
+// AdvTransType field enumeration values.
 type AdvTransType string
 
 const (
@@ -63,7 +63,7 @@ const (
 	AdvTransType_REPLACE AdvTransType = "R"
 )
 
-//Enum values for AffirmStatus
+// AffirmStatus field enumeration values.
 type AffirmStatus string
 
 const (
@@ -72,7 +72,7 @@ const (
 	AffirmStatus_AFFIRMED                         AffirmStatus = "3"
 )
 
-//Enum values for AggregatedBook
+// AggregatedBook field enumeration values.
 type AggregatedBook string
 
 const (
@@ -80,7 +80,7 @@ const (
 	AggregatedBook_YES AggregatedBook = "Y"
 )
 
-//Enum values for AggressorIndicator
+// AggressorIndicator field enumeration values.
 type AggressorIndicator string
 
 const (
@@ -88,7 +88,7 @@ const (
 	AggressorIndicator_YES AggressorIndicator = "Y"
 )
 
-//Enum values for AllocAccountType
+// AllocAccountType field enumeration values.
 type AllocAccountType string
 
 const (
@@ -101,7 +101,7 @@ const (
 	AllocAccountType_JOINT_BACK_OFFICE_ACCOUNT                                              AllocAccountType = "8"
 )
 
-//Enum values for AllocCancReplaceReason
+// AllocCancReplaceReason field enumeration values.
 type AllocCancReplaceReason string
 
 const (
@@ -110,7 +110,7 @@ const (
 	AllocCancReplaceReason_OTHER                                 AllocCancReplaceReason = "99"
 )
 
-//Enum values for AllocHandlInst
+// AllocHandlInst field enumeration values.
 type AllocHandlInst string
 
 const (
@@ -119,7 +119,7 @@ const (
 	AllocHandlInst_FORWARD_AND_MATCH AllocHandlInst = "3"
 )
 
-//Enum values for AllocIntermedReqType
+// AllocIntermedReqType field enumeration values.
 type AllocIntermedReqType string
 
 const (
@@ -131,7 +131,7 @@ const (
 	AllocIntermedReqType_ACCOUNT_LEVEL_REJECT AllocIntermedReqType = "6"
 )
 
-//Enum values for AllocLinkType
+// AllocLinkType field enumeration values.
 type AllocLinkType string
 
 const (
@@ -139,7 +139,7 @@ const (
 	AllocLinkType_FX_SWAP    AllocLinkType = "1"
 )
 
-//Enum values for AllocMethod
+// AllocMethod field enumeration values.
 type AllocMethod string
 
 const (
@@ -148,7 +148,7 @@ const (
 	AllocMethod_MANUAL    AllocMethod = "3"
 )
 
-//Enum values for AllocNoOrdersType
+// AllocNoOrdersType field enumeration values.
 type AllocNoOrdersType string
 
 const (
@@ -156,7 +156,7 @@ const (
 	AllocNoOrdersType_EXPLICIT_LIST_PROVIDED AllocNoOrdersType = "1"
 )
 
-//Enum values for AllocPositionEffect
+// AllocPositionEffect field enumeration values.
 type AllocPositionEffect string
 
 const (
@@ -166,7 +166,7 @@ const (
 	AllocPositionEffect_ROLLED AllocPositionEffect = "R"
 )
 
-//Enum values for AllocRejCode
+// AllocRejCode field enumeration values.
 type AllocRejCode string
 
 const (
@@ -187,7 +187,7 @@ const (
 	AllocRejCode_OTHER_99                          AllocRejCode = "99"
 )
 
-//Enum values for AllocReportType
+// AllocReportType field enumeration values.
 type AllocReportType string
 
 const (
@@ -203,7 +203,7 @@ const (
 	AllocReportType_ACCEPT                                  AllocReportType = "9"
 )
 
-//Enum values for AllocSettlInstType
+// AllocSettlInstType field enumeration values.
 type AllocSettlInstType string
 
 const (
@@ -214,7 +214,7 @@ const (
 	AllocSettlInstType_PHONE_FOR_INSTRUCTIONS          AllocSettlInstType = "4"
 )
 
-//Enum values for AllocStatus
+// AllocStatus field enumeration values.
 type AllocStatus string
 
 const (
@@ -228,7 +228,7 @@ const (
 	AllocStatus_REVERSED                 AllocStatus = "7"
 )
 
-//Enum values for AllocTransType
+// AllocTransType field enumeration values.
 type AllocTransType string
 
 const (
@@ -241,7 +241,7 @@ const (
 	AllocTransType_REVERSAL                       AllocTransType = "6"
 )
 
-//Enum values for AllocType
+// AllocType field enumeration values.
 type AllocType string
 
 const (
@@ -261,7 +261,7 @@ const (
 	AllocType_ACCEPT                                  AllocType = "9"
 )
 
-//Enum values for ApplQueueAction
+// ApplQueueAction field enumeration values.
 type ApplQueueAction string
 
 const (
@@ -271,7 +271,7 @@ const (
 	ApplQueueAction_END_SESSION     ApplQueueAction = "3"
 )
 
-//Enum values for ApplQueueResolution
+// ApplQueueResolution field enumeration values.
 type ApplQueueResolution string
 
 const (
@@ -281,7 +281,7 @@ const (
 	ApplQueueResolution_END_SESSION     ApplQueueResolution = "3"
 )
 
-//Enum values for ApplReportType
+// ApplReportType field enumeration values.
 type ApplReportType string
 
 const (
@@ -291,7 +291,7 @@ const (
 	ApplReportType_APPLICATION_MESSAGE_RE_SEND_COMPLETED                                                  ApplReportType = "3"
 )
 
-//Enum values for ApplReqType
+// ApplReqType field enumeration values.
 type ApplReqType string
 
 const (
@@ -304,7 +304,7 @@ const (
 	ApplReqType_CANCEL_RETRANSMISSION_AND_UNSUBSCRIBE_TO_THE_SPECIFIED_APPLICATIONS          ApplReqType = "6"
 )
 
-//Enum values for ApplResponseError
+// ApplResponseError field enumeration values.
 type ApplResponseError string
 
 const (
@@ -313,7 +313,7 @@ const (
 	ApplResponseError_USER_NOT_AUTHORIZED_FOR_APPLICATION  ApplResponseError = "2"
 )
 
-//Enum values for ApplResponseType
+// ApplResponseType field enumeration values.
 type ApplResponseType string
 
 const (
@@ -322,7 +322,7 @@ const (
 	ApplResponseType_MESSAGES_NOT_AVAILABLE         ApplResponseType = "2"
 )
 
-//Enum values for ApplVerID
+// ApplVerID field enumeration values.
 type ApplVerID string
 
 const (
@@ -338,7 +338,7 @@ const (
 	ApplVerID_FIX50SP2 ApplVerID = "9"
 )
 
-//Enum values for AsOfIndicator
+// AsOfIndicator field enumeration values.
 type AsOfIndicator string
 
 const (
@@ -346,7 +346,7 @@ const (
 	AsOfIndicator_TRUE  AsOfIndicator = "1"
 )
 
-//Enum values for AssignmentMethod
+// AssignmentMethod field enumeration values.
 type AssignmentMethod string
 
 const (
@@ -354,7 +354,7 @@ const (
 	AssignmentMethod_RANDOM   AssignmentMethod = "R"
 )
 
-//Enum values for AvgPxIndicator
+// AvgPxIndicator field enumeration values.
 type AvgPxIndicator string
 
 const (
@@ -363,7 +363,7 @@ const (
 	AvgPxIndicator_LAST_TRADE_IS_THE_AVERAGE_PRICE_GROUP_IDENTIFIED_BY_THE_TRADELINKID   AvgPxIndicator = "2"
 )
 
-//Enum values for BasisPxType
+// BasisPxType field enumeration values.
 type BasisPxType string
 
 const (
@@ -382,7 +382,7 @@ const (
 	BasisPxType_OTHERS                                        BasisPxType = "Z"
 )
 
-//Enum values for Benchmark
+// Benchmark field enumeration values.
 type Benchmark string
 
 const (
@@ -397,7 +397,7 @@ const (
 	Benchmark_6MOLIBOR Benchmark = "9"
 )
 
-//Enum values for BenchmarkCurveName
+// BenchmarkCurveName field enumeration values.
 type BenchmarkCurveName string
 
 const (
@@ -415,7 +415,7 @@ const (
 	BenchmarkCurveName_TREASURY    BenchmarkCurveName = "Treasury"
 )
 
-//Enum values for BidDescriptorType
+// BidDescriptorType field enumeration values.
 type BidDescriptorType string
 
 const (
@@ -424,7 +424,7 @@ const (
 	BidDescriptorType_INDEX   BidDescriptorType = "3"
 )
 
-//Enum values for BidRequestTransType
+// BidRequestTransType field enumeration values.
 type BidRequestTransType string
 
 const (
@@ -432,7 +432,7 @@ const (
 	BidRequestTransType_NO     BidRequestTransType = "N"
 )
 
-//Enum values for BidTradeType
+// BidTradeType field enumeration values.
 type BidTradeType string
 
 const (
@@ -442,7 +442,7 @@ const (
 	BidTradeType_RISK_TRADE       BidTradeType = "R"
 )
 
-//Enum values for BidType
+// BidType field enumeration values.
 type BidType string
 
 const (
@@ -451,7 +451,7 @@ const (
 	BidType_NO_BIDDING_PROCESS  BidType = "3"
 )
 
-//Enum values for BookingType
+// BookingType field enumeration values.
 type BookingType string
 
 const (
@@ -460,7 +460,7 @@ const (
 	BookingType_TOTAL_RETURN_SWAP BookingType = "2"
 )
 
-//Enum values for BookingUnit
+// BookingUnit field enumeration values.
 type BookingUnit string
 
 const (
@@ -469,7 +469,7 @@ const (
 	BookingUnit_AGGREGATE_EXECUTIONS_FOR_THIS_SYMBOL_SIDE_AND_SETTLEMENT_DATE           BookingUnit = "2"
 )
 
-//Enum values for BusinessRejectReason
+// BusinessRejectReason field enumeration values.
 type BusinessRejectReason string
 
 const (
@@ -484,7 +484,7 @@ const (
 	BusinessRejectReason_DELIVERTO_FIRM_NOT_AVAILABLE_AT_THIS_TIME BusinessRejectReason = "7"
 )
 
-//Enum values for CPProgram
+// CPProgram field enumeration values.
 type CPProgram string
 
 const (
@@ -493,7 +493,7 @@ const (
 	CPProgram_OTHER CPProgram = "99"
 )
 
-//Enum values for CancellationRights
+// CancellationRights field enumeration values.
 type CancellationRights string
 
 const (
@@ -503,7 +503,7 @@ const (
 	CancellationRights_YES  CancellationRights = "Y"
 )
 
-//Enum values for CashMargin
+// CashMargin field enumeration values.
 type CashMargin string
 
 const (
@@ -512,7 +512,7 @@ const (
 	CashMargin_MARGIN_CLOSE CashMargin = "3"
 )
 
-//Enum values for ClearingFeeIndicator
+// ClearingFeeIndicator field enumeration values.
 type ClearingFeeIndicator string
 
 const (
@@ -532,7 +532,7 @@ const (
 	ClearingFeeIndicator_ALL_OTHER_OWNERSHIP_TYPES                                              ClearingFeeIndicator = "M"
 )
 
-//Enum values for ClearingInstruction
+// ClearingInstruction field enumeration values.
 type ClearingInstruction string
 
 const (
@@ -552,7 +552,7 @@ const (
 	ClearingInstruction_AUTOMATIC_POSTING_MODE               ClearingInstruction = "9"
 )
 
-//Enum values for CollAction
+// CollAction field enumeration values.
 type CollAction string
 
 const (
@@ -561,7 +561,7 @@ const (
 	CollAction_REMOVE CollAction = "2"
 )
 
-//Enum values for CollApplType
+// CollApplType field enumeration values.
 type CollApplType string
 
 const (
@@ -569,7 +569,7 @@ const (
 	CollApplType_GENERAL          CollApplType = "1"
 )
 
-//Enum values for CollAsgnReason
+// CollAsgnReason field enumeration values.
 type CollAsgnReason string
 
 const (
@@ -583,7 +583,7 @@ const (
 	CollAsgnReason_ADVERSE_TAX_EVENT         CollAsgnReason = "7"
 )
 
-//Enum values for CollAsgnRejectReason
+// CollAsgnRejectReason field enumeration values.
 type CollAsgnRejectReason string
 
 const (
@@ -596,7 +596,7 @@ const (
 	CollAsgnRejectReason_OTHER                         CollAsgnRejectReason = "99"
 )
 
-//Enum values for CollAsgnRespType
+// CollAsgnRespType field enumeration values.
 type CollAsgnRespType string
 
 const (
@@ -606,7 +606,7 @@ const (
 	CollAsgnRespType_REJECTED CollAsgnRespType = "3"
 )
 
-//Enum values for CollAsgnTransType
+// CollAsgnTransType field enumeration values.
 type CollAsgnTransType string
 
 const (
@@ -617,7 +617,7 @@ const (
 	CollAsgnTransType_REVERSE CollAsgnTransType = "4"
 )
 
-//Enum values for CollInquiryQualifier
+// CollInquiryQualifier field enumeration values.
 type CollInquiryQualifier string
 
 const (
@@ -631,7 +631,7 @@ const (
 	CollInquiryQualifier_OUTSTANDING_TRADES    CollInquiryQualifier = "7"
 )
 
-//Enum values for CollInquiryResult
+// CollInquiryResult field enumeration values.
 type CollInquiryResult string
 
 const (
@@ -648,7 +648,7 @@ const (
 	CollInquiryResult_OTHER                                       CollInquiryResult = "99"
 )
 
-//Enum values for CollInquiryStatus
+// CollInquiryStatus field enumeration values.
 type CollInquiryStatus string
 
 const (
@@ -659,7 +659,7 @@ const (
 	CollInquiryStatus_REJECTED                CollInquiryStatus = "4"
 )
 
-//Enum values for CollStatus
+// CollStatus field enumeration values.
 type CollStatus string
 
 const (
@@ -670,7 +670,7 @@ const (
 	CollStatus_CHALLENGED          CollStatus = "4"
 )
 
-//Enum values for CommType
+// CommType field enumeration values.
 type CommType string
 
 const (
@@ -682,7 +682,7 @@ const (
 	CommType_POINTS_PER_BOND_OR_CONTRACT CommType = "6"
 )
 
-//Enum values for ComplexEventCondition
+// ComplexEventCondition field enumeration values.
 type ComplexEventCondition string
 
 const (
@@ -690,7 +690,7 @@ const (
 	ComplexEventCondition_OR  ComplexEventCondition = "2"
 )
 
-//Enum values for ComplexEventPriceBoundaryMethod
+// ComplexEventPriceBoundaryMethod field enumeration values.
 type ComplexEventPriceBoundaryMethod string
 
 const (
@@ -701,7 +701,7 @@ const (
 	ComplexEventPriceBoundaryMethod_GREATER_THAN_COMPLEXEVENTPRICE             ComplexEventPriceBoundaryMethod = "5"
 )
 
-//Enum values for ComplexEventPriceTimeType
+// ComplexEventPriceTimeType field enumeration values.
 type ComplexEventPriceTimeType string
 
 const (
@@ -710,7 +710,7 @@ const (
 	ComplexEventPriceTimeType_SPECIFIED_DATE_TIME ComplexEventPriceTimeType = "3"
 )
 
-//Enum values for ComplexEventType
+// ComplexEventType field enumeration values.
 type ComplexEventType string
 
 const (
@@ -725,7 +725,7 @@ const (
 	ComplexEventType_ROLLING_BARRIER ComplexEventType = "9"
 )
 
-//Enum values for ConfirmRejReason
+// ConfirmRejReason field enumeration values.
 type ConfirmRejReason string
 
 const (
@@ -734,7 +734,7 @@ const (
 	ConfirmRejReason_OTHER                           ConfirmRejReason = "99"
 )
 
-//Enum values for ConfirmStatus
+// ConfirmStatus field enumeration values.
 type ConfirmStatus string
 
 const (
@@ -745,7 +745,7 @@ const (
 	ConfirmStatus_REQUEST_REJECTED                ConfirmStatus = "5"
 )
 
-//Enum values for ConfirmTransType
+// ConfirmTransType field enumeration values.
 type ConfirmTransType string
 
 const (
@@ -754,7 +754,7 @@ const (
 	ConfirmTransType_CANCEL  ConfirmTransType = "2"
 )
 
-//Enum values for ConfirmType
+// ConfirmType field enumeration values.
 type ConfirmType string
 
 const (
@@ -763,7 +763,7 @@ const (
 	ConfirmType_CONFIRMATION_REQUEST_REJECTED ConfirmType = "3"
 )
 
-//Enum values for ContAmtType
+// ContAmtType field enumeration values.
 type ContAmtType string
 
 const (
@@ -784,7 +784,7 @@ const (
 	ContAmtType_EXIT_CHARGE_AMOUNT                      ContAmtType = "9"
 )
 
-//Enum values for ContingencyType
+// ContingencyType field enumeration values.
 type ContingencyType string
 
 const (
@@ -794,7 +794,7 @@ const (
 	ContingencyType_ONE_UPDATES_THE_OTHER_4 ContingencyType = "4"
 )
 
-//Enum values for ContractMultiplierUnit
+// ContractMultiplierUnit field enumeration values.
 type ContractMultiplierUnit string
 
 const (
@@ -803,7 +803,7 @@ const (
 	ContractMultiplierUnit_DAYS   ContractMultiplierUnit = "2"
 )
 
-//Enum values for CorporateAction
+// CorporateAction field enumeration values.
 type CorporateAction string
 
 const (
@@ -832,7 +832,7 @@ const (
 	CorporateAction_SUCCESSION_EVENT             CorporateAction = "W"
 )
 
-//Enum values for CoveredOrUncovered
+// CoveredOrUncovered field enumeration values.
 type CoveredOrUncovered string
 
 const (
@@ -840,7 +840,7 @@ const (
 	CoveredOrUncovered_UNCOVERED CoveredOrUncovered = "1"
 )
 
-//Enum values for CrossPrioritization
+// CrossPrioritization field enumeration values.
 type CrossPrioritization string
 
 const (
@@ -849,7 +849,7 @@ const (
 	CrossPrioritization_SELL_SIDE_IS_PRIORITIZED CrossPrioritization = "2"
 )
 
-//Enum values for CrossType
+// CrossType field enumeration values.
 type CrossType string
 
 const (
@@ -859,7 +859,7 @@ const (
 	CrossType_CROSS_SAME_PRICE CrossType = "4"
 )
 
-//Enum values for CustOrderCapacity
+// CustOrderCapacity field enumeration values.
 type CustOrderCapacity string
 
 const (
@@ -869,7 +869,7 @@ const (
 	CustOrderCapacity_ALL_OTHER                                         CustOrderCapacity = "4"
 )
 
-//Enum values for CustOrderHandlingInst
+// CustOrderHandlingInst field enumeration values.
 type CustOrderHandlingInst string
 
 const (
@@ -899,7 +899,7 @@ const (
 	CustOrderHandlingInst_WORK                              CustOrderHandlingInst = "WRK"
 )
 
-//Enum values for CustomerOrFirm
+// CustomerOrFirm field enumeration values.
 type CustomerOrFirm string
 
 const (
@@ -907,7 +907,7 @@ const (
 	CustomerOrFirm_FIRM     CustomerOrFirm = "1"
 )
 
-//Enum values for CxlRejReason
+// CxlRejReason field enumeration values.
 type CxlRejReason string
 
 const (
@@ -924,7 +924,7 @@ const (
 	CxlRejReason_OTHER                                                     CxlRejReason = "99"
 )
 
-//Enum values for CxlRejResponseTo
+// CxlRejResponseTo field enumeration values.
 type CxlRejResponseTo string
 
 const (
@@ -932,7 +932,7 @@ const (
 	CxlRejResponseTo_ORDER_CANCEL_REPLACE_REQUEST CxlRejResponseTo = "2"
 )
 
-//Enum values for CxlType
+// CxlType field enumeration values.
 type CxlType string
 
 const (
@@ -940,7 +940,7 @@ const (
 	CxlType_PARTIAL_CANCEL          CxlType = "P"
 )
 
-//Enum values for DKReason
+// DKReason field enumeration values.
 type DKReason string
 
 const (
@@ -953,7 +953,7 @@ const (
 	DKReason_OTHER                  DKReason = "Z"
 )
 
-//Enum values for DayBookingInst
+// DayBookingInst field enumeration values.
 type DayBookingInst string
 
 const (
@@ -962,7 +962,7 @@ const (
 	DayBookingInst_ACCUMULATE                                                   DayBookingInst = "2"
 )
 
-//Enum values for DealingCapacity
+// DealingCapacity field enumeration values.
 type DealingCapacity string
 
 const (
@@ -971,7 +971,7 @@ const (
 	DealingCapacity_RISKLESS_PRINCIPAL DealingCapacity = "R"
 )
 
-//Enum values for DeleteReason
+// DeleteReason field enumeration values.
 type DeleteReason string
 
 const (
@@ -979,7 +979,7 @@ const (
 	DeleteReason_ERROR        DeleteReason = "1"
 )
 
-//Enum values for DeliveryForm
+// DeliveryForm field enumeration values.
 type DeliveryForm string
 
 const (
@@ -987,7 +987,7 @@ const (
 	DeliveryForm_BEARER     DeliveryForm = "2"
 )
 
-//Enum values for DeliveryType
+// DeliveryType field enumeration values.
 type DeliveryType string
 
 const (
@@ -997,7 +997,7 @@ const (
 	DeliveryType_HOLD_IN_CUSTODY        DeliveryType = "3"
 )
 
-//Enum values for DerivativeSecurityListRequestType
+// DerivativeSecurityListRequestType field enumeration values.
 type DerivativeSecurityListRequestType string
 
 const (
@@ -1012,7 +1012,7 @@ const (
 	DerivativeSecurityListRequestType_MARKETID_OR_MARKETID_PLUS_MARKETSEGMENTID DerivativeSecurityListRequestType = "8"
 )
 
-//Enum values for DeskOrderHandlingInst
+// DeskOrderHandlingInst field enumeration values.
 type DeskOrderHandlingInst string
 
 const (
@@ -1042,7 +1042,7 @@ const (
 	DeskOrderHandlingInst_WORK                              DeskOrderHandlingInst = "WRK"
 )
 
-//Enum values for DeskType
+// DeskType field enumeration values.
 type DeskType string
 
 const (
@@ -1059,14 +1059,14 @@ const (
 	DeskType_TRADING           DeskType = "T"
 )
 
-//Enum values for DeskTypeSource
+// DeskTypeSource field enumeration values.
 type DeskTypeSource string
 
 const (
 	DeskTypeSource_NASD_OATS DeskTypeSource = "1"
 )
 
-//Enum values for DiscretionInst
+// DiscretionInst field enumeration values.
 type DiscretionInst string
 
 const (
@@ -1080,7 +1080,7 @@ const (
 	DiscretionInst_AVERAGE_PRICE_GUARANTEE        DiscretionInst = "7"
 )
 
-//Enum values for DiscretionLimitType
+// DiscretionLimitType field enumeration values.
 type DiscretionLimitType string
 
 const (
@@ -1089,7 +1089,7 @@ const (
 	DiscretionLimitType_OR_WORSE  DiscretionLimitType = "2"
 )
 
-//Enum values for DiscretionMoveType
+// DiscretionMoveType field enumeration values.
 type DiscretionMoveType string
 
 const (
@@ -1097,7 +1097,7 @@ const (
 	DiscretionMoveType_FIXED    DiscretionMoveType = "1"
 )
 
-//Enum values for DiscretionOffsetType
+// DiscretionOffsetType field enumeration values.
 type DiscretionOffsetType string
 
 const (
@@ -1107,7 +1107,7 @@ const (
 	DiscretionOffsetType_PRICE_TIER   DiscretionOffsetType = "3"
 )
 
-//Enum values for DiscretionRoundDirection
+// DiscretionRoundDirection field enumeration values.
 type DiscretionRoundDirection string
 
 const (
@@ -1115,7 +1115,7 @@ const (
 	DiscretionRoundDirection_MORE_PASSIVE    DiscretionRoundDirection = "2"
 )
 
-//Enum values for DiscretionScope
+// DiscretionScope field enumeration values.
 type DiscretionScope string
 
 const (
@@ -1125,7 +1125,7 @@ const (
 	DiscretionScope_NATIONAL_EXCLUDING_LOCAL DiscretionScope = "4"
 )
 
-//Enum values for DisplayMethod
+// DisplayMethod field enumeration values.
 type DisplayMethod string
 
 const (
@@ -1135,7 +1135,7 @@ const (
 	DisplayMethod_UNDISCLOSED DisplayMethod = "4"
 )
 
-//Enum values for DisplayWhen
+// DisplayWhen field enumeration values.
 type DisplayWhen string
 
 const (
@@ -1143,7 +1143,7 @@ const (
 	DisplayWhen_EXHAUST   DisplayWhen = "2"
 )
 
-//Enum values for DistribPaymentMethod
+// DistribPaymentMethod field enumeration values.
 type DistribPaymentMethod string
 
 const (
@@ -1161,7 +1161,7 @@ const (
 	DistribPaymentMethod_ACH_CREDIT                       DistribPaymentMethod = "9"
 )
 
-//Enum values for DlvyInstType
+// DlvyInstType field enumeration values.
 type DlvyInstType string
 
 const (
@@ -1169,7 +1169,7 @@ const (
 	DlvyInstType_SECURITIES DlvyInstType = "S"
 )
 
-//Enum values for DueToRelated
+// DueToRelated field enumeration values.
 type DueToRelated string
 
 const (
@@ -1177,7 +1177,7 @@ const (
 	DueToRelated_YES DueToRelated = "Y"
 )
 
-//Enum values for EmailType
+// EmailType field enumeration values.
 type EmailType string
 
 const (
@@ -1186,7 +1186,7 @@ const (
 	EmailType_ADMIN_REPLY EmailType = "2"
 )
 
-//Enum values for EncryptMethod
+// EncryptMethod field enumeration values.
 type EncryptMethod string
 
 const (
@@ -1199,7 +1199,7 @@ const (
 	EncryptMethod_PEM_DES_MD5 EncryptMethod = "6"
 )
 
-//Enum values for EventType
+// EventType field enumeration values.
 type EventType string
 
 const (
@@ -1225,7 +1225,7 @@ const (
 	EventType_OTHER                      EventType = "99"
 )
 
-//Enum values for ExDestination
+// ExDestination field enumeration values.
 type ExDestination string
 
 const (
@@ -1233,7 +1233,7 @@ const (
 	ExDestination_POSIT ExDestination = "4"
 )
 
-//Enum values for ExDestinationIDSource
+// ExDestinationIDSource field enumeration values.
 type ExDestinationIDSource string
 
 const (
@@ -1244,7 +1244,7 @@ const (
 	ExDestinationIDSource_MIC                                              ExDestinationIDSource = "G"
 )
 
-//Enum values for ExchangeForPhysical
+// ExchangeForPhysical field enumeration values.
 type ExchangeForPhysical string
 
 const (
@@ -1252,7 +1252,7 @@ const (
 	ExchangeForPhysical_YES ExchangeForPhysical = "Y"
 )
 
-//Enum values for ExecAckStatus
+// ExecAckStatus field enumeration values.
 type ExecAckStatus string
 
 const (
@@ -1261,7 +1261,7 @@ const (
 	ExecAckStatus_DONT_KNOW                  ExecAckStatus = "2"
 )
 
-//Enum values for ExecInst
+// ExecInst field enumeration values.
 type ExecInst string
 
 const (
@@ -1323,7 +1323,7 @@ const (
 	ExecInst_EXECUTE_AS_FX_NEUTRAL                                 ExecInst = "t"
 )
 
-//Enum values for ExecPriceType
+// ExecPriceType field enumeration values.
 type ExecPriceType string
 
 const (
@@ -1337,7 +1337,7 @@ const (
 	ExecPriceType_SINGLE_PRICE                           ExecPriceType = "S"
 )
 
-//Enum values for ExecRestatementReason
+// ExecRestatementReason field enumeration values.
 type ExecRestatementReason string
 
 const (
@@ -1356,7 +1356,7 @@ const (
 	ExecRestatementReason_OTHER                       ExecRestatementReason = "99"
 )
 
-//Enum values for ExecTransType
+// ExecTransType field enumeration values.
 type ExecTransType string
 
 const (
@@ -1366,7 +1366,7 @@ const (
 	ExecTransType_STATUS  ExecTransType = "3"
 )
 
-//Enum values for ExecType
+// ExecType field enumeration values.
 type ExecType string
 
 const (
@@ -1394,7 +1394,7 @@ const (
 	ExecType_TRIGGERED_OR_ACTIVATED_BY_SYSTEM    ExecType = "L"
 )
 
-//Enum values for ExerciseMethod
+// ExerciseMethod field enumeration values.
 type ExerciseMethod string
 
 const (
@@ -1402,7 +1402,7 @@ const (
 	ExerciseMethod_MANUAL    ExerciseMethod = "M"
 )
 
-//Enum values for ExerciseStyle
+// ExerciseStyle field enumeration values.
 type ExerciseStyle string
 
 const (
@@ -1411,7 +1411,7 @@ const (
 	ExerciseStyle_BERMUDA  ExerciseStyle = "2"
 )
 
-//Enum values for ExpType
+// ExpType field enumeration values.
 type ExpType string
 
 const (
@@ -1422,7 +1422,7 @@ const (
 	ExpType_DIFFERENCE              ExpType = "5"
 )
 
-//Enum values for ExpirationCycle
+// ExpirationCycle field enumeration values.
 type ExpirationCycle string
 
 const (
@@ -1431,7 +1431,7 @@ const (
 	ExpirationCycle_TRADING_ELIGIBILITY_EXPIRATION_SPECIFIED_IN_THE_DATE_AND_TIME_FIELDS_EVENTDATE ExpirationCycle = "2"
 )
 
-//Enum values for ExpirationQtyType
+// ExpirationQtyType field enumeration values.
 type ExpirationQtyType string
 
 const (
@@ -1442,7 +1442,7 @@ const (
 	ExpirationQtyType_DIFFERENCE              ExpirationQtyType = "5"
 )
 
-//Enum values for FinancialStatus
+// FinancialStatus field enumeration values.
 type FinancialStatus string
 
 const (
@@ -1451,7 +1451,7 @@ const (
 	FinancialStatus_RESTRICTED        FinancialStatus = "3"
 )
 
-//Enum values for FlowScheduleType
+// FlowScheduleType field enumeration values.
 type FlowScheduleType string
 
 const (
@@ -1462,7 +1462,7 @@ const (
 	FlowScheduleType_NERC_WESTERN_PEAK               FlowScheduleType = "4"
 )
 
-//Enum values for ForexReq
+// ForexReq field enumeration values.
 type ForexReq string
 
 const (
@@ -1470,7 +1470,7 @@ const (
 	ForexReq_YES ForexReq = "Y"
 )
 
-//Enum values for FundRenewWaiv
+// FundRenewWaiv field enumeration values.
 type FundRenewWaiv string
 
 const (
@@ -1478,7 +1478,7 @@ const (
 	FundRenewWaiv_YES FundRenewWaiv = "Y"
 )
 
-//Enum values for FuturesValuationMethod
+// FuturesValuationMethod field enumeration values.
 type FuturesValuationMethod string
 
 const (
@@ -1487,7 +1487,7 @@ const (
 	FuturesValuationMethod_FUTURES_STYLE_WITH_AN_ATTACHED_CASH_ADJUSTMENT FuturesValuationMethod = "FUTDA"
 )
 
-//Enum values for GTBookingInst
+// GTBookingInst field enumeration values.
 type GTBookingInst string
 
 const (
@@ -1496,7 +1496,7 @@ const (
 	GTBookingInst_ACCUMULATE_UNTIL_VERBALLLY_NOTIFIED_OTHERWISE           GTBookingInst = "2"
 )
 
-//Enum values for GapFillFlag
+// GapFillFlag field enumeration values.
 type GapFillFlag string
 
 const (
@@ -1504,7 +1504,7 @@ const (
 	GapFillFlag_YES GapFillFlag = "Y"
 )
 
-//Enum values for HaltReasonChar
+// HaltReasonChar field enumeration values.
 type HaltReasonChar string
 
 const (
@@ -1516,7 +1516,7 @@ const (
 	HaltReasonChar_EQUIPMENT_CHANGEOVER   HaltReasonChar = "X"
 )
 
-//Enum values for HaltReasonInt
+// HaltReasonInt field enumeration values.
 type HaltReasonInt string
 
 const (
@@ -1528,7 +1528,7 @@ const (
 	HaltReasonInt_EQUIPMENT_CHANGEOVER   HaltReasonInt = "5"
 )
 
-//Enum values for HandlInst
+// HandlInst field enumeration values.
 type HandlInst string
 
 const (
@@ -1537,7 +1537,7 @@ const (
 	HandlInst_MANUAL_ORDER_BEST_EXECUTION                              HandlInst = "3"
 )
 
-//Enum values for IDSource
+// IDSource field enumeration values.
 type IDSource string
 
 const (
@@ -1552,7 +1552,7 @@ const (
 	IDSource_CONSOLIDATED_TAPE_ASSOCIATION IDSource = "9"
 )
 
-//Enum values for IOINaturalFlag
+// IOINaturalFlag field enumeration values.
 type IOINaturalFlag string
 
 const (
@@ -1560,7 +1560,7 @@ const (
 	IOINaturalFlag_YES IOINaturalFlag = "Y"
 )
 
-//Enum values for IOIOthSvc
+// IOIOthSvc field enumeration values.
 type IOIOthSvc string
 
 const (
@@ -1568,7 +1568,7 @@ const (
 	IOIOthSvc_BRIDGE IOIOthSvc = "B"
 )
 
-//Enum values for IOIQltyInd
+// IOIQltyInd field enumeration values.
 type IOIQltyInd string
 
 const (
@@ -1577,7 +1577,7 @@ const (
 	IOIQltyInd_MEDIUM IOIQltyInd = "M"
 )
 
-//Enum values for IOIQty
+// IOIQty field enumeration values.
 type IOIQty string
 
 const (
@@ -1588,7 +1588,7 @@ const (
 	IOIQty_UNDISCLOSED_QUANTITY IOIQty = "U"
 )
 
-//Enum values for IOIQualifier
+// IOIQualifier field enumeration values.
 type IOIQualifier string
 
 const (
@@ -1612,7 +1612,7 @@ const (
 	IOIQualifier_PRE_OPEN             IOIQualifier = "Z"
 )
 
-//Enum values for IOIShares
+// IOIShares field enumeration values.
 type IOIShares string
 
 const (
@@ -1621,7 +1621,7 @@ const (
 	IOIShares_SMALL  IOIShares = "S"
 )
 
-//Enum values for IOITransType
+// IOITransType field enumeration values.
 type IOITransType string
 
 const (
@@ -1630,7 +1630,7 @@ const (
 	IOITransType_REPLACE IOITransType = "R"
 )
 
-//Enum values for ImpliedMarketIndicator
+// ImpliedMarketIndicator field enumeration values.
 type ImpliedMarketIndicator string
 
 const (
@@ -1640,7 +1640,7 @@ const (
 	ImpliedMarketIndicator_BOTH_IMPLIED_IN_AND_IMPLIED_OUT ImpliedMarketIndicator = "3"
 )
 
-//Enum values for InViewOfCommon
+// InViewOfCommon field enumeration values.
 type InViewOfCommon string
 
 const (
@@ -1648,7 +1648,7 @@ const (
 	InViewOfCommon_YES InViewOfCommon = "Y"
 )
 
-//Enum values for IncTaxInd
+// IncTaxInd field enumeration values.
 type IncTaxInd string
 
 const (
@@ -1656,7 +1656,7 @@ const (
 	IncTaxInd_GROSS IncTaxInd = "2"
 )
 
-//Enum values for IndividualAllocType
+// IndividualAllocType field enumeration values.
 type IndividualAllocType string
 
 const (
@@ -1664,7 +1664,7 @@ const (
 	IndividualAllocType_THIRD_PARTY_ALLOCATION IndividualAllocType = "2"
 )
 
-//Enum values for InstrAttribType
+// InstrAttribType field enumeration values.
 type InstrAttribType string
 
 const (
@@ -1700,7 +1700,7 @@ const (
 	InstrAttribType_TEXT_SUPPLY_THE_TEXT_OF_THE_ATTRIBUTE_OR_DISCLAIMER_IN_THE_INSTRATTRIBVALUE InstrAttribType = "99"
 )
 
-//Enum values for InstrRegistry
+// InstrRegistry field enumeration values.
 type InstrRegistry string
 
 const (
@@ -1709,7 +1709,7 @@ const (
 	InstrRegistry_PHYSICAL  InstrRegistry = "ZZ"
 )
 
-//Enum values for LastCapacity
+// LastCapacity field enumeration values.
 type LastCapacity string
 
 const (
@@ -1719,7 +1719,7 @@ const (
 	LastCapacity_PRINCIPAL          LastCapacity = "4"
 )
 
-//Enum values for LastFragment
+// LastFragment field enumeration values.
 type LastFragment string
 
 const (
@@ -1727,7 +1727,7 @@ const (
 	LastFragment_YES LastFragment = "Y"
 )
 
-//Enum values for LastLiquidityInd
+// LastLiquidityInd field enumeration values.
 type LastLiquidityInd string
 
 const (
@@ -1737,7 +1737,7 @@ const (
 	LastLiquidityInd_AUCTION              LastLiquidityInd = "4"
 )
 
-//Enum values for LastRptRequested
+// LastRptRequested field enumeration values.
 type LastRptRequested string
 
 const (
@@ -1745,7 +1745,7 @@ const (
 	LastRptRequested_YES LastRptRequested = "Y"
 )
 
-//Enum values for LegSwapType
+// LegSwapType field enumeration values.
 type LegSwapType string
 
 const (
@@ -1755,7 +1755,7 @@ const (
 	LegSwapType_PROCEEDS          LegSwapType = "5"
 )
 
-//Enum values for LegalConfirm
+// LegalConfirm field enumeration values.
 type LegalConfirm string
 
 const (
@@ -1763,7 +1763,7 @@ const (
 	LegalConfirm_YES LegalConfirm = "Y"
 )
 
-//Enum values for LiquidityIndType
+// LiquidityIndType field enumeration values.
 type LiquidityIndType string
 
 const (
@@ -1773,7 +1773,7 @@ const (
 	LiquidityIndType_OTHER                 LiquidityIndType = "4"
 )
 
-//Enum values for ListExecInstType
+// ListExecInstType field enumeration values.
 type ListExecInstType string
 
 const (
@@ -1784,7 +1784,7 @@ const (
 	ListExecInstType_EXCHANGE_SWITCH_CIV_ORDER_5 ListExecInstType = "5"
 )
 
-//Enum values for ListMethod
+// ListMethod field enumeration values.
 type ListMethod string
 
 const (
@@ -1792,7 +1792,7 @@ const (
 	ListMethod_USER_REQUESTED  ListMethod = "1"
 )
 
-//Enum values for ListOrderStatus
+// ListOrderStatus field enumeration values.
 type ListOrderStatus string
 
 const (
@@ -1805,7 +1805,7 @@ const (
 	ListOrderStatus_REJECT                 ListOrderStatus = "7"
 )
 
-//Enum values for ListRejectReason
+// ListRejectReason field enumeration values.
 type ListRejectReason string
 
 const (
@@ -1818,7 +1818,7 @@ const (
 	ListRejectReason_OTHER                            ListRejectReason = "99"
 )
 
-//Enum values for ListStatusType
+// ListStatusType field enumeration values.
 type ListStatusType string
 
 const (
@@ -1830,7 +1830,7 @@ const (
 	ListStatusType_ALERT        ListStatusType = "6"
 )
 
-//Enum values for LocateReqd
+// LocateReqd field enumeration values.
 type LocateReqd string
 
 const (
@@ -1838,7 +1838,7 @@ const (
 	LocateReqd_YES LocateReqd = "Y"
 )
 
-//Enum values for LotType
+// LotType field enumeration values.
 type LotType string
 
 const (
@@ -1848,7 +1848,7 @@ const (
 	LotType_ROUND_LOT_BASED_UPON_UNITOFMEASURE LotType = "4"
 )
 
-//Enum values for MDBookType
+// MDBookType field enumeration values.
 type MDBookType string
 
 const (
@@ -1857,7 +1857,7 @@ const (
 	MDBookType_ORDER_DEPTH MDBookType = "3"
 )
 
-//Enum values for MDEntryType
+// MDEntryType field enumeration values.
 type MDEntryType string
 
 const (
@@ -1899,7 +1899,7 @@ const (
 	MDEntryType_RECOVERY_RATE_FOR_SHORT                         MDEntryType = "a"
 )
 
-//Enum values for MDImplicitDelete
+// MDImplicitDelete field enumeration values.
 type MDImplicitDelete string
 
 const (
@@ -1907,7 +1907,7 @@ const (
 	MDImplicitDelete_YES MDImplicitDelete = "Y"
 )
 
-//Enum values for MDOriginType
+// MDOriginType field enumeration values.
 type MDOriginType string
 
 const (
@@ -1916,7 +1916,7 @@ const (
 	MDOriginType_CROSS    MDOriginType = "2"
 )
 
-//Enum values for MDQuoteType
+// MDQuoteType field enumeration values.
 type MDQuoteType string
 
 const (
@@ -1927,7 +1927,7 @@ const (
 	MDQuoteType_INDICATIVE_AND_TRADEABLE MDQuoteType = "4"
 )
 
-//Enum values for MDReqRejReason
+// MDReqRejReason field enumeration values.
 type MDReqRejReason string
 
 const (
@@ -1947,14 +1947,14 @@ const (
 	MDReqRejReason_INSUFFICIENT_CREDIT                 MDReqRejReason = "D"
 )
 
-//Enum values for MDSecSizeType
+// MDSecSizeType field enumeration values.
 type MDSecSizeType string
 
 const (
 	MDSecSizeType_CUSTOMER MDSecSizeType = "1"
 )
 
-//Enum values for MDUpdateAction
+// MDUpdateAction field enumeration values.
 type MDUpdateAction string
 
 const (
@@ -1966,7 +1966,7 @@ const (
 	MDUpdateAction_OVERLAY     MDUpdateAction = "5"
 )
 
-//Enum values for MDUpdateType
+// MDUpdateType field enumeration values.
 type MDUpdateType string
 
 const (
@@ -1974,7 +1974,7 @@ const (
 	MDUpdateType_INCREMENTAL_REFRESH MDUpdateType = "1"
 )
 
-//Enum values for MarketUpdateAction
+// MarketUpdateAction field enumeration values.
 type MarketUpdateAction string
 
 const (
@@ -1983,7 +1983,7 @@ const (
 	MarketUpdateAction_MODIFY MarketUpdateAction = "M"
 )
 
-//Enum values for MassActionRejectReason
+// MassActionRejectReason field enumeration values.
 type MassActionRejectReason string
 
 const (
@@ -2002,7 +2002,7 @@ const (
 	MassActionRejectReason_OTHER                                            MassActionRejectReason = "99"
 )
 
-//Enum values for MassActionResponse
+// MassActionResponse field enumeration values.
 type MassActionResponse string
 
 const (
@@ -2010,7 +2010,7 @@ const (
 	MassActionResponse_ACCEPTED MassActionResponse = "1"
 )
 
-//Enum values for MassActionScope
+// MassActionScope field enumeration values.
 type MassActionScope string
 
 const (
@@ -2028,7 +2028,7 @@ const (
 	MassActionScope_ALL_ORDERS_FOR_A_MARKET_SEGMENT          MassActionScope = "9"
 )
 
-//Enum values for MassActionType
+// MassActionType field enumeration values.
 type MassActionType string
 
 const (
@@ -2037,7 +2037,7 @@ const (
 	MassActionType_CANCEL_ORDERS                  MassActionType = "3"
 )
 
-//Enum values for MassCancelRejectReason
+// MassCancelRejectReason field enumeration values.
 type MassCancelRejectReason string
 
 const (
@@ -2056,7 +2056,7 @@ const (
 	MassCancelRejectReason_OTHER                                            MassCancelRejectReason = "99"
 )
 
-//Enum values for MassCancelRequestType
+// MassCancelRequestType field enumeration values.
 type MassCancelRequestType string
 
 const (
@@ -2074,7 +2074,7 @@ const (
 	MassCancelRequestType_CANCEL_FOR_ISSUER_OF_UNDERLYING_SECURITY MassCancelRequestType = "C"
 )
 
-//Enum values for MassCancelResponse
+// MassCancelResponse field enumeration values.
 type MassCancelResponse string
 
 const (
@@ -2093,7 +2093,7 @@ const (
 	MassCancelResponse_CANCEL_ORDERS_FOR_ISSUER_OF_UNDERLYING_SECURITY MassCancelResponse = "C"
 )
 
-//Enum values for MassStatusReqType
+// MassStatusReqType field enumeration values.
 type MassStatusReqType string
 
 const (
@@ -2109,7 +2109,7 @@ const (
 	MassStatusReqType_STATUS_FOR_SECURITY_ISSUER                   MassStatusReqType = "9"
 )
 
-//Enum values for MatchStatus
+// MatchStatus field enumeration values.
 type MatchStatus string
 
 const (
@@ -2118,7 +2118,7 @@ const (
 	MatchStatus_ADVISORY_OR_ALERT                  MatchStatus = "2"
 )
 
-//Enum values for MatchType
+// MatchType field enumeration values.
 type MatchType string
 
 const (
@@ -2163,7 +2163,7 @@ const (
 	MatchType_SUMMARIZED_MATCH_USING_A5_EXACT_MATCH_CRITERIA_EXCEPT_QUANTITY_IS_SUMMARIZED                                                     MatchType = "S5"
 )
 
-//Enum values for MaturityMonthYearFormat
+// MaturityMonthYearFormat field enumeration values.
 type MaturityMonthYearFormat string
 
 const (
@@ -2172,7 +2172,7 @@ const (
 	MaturityMonthYearFormat_YEARMONTHWEEK  MaturityMonthYearFormat = "2"
 )
 
-//Enum values for MaturityMonthYearIncrementUnits
+// MaturityMonthYearIncrementUnits field enumeration values.
 type MaturityMonthYearIncrementUnits string
 
 const (
@@ -2182,7 +2182,7 @@ const (
 	MaturityMonthYearIncrementUnits_YEARS  MaturityMonthYearIncrementUnits = "3"
 )
 
-//Enum values for MessageEncoding
+// MessageEncoding field enumeration values.
 type MessageEncoding string
 
 const (
@@ -2192,7 +2192,7 @@ const (
 	MessageEncoding_UTF_8       MessageEncoding = "UTF-8"
 )
 
-//Enum values for MiscFeeBasis
+// MiscFeeBasis field enumeration values.
 type MiscFeeBasis string
 
 const (
@@ -2201,7 +2201,7 @@ const (
 	MiscFeeBasis_PERCENTAGE MiscFeeBasis = "2"
 )
 
-//Enum values for MiscFeeType
+// MiscFeeType field enumeration values.
 type MiscFeeType string
 
 const (
@@ -2221,7 +2221,7 @@ const (
 	MiscFeeType_CONSUMPTION_TAX  MiscFeeType = "9"
 )
 
-//Enum values for ModelType
+// ModelType field enumeration values.
 type ModelType string
 
 const (
@@ -2229,7 +2229,7 @@ const (
 	ModelType_PROPRIETARY                     ModelType = "1"
 )
 
-//Enum values for MoneyLaunderingStatus
+// MoneyLaunderingStatus field enumeration values.
 type MoneyLaunderingStatus string
 
 const (
@@ -2240,7 +2240,7 @@ const (
 	MoneyLaunderingStatus_PASSED      MoneyLaunderingStatus = "Y"
 )
 
-//Enum values for MsgDirection
+// MsgDirection field enumeration values.
 type MsgDirection string
 
 const (
@@ -2248,7 +2248,7 @@ const (
 	MsgDirection_SEND    MsgDirection = "S"
 )
 
-//Enum values for MsgType
+// MsgType field enumeration values.
 type MsgType string
 
 const (
@@ -2372,7 +2372,7 @@ const (
 	MsgType_DERIVATIVE_SECURITY_LIST_REQUEST   MsgType = "z"
 )
 
-//Enum values for MultiLegReportingType
+// MultiLegReportingType field enumeration values.
 type MultiLegReportingType string
 
 const (
@@ -2381,7 +2381,7 @@ const (
 	MultiLegReportingType_MULTI_LEG_SECURITY                     MultiLegReportingType = "3"
 )
 
-//Enum values for MultiLegRptTypeReq
+// MultiLegRptTypeReq field enumeration values.
 type MultiLegRptTypeReq string
 
 const (
@@ -2390,7 +2390,7 @@ const (
 	MultiLegRptTypeReq_REPORT_BY_INSTRUMENT_LEGS_BELONGING_TO_THE_MULTILEG_SECURITY_ONLY                     MultiLegRptTypeReq = "2"
 )
 
-//Enum values for MultilegModel
+// MultilegModel field enumeration values.
 type MultilegModel string
 
 const (
@@ -2399,7 +2399,7 @@ const (
 	MultilegModel_USER_DEFINED_NON_SECURITIZED_MULTILEG MultilegModel = "2"
 )
 
-//Enum values for MultilegPriceMethod
+// MultilegPriceMethod field enumeration values.
 type MultilegPriceMethod string
 
 const (
@@ -2411,7 +2411,7 @@ const (
 	MultilegPriceMethod_MULTIPLIED_PRICE                MultilegPriceMethod = "5"
 )
 
-//Enum values for NetGrossInd
+// NetGrossInd field enumeration values.
 type NetGrossInd string
 
 const (
@@ -2419,7 +2419,7 @@ const (
 	NetGrossInd_GROSS NetGrossInd = "2"
 )
 
-//Enum values for NetworkRequestType
+// NetworkRequestType field enumeration values.
 type NetworkRequestType string
 
 const (
@@ -2429,7 +2429,7 @@ const (
 	NetworkRequestType_LEVEL_OF_DETAIL_THEN_NOCOMPIDS_BECOMES_REQUIRED NetworkRequestType = "8"
 )
 
-//Enum values for NetworkStatusResponseType
+// NetworkStatusResponseType field enumeration values.
 type NetworkStatusResponseType string
 
 const (
@@ -2437,7 +2437,7 @@ const (
 	NetworkStatusResponseType_INCREMENTAL_UPDATE NetworkStatusResponseType = "2"
 )
 
-//Enum values for NewsCategory
+// NewsCategory field enumeration values.
 type NewsCategory string
 
 const (
@@ -2448,7 +2448,7 @@ const (
 	NewsCategory_OTHER_NEWS            NewsCategory = "99"
 )
 
-//Enum values for NewsRefType
+// NewsRefType field enumeration values.
 type NewsRefType string
 
 const (
@@ -2457,7 +2457,7 @@ const (
 	NewsRefType_COMPLIMENTARY  NewsRefType = "2"
 )
 
-//Enum values for NoSides
+// NoSides field enumeration values.
 type NoSides string
 
 const (
@@ -2465,7 +2465,7 @@ const (
 	NoSides_BOTH_SIDES NoSides = "2"
 )
 
-//Enum values for NotifyBrokerOfCredit
+// NotifyBrokerOfCredit field enumeration values.
 type NotifyBrokerOfCredit string
 
 const (
@@ -2473,7 +2473,7 @@ const (
 	NotifyBrokerOfCredit_YES NotifyBrokerOfCredit = "Y"
 )
 
-//Enum values for OddLot
+// OddLot field enumeration values.
 type OddLot string
 
 const (
@@ -2481,7 +2481,7 @@ const (
 	OddLot_YES OddLot = "Y"
 )
 
-//Enum values for OpenClose
+// OpenClose field enumeration values.
 type OpenClose string
 
 const (
@@ -2489,7 +2489,7 @@ const (
 	OpenClose_OPEN  OpenClose = "O"
 )
 
-//Enum values for OpenCloseSettlFlag
+// OpenCloseSettlFlag field enumeration values.
 type OpenCloseSettlFlag string
 
 const (
@@ -2501,7 +2501,7 @@ const (
 	OpenCloseSettlFlag_THEORETICAL_PRICE_VALUE          OpenCloseSettlFlag = "5"
 )
 
-//Enum values for OpenCloseSettleFlag
+// OpenCloseSettleFlag field enumeration values.
 type OpenCloseSettleFlag string
 
 const (
@@ -2512,7 +2512,7 @@ const (
 	OpenCloseSettleFlag_PRICE_FROM_PREVIOUS_BUSINESS_DAY OpenCloseSettleFlag = "4"
 )
 
-//Enum values for OptPayoutType
+// OptPayoutType field enumeration values.
 type OptPayoutType string
 
 const (
@@ -2521,7 +2521,7 @@ const (
 	OptPayoutType_BINARY  OptPayoutType = "3"
 )
 
-//Enum values for OrdRejReason
+// OrdRejReason field enumeration values.
 type OrdRejReason string
 
 const (
@@ -2546,7 +2546,7 @@ const (
 	OrdRejReason_OTHER                                      OrdRejReason = "99"
 )
 
-//Enum values for OrdStatus
+// OrdStatus field enumeration values.
 type OrdStatus string
 
 const (
@@ -2567,7 +2567,7 @@ const (
 	OrdStatus_PENDING_REPLACE      OrdStatus = "E"
 )
 
-//Enum values for OrdType
+// OrdType field enumeration values.
 type OrdType string
 
 const (
@@ -2597,7 +2597,7 @@ const (
 	OrdType_COUNTER_ORDER_SELECTION        OrdType = "Q"
 )
 
-//Enum values for OrderCapacity
+// OrderCapacity field enumeration values.
 type OrderCapacity string
 
 const (
@@ -2609,7 +2609,7 @@ const (
 	OrderCapacity_AGENT_FOR_OTHER_MEMBER OrderCapacity = "W"
 )
 
-//Enum values for OrderCategory
+// OrderCategory field enumeration values.
 type OrderCategory string
 
 const (
@@ -2624,7 +2624,7 @@ const (
 	OrderCategory_STREAMING_PRICE            OrderCategory = "9"
 )
 
-//Enum values for OrderDelayUnit
+// OrderDelayUnit field enumeration values.
 type OrderDelayUnit string
 
 const (
@@ -2642,14 +2642,14 @@ const (
 	OrderDelayUnit_NANOSECONDS            OrderDelayUnit = "5"
 )
 
-//Enum values for OrderHandlingInstSource
+// OrderHandlingInstSource field enumeration values.
 type OrderHandlingInstSource string
 
 const (
 	OrderHandlingInstSource_NASD_OATS OrderHandlingInstSource = "1"
 )
 
-//Enum values for OrderRestrictions
+// OrderRestrictions field enumeration values.
 type OrderRestrictions string
 
 const (
@@ -2670,7 +2670,7 @@ const (
 	OrderRestrictions_CROSS                                                                                    OrderRestrictions = "F"
 )
 
-//Enum values for OrigCustOrderCapacity
+// OrigCustOrderCapacity field enumeration values.
 type OrigCustOrderCapacity string
 
 const (
@@ -2680,7 +2680,7 @@ const (
 	OrigCustOrderCapacity_ALL_OTHER                                         OrigCustOrderCapacity = "4"
 )
 
-//Enum values for OwnerType
+// OwnerType field enumeration values.
 type OwnerType string
 
 const (
@@ -2699,7 +2699,7 @@ const (
 	OwnerType_FIDUCIARIES                         OwnerType = "9"
 )
 
-//Enum values for OwnershipType
+// OwnershipType field enumeration values.
 type OwnershipType string
 
 const (
@@ -2708,7 +2708,7 @@ const (
 	OwnershipType_TENANTS_IN_COMMON OwnershipType = "T"
 )
 
-//Enum values for PartyDetailsRequestResult
+// PartyDetailsRequestResult field enumeration values.
 type PartyDetailsRequestResult string
 
 const (
@@ -2722,7 +2722,7 @@ const (
 	PartyDetailsRequestResult_OTHER                                                           PartyDetailsRequestResult = "99"
 )
 
-//Enum values for PartyIDSource
+// PartyIDSource field enumeration values.
 type PartyIDSource string
 
 const (
@@ -2746,7 +2746,7 @@ const (
 	PartyIDSource_DIRECTED_BROKER_THREE_CHARACTER_ACRONYM_AS_DEFINED_IN_ISITC_ETC_BEST_PRACTICE_GUIDELINES_DOCUMENT PartyIDSource = "I"
 )
 
-//Enum values for PartyListResponseType
+// PartyListResponseType field enumeration values.
 type PartyListResponseType string
 
 const (
@@ -2756,7 +2756,7 @@ const (
 	PartyListResponseType_INCLUDE_RISK_LIMIT_INFORMATION                                  PartyListResponseType = "3"
 )
 
-//Enum values for PartyRelationship
+// PartyRelationship field enumeration values.
 type PartyRelationship string
 
 const (
@@ -2799,7 +2799,7 @@ const (
 	PartyRelationship_MEMBER_OF                     PartyRelationship = "9"
 )
 
-//Enum values for PartyRole
+// PartyRole field enumeration values.
 type PartyRole string
 
 const (
@@ -2889,7 +2889,7 @@ const (
 	PartyRole_FUND_MANAGER_CLIENT_ID                                                PartyRole = "9"
 )
 
-//Enum values for PartySubIDType
+// PartySubIDType field enumeration values.
 type PartySubIDType string
 
 const (
@@ -2929,7 +2929,7 @@ const (
 	PartySubIDType_CONTACT_NAME                                                  PartySubIDType = "9"
 )
 
-//Enum values for PaymentMethod
+// PaymentMethod field enumeration values.
 type PaymentMethod string
 
 const (
@@ -2950,7 +2950,7 @@ const (
 	PaymentMethod_DIRECT_DEBIT               PaymentMethod = "9"
 )
 
-//Enum values for PegLimitType
+// PegLimitType field enumeration values.
 type PegLimitType string
 
 const (
@@ -2959,7 +2959,7 @@ const (
 	PegLimitType_OR_WORSE  PegLimitType = "2"
 )
 
-//Enum values for PegMoveType
+// PegMoveType field enumeration values.
 type PegMoveType string
 
 const (
@@ -2967,7 +2967,7 @@ const (
 	PegMoveType_FIXED    PegMoveType = "1"
 )
 
-//Enum values for PegOffsetType
+// PegOffsetType field enumeration values.
 type PegOffsetType string
 
 const (
@@ -2977,7 +2977,7 @@ const (
 	PegOffsetType_PRICE_TIER   PegOffsetType = "3"
 )
 
-//Enum values for PegPriceType
+// PegPriceType field enumeration values.
 type PegPriceType string
 
 const (
@@ -2992,7 +2992,7 @@ const (
 	PegPriceType_PEG_TO_LIMIT_PRICE                                    PegPriceType = "9"
 )
 
-//Enum values for PegRoundDirection
+// PegRoundDirection field enumeration values.
 type PegRoundDirection string
 
 const (
@@ -3000,7 +3000,7 @@ const (
 	PegRoundDirection_MORE_PASSIVE    PegRoundDirection = "2"
 )
 
-//Enum values for PegScope
+// PegScope field enumeration values.
 type PegScope string
 
 const (
@@ -3010,7 +3010,7 @@ const (
 	PegScope_NATIONAL_EXCLUDING_LOCAL PegScope = "4"
 )
 
-//Enum values for PosAmtType
+// PosAmtType field enumeration values.
 type PosAmtType string
 
 const (
@@ -3034,7 +3034,7 @@ const (
 	PosAmtType_VALUE_ADJUSTED_AMOUNT                     PosAmtType = "VADJ"
 )
 
-//Enum values for PosMaintAction
+// PosMaintAction field enumeration values.
 type PosMaintAction string
 
 const (
@@ -3044,7 +3044,7 @@ const (
 	PosMaintAction_REVERSE PosMaintAction = "4"
 )
 
-//Enum values for PosMaintResult
+// PosMaintResult field enumeration values.
 type PosMaintResult string
 
 const (
@@ -3053,7 +3053,7 @@ const (
 	PosMaintResult_OTHER                 PosMaintResult = "99"
 )
 
-//Enum values for PosMaintStatus
+// PosMaintStatus field enumeration values.
 type PosMaintStatus string
 
 const (
@@ -3064,7 +3064,7 @@ const (
 	PosMaintStatus_COMPLETED_WITH_WARNINGS PosMaintStatus = "4"
 )
 
-//Enum values for PosQtyStatus
+// PosQtyStatus field enumeration values.
 type PosQtyStatus string
 
 const (
@@ -3073,7 +3073,7 @@ const (
 	PosQtyStatus_REJECTED  PosQtyStatus = "2"
 )
 
-//Enum values for PosReqResult
+// PosReqResult field enumeration values.
 type PosReqResult string
 
 const (
@@ -3085,7 +3085,7 @@ const (
 	PosReqResult_OTHER                                  PosReqResult = "99"
 )
 
-//Enum values for PosReqStatus
+// PosReqStatus field enumeration values.
 type PosReqStatus string
 
 const (
@@ -3094,7 +3094,7 @@ const (
 	PosReqStatus_REJECTED                PosReqStatus = "2"
 )
 
-//Enum values for PosReqType
+// PosReqType field enumeration values.
 type PosReqType string
 
 const (
@@ -3107,7 +3107,7 @@ const (
 	PosReqType_DELTA_POSITIONS     PosReqType = "6"
 )
 
-//Enum values for PosTransType
+// PosTransType field enumeration values.
 type PosTransType string
 
 const (
@@ -3119,7 +3119,7 @@ const (
 	PosTransType_LARGE_TRADER_SUBMISSION                       PosTransType = "6"
 )
 
-//Enum values for PosType
+// PosType field enumeration values.
 type PosType string
 
 const (
@@ -3152,7 +3152,7 @@ const (
 	PosType_CROSS_MARGIN_QTY               PosType = "XM"
 )
 
-//Enum values for PositionEffect
+// PositionEffect field enumeration values.
 type PositionEffect string
 
 const (
@@ -3164,7 +3164,7 @@ const (
 	PositionEffect_ROLLED                   PositionEffect = "R"
 )
 
-//Enum values for PossDupFlag
+// PossDupFlag field enumeration values.
 type PossDupFlag string
 
 const (
@@ -3172,7 +3172,7 @@ const (
 	PossDupFlag_YES PossDupFlag = "Y"
 )
 
-//Enum values for PossResend
+// PossResend field enumeration values.
 type PossResend string
 
 const (
@@ -3180,7 +3180,7 @@ const (
 	PossResend_YES PossResend = "Y"
 )
 
-//Enum values for PreallocMethod
+// PreallocMethod field enumeration values.
 type PreallocMethod string
 
 const (
@@ -3188,7 +3188,7 @@ const (
 	PreallocMethod_DO_NOT_PRO_RATA PreallocMethod = "1"
 )
 
-//Enum values for PreviouslyReported
+// PreviouslyReported field enumeration values.
 type PreviouslyReported string
 
 const (
@@ -3196,7 +3196,7 @@ const (
 	PreviouslyReported_YES PreviouslyReported = "Y"
 )
 
-//Enum values for PriceLimitType
+// PriceLimitType field enumeration values.
 type PriceLimitType string
 
 const (
@@ -3205,7 +3205,7 @@ const (
 	PriceLimitType_PERCENTAGE PriceLimitType = "2"
 )
 
-//Enum values for PriceProtectionScope
+// PriceProtectionScope field enumeration values.
 type PriceProtectionScope string
 
 const (
@@ -3215,7 +3215,7 @@ const (
 	PriceProtectionScope_GLOBAL   PriceProtectionScope = "3"
 )
 
-//Enum values for PriceQuoteMethod
+// PriceQuoteMethod field enumeration values.
 type PriceQuoteMethod string
 
 const (
@@ -3225,7 +3225,7 @@ const (
 	PriceQuoteMethod_STANDARD            PriceQuoteMethod = "STD"
 )
 
-//Enum values for PriceType
+// PriceType field enumeration values.
 type PriceType string
 
 const (
@@ -3249,7 +3249,7 @@ const (
 	PriceType_YIELD                              PriceType = "9"
 )
 
-//Enum values for PriorityIndicator
+// PriorityIndicator field enumeration values.
 type PriorityIndicator string
 
 const (
@@ -3257,7 +3257,7 @@ const (
 	PriorityIndicator_LOST_PRIORITY_AS_RESULT_OF_ORDER_CHANGE PriorityIndicator = "1"
 )
 
-//Enum values for ProcessCode
+// ProcessCode field enumeration values.
 type ProcessCode string
 
 const (
@@ -3270,7 +3270,7 @@ const (
 	ProcessCode_PLAN_SPONSOR         ProcessCode = "6"
 )
 
-//Enum values for Product
+// Product field enumeration values.
 type Product string
 
 const (
@@ -3289,7 +3289,7 @@ const (
 	Product_MONEYMARKET Product = "9"
 )
 
-//Enum values for ProgRptReqs
+// ProgRptReqs field enumeration values.
 type ProgRptReqs string
 
 const (
@@ -3298,7 +3298,7 @@ const (
 	ProgRptReqs_REAL_TIME_EXECUTION_REPORTS                                                                         ProgRptReqs = "3"
 )
 
-//Enum values for PublishTrdIndicator
+// PublishTrdIndicator field enumeration values.
 type PublishTrdIndicator string
 
 const (
@@ -3306,7 +3306,7 @@ const (
 	PublishTrdIndicator_YES PublishTrdIndicator = "Y"
 )
 
-//Enum values for PutOrCall
+// PutOrCall field enumeration values.
 type PutOrCall string
 
 const (
@@ -3314,7 +3314,7 @@ const (
 	PutOrCall_CALL PutOrCall = "1"
 )
 
-//Enum values for QtyType
+// QtyType field enumeration values.
 type QtyType string
 
 const (
@@ -3323,7 +3323,7 @@ const (
 	QtyType_UNITS_OF_MEASURE_PER_TIME_UNIT QtyType = "2"
 )
 
-//Enum values for QuantityType
+// QuantityType field enumeration values.
 type QuantityType string
 
 const (
@@ -3337,7 +3337,7 @@ const (
 	QuantityType_PAR          QuantityType = "8"
 )
 
-//Enum values for QuoteAckStatus
+// QuoteAckStatus field enumeration values.
 type QuoteAckStatus string
 
 const (
@@ -3349,7 +3349,7 @@ const (
 	QuoteAckStatus_REJECTED                   QuoteAckStatus = "5"
 )
 
-//Enum values for QuoteCancelType
+// QuoteCancelType field enumeration values.
 type QuoteCancelType string
 
 const (
@@ -3363,7 +3363,7 @@ const (
 	QuoteCancelType_CANCEL_FOR_ISSUER_OF_UNDERLYING_SECURITY QuoteCancelType = "8"
 )
 
-//Enum values for QuoteCondition
+// QuoteCondition field enumeration values.
 type QuoteCondition string
 
 const (
@@ -3429,7 +3429,7 @@ const (
 	QuoteCondition_SUSPENDED_SAM                       QuoteCondition = "z"
 )
 
-//Enum values for QuoteEntryRejectReason
+// QuoteEntryRejectReason field enumeration values.
 type QuoteEntryRejectReason string
 
 const (
@@ -3445,7 +3445,7 @@ const (
 	QuoteEntryRejectReason_OTHER                            QuoteEntryRejectReason = "99"
 )
 
-//Enum values for QuoteEntryStatus
+// QuoteEntryStatus field enumeration values.
 type QuoteEntryStatus string
 
 const (
@@ -3460,7 +3460,7 @@ const (
 	QuoteEntryStatus_EXPIRED                      QuoteEntryStatus = "7"
 )
 
-//Enum values for QuotePriceType
+// QuotePriceType field enumeration values.
 type QuotePriceType string
 
 const (
@@ -3476,7 +3476,7 @@ const (
 	QuotePriceType_YIELD_SPREAD QuotePriceType = "9"
 )
 
-//Enum values for QuoteRejectReason
+// QuoteRejectReason field enumeration values.
 type QuoteRejectReason string
 
 const (
@@ -3496,7 +3496,7 @@ const (
 	QuoteRejectReason_OTHER                                            QuoteRejectReason = "99"
 )
 
-//Enum values for QuoteRequestRejectReason
+// QuoteRequestRejectReason field enumeration values.
 type QuoteRequestRejectReason string
 
 const (
@@ -3514,7 +3514,7 @@ const (
 	QuoteRequestRejectReason_OTHER                           QuoteRequestRejectReason = "99"
 )
 
-//Enum values for QuoteRequestType
+// QuoteRequestType field enumeration values.
 type QuoteRequestType string
 
 const (
@@ -3522,7 +3522,7 @@ const (
 	QuoteRequestType_AUTOMATIC QuoteRequestType = "2"
 )
 
-//Enum values for QuoteRespType
+// QuoteRespType field enumeration values.
 type QuoteRespType string
 
 const (
@@ -3536,7 +3536,7 @@ const (
 	QuoteRespType_TIMED_OUT QuoteRespType = "8"
 )
 
-//Enum values for QuoteResponseLevel
+// QuoteResponseLevel field enumeration values.
 type QuoteResponseLevel string
 
 const (
@@ -3546,7 +3546,7 @@ const (
 	QuoteResponseLevel_SUMMARY_ACKNOWLEDGEMENT                       QuoteResponseLevel = "3"
 )
 
-//Enum values for QuoteStatus
+// QuoteStatus field enumeration values.
 type QuoteStatus string
 
 const (
@@ -3573,7 +3573,7 @@ const (
 	QuoteStatus_QUOTE_NOT_FOUND                 QuoteStatus = "9"
 )
 
-//Enum values for QuoteType
+// QuoteType field enumeration values.
 type QuoteType string
 
 const (
@@ -3583,7 +3583,7 @@ const (
 	QuoteType_COUNTER              QuoteType = "3"
 )
 
-//Enum values for RateSource
+// RateSource field enumeration values.
 type RateSource string
 
 const (
@@ -3593,7 +3593,7 @@ const (
 	RateSource_OTHER     RateSource = "99"
 )
 
-//Enum values for RateSourceType
+// RateSourceType field enumeration values.
 type RateSourceType string
 
 const (
@@ -3601,7 +3601,7 @@ const (
 	RateSourceType_SECONDARY RateSourceType = "1"
 )
 
-//Enum values for RefOrdIDReason
+// RefOrdIDReason field enumeration values.
 type RefOrdIDReason string
 
 const (
@@ -3610,7 +3610,7 @@ const (
 	RefOrdIDReason_ORDER_CHANGED          RefOrdIDReason = "2"
 )
 
-//Enum values for RefOrderIDSource
+// RefOrderIDSource field enumeration values.
 type RefOrderIDSource string
 
 const (
@@ -3621,7 +3621,7 @@ const (
 	RefOrderIDSource_ORIGINAL_ORDER_ID RefOrderIDSource = "4"
 )
 
-//Enum values for RegistRejReasonCode
+// RegistRejReasonCode field enumeration values.
 type RegistRejReasonCode string
 
 const (
@@ -3646,7 +3646,7 @@ const (
 	RegistRejReasonCode_OTHER                                              RegistRejReasonCode = "99"
 )
 
-//Enum values for RegistStatus
+// RegistStatus field enumeration values.
 type RegistStatus string
 
 const (
@@ -3656,7 +3656,7 @@ const (
 	RegistStatus_REJECTED RegistStatus = "R"
 )
 
-//Enum values for RegistTransType
+// RegistTransType field enumeration values.
 type RegistTransType string
 
 const (
@@ -3665,7 +3665,7 @@ const (
 	RegistTransType_CANCEL  RegistTransType = "2"
 )
 
-//Enum values for ReportToExch
+// ReportToExch field enumeration values.
 type ReportToExch string
 
 const (
@@ -3673,7 +3673,7 @@ const (
 	ReportToExch_YES ReportToExch = "Y"
 )
 
-//Enum values for ResetSeqNumFlag
+// ResetSeqNumFlag field enumeration values.
 type ResetSeqNumFlag string
 
 const (
@@ -3681,7 +3681,7 @@ const (
 	ResetSeqNumFlag_YES ResetSeqNumFlag = "Y"
 )
 
-//Enum values for RespondentType
+// RespondentType field enumeration values.
 type RespondentType string
 
 const (
@@ -3691,7 +3691,7 @@ const (
 	RespondentType_PRIMARY_MARKET_MAKER          RespondentType = "4"
 )
 
-//Enum values for ResponseTransportType
+// ResponseTransportType field enumeration values.
 type ResponseTransportType string
 
 const (
@@ -3699,7 +3699,7 @@ const (
 	ResponseTransportType_OUT_OF_BAND ResponseTransportType = "1"
 )
 
-//Enum values for RestructuringType
+// RestructuringType field enumeration values.
 type RestructuringType string
 
 const (
@@ -3709,7 +3709,7 @@ const (
 	RestructuringType_NO_RESTRUCTURING_SPECIFIED RestructuringType = "XR"
 )
 
-//Enum values for RiskInstrumentOperator
+// RiskInstrumentOperator field enumeration values.
 type RiskInstrumentOperator string
 
 const (
@@ -3717,7 +3717,7 @@ const (
 	RiskInstrumentOperator_EXCLUDE RiskInstrumentOperator = "2"
 )
 
-//Enum values for RiskLimitType
+// RiskLimitType field enumeration values.
 type RiskLimitType string
 
 const (
@@ -3728,7 +3728,7 @@ const (
 	RiskLimitType_SHORT_LIMIT RiskLimitType = "5"
 )
 
-//Enum values for RoundingDirection
+// RoundingDirection field enumeration values.
 type RoundingDirection string
 
 const (
@@ -3737,7 +3737,7 @@ const (
 	RoundingDirection_ROUND_UP         RoundingDirection = "2"
 )
 
-//Enum values for RoutingType
+// RoutingType field enumeration values.
 type RoutingType string
 
 const (
@@ -3747,7 +3747,7 @@ const (
 	RoutingType_BLOCK_LIST  RoutingType = "4"
 )
 
-//Enum values for Rule80A
+// Rule80A field enumeration values.
 type Rule80A string
 
 const (
@@ -3776,7 +3776,7 @@ const (
 	Rule80A_SHORT_EXEMPT_TRANSACTION_FOR_NON_MEMBER_COMPETING_MARKET_MAKER                                             Rule80A = "Z"
 )
 
-//Enum values for Scope
+// Scope field enumeration values.
 type Scope string
 
 const (
@@ -3785,7 +3785,7 @@ const (
 	Scope_GLOBAL       Scope = "3"
 )
 
-//Enum values for SecDefStatus
+// SecDefStatus field enumeration values.
 type SecDefStatus string
 
 const (
@@ -3796,7 +3796,7 @@ const (
 	SecDefStatus_INVALID_DEFINITION_REQUEST SecDefStatus = "4"
 )
 
-//Enum values for SecurityIDSource
+// SecurityIDSource field enumeration values.
 type SecurityIDSource string
 
 const (
@@ -3824,7 +3824,7 @@ const (
 	SecurityIDSource_MARKETPLACE_ASSIGNED_IDENTIFIER  SecurityIDSource = "M"
 )
 
-//Enum values for SecurityListRequestType
+// SecurityListRequestType field enumeration values.
 type SecurityListRequestType string
 
 const (
@@ -3836,7 +3836,7 @@ const (
 	SecurityListRequestType_MARKETID_OR_MARKETID_PLUS_MARKETSEGMENTID SecurityListRequestType = "5"
 )
 
-//Enum values for SecurityListType
+// SecurityListType field enumeration values.
 type SecurityListType string
 
 const (
@@ -3846,7 +3846,7 @@ const (
 	SecurityListType_NEWSPAPER_LIST          SecurityListType = "4"
 )
 
-//Enum values for SecurityListTypeSource
+// SecurityListTypeSource field enumeration values.
 type SecurityListTypeSource string
 
 const (
@@ -3855,7 +3855,7 @@ const (
 	SecurityListTypeSource_GICS  SecurityListTypeSource = "3"
 )
 
-//Enum values for SecurityRequestResult
+// SecurityRequestResult field enumeration values.
 type SecurityRequestResult string
 
 const (
@@ -3867,7 +3867,7 @@ const (
 	SecurityRequestResult_REQUEST_FOR_INSTRUMENT_DATA_NOT_SUPPORTED          SecurityRequestResult = "5"
 )
 
-//Enum values for SecurityRequestType
+// SecurityRequestType field enumeration values.
 type SecurityRequestType string
 
 const (
@@ -3883,7 +3883,7 @@ const (
 	SecurityRequestType_MARKETID_OR_MARKETID_PLUS_MARKETSEGMENTID                 SecurityRequestType = "9"
 )
 
-//Enum values for SecurityResponseType
+// SecurityResponseType field enumeration values.
 type SecurityResponseType string
 
 const (
@@ -3895,7 +3895,7 @@ const (
 	SecurityResponseType_CANNOT_MATCH_SELECTION_CRITERIA                                     SecurityResponseType = "6"
 )
 
-//Enum values for SecurityStatus
+// SecurityStatus field enumeration values.
 type SecurityStatus string
 
 const (
@@ -3903,7 +3903,7 @@ const (
 	SecurityStatus_INACTIVE SecurityStatus = "2"
 )
 
-//Enum values for SecurityTradingEvent
+// SecurityTradingEvent field enumeration values.
 type SecurityTradingEvent string
 
 const (
@@ -3917,7 +3917,7 @@ const (
 	SecurityTradingEvent_CHANGE_OF_MARKET_DEPTH              SecurityTradingEvent = "8"
 )
 
-//Enum values for SecurityTradingStatus
+// SecurityTradingStatus field enumeration values.
 type SecurityTradingStatus string
 
 const (
@@ -3949,7 +3949,7 @@ const (
 	SecurityTradingStatus_MARKET_ON_CLOSE_IMBALANCE_BUY  SecurityTradingStatus = "9"
 )
 
-//Enum values for SecurityType
+// SecurityType field enumeration values.
 type SecurityType string
 
 const (
@@ -4085,7 +4085,7 @@ const (
 	SecurityType_CATS_TIGERS_LIONS                                     SecurityType = "ZOO"
 )
 
-//Enum values for SecurityUpdateAction
+// SecurityUpdateAction field enumeration values.
 type SecurityUpdateAction string
 
 const (
@@ -4094,7 +4094,7 @@ const (
 	SecurityUpdateAction_MODIFY SecurityUpdateAction = "M"
 )
 
-//Enum values for Seniority
+// Seniority field enumeration values.
 type Seniority string
 
 const (
@@ -4103,7 +4103,7 @@ const (
 	Seniority_SENIOR         Seniority = "SR"
 )
 
-//Enum values for SessionRejectReason
+// SessionRejectReason field enumeration values.
 type SessionRejectReason string
 
 const (
@@ -4129,7 +4129,7 @@ const (
 	SessionRejectReason_OTHER                                          SessionRejectReason = "99"
 )
 
-//Enum values for SessionStatus
+// SessionStatus field enumeration values.
 type SessionStatus string
 
 const (
@@ -4144,7 +4144,7 @@ const (
 	SessionStatus_PASSWORD_EXPIRED                                 SessionStatus = "8"
 )
 
-//Enum values for SettlCurrFxRateCalc
+// SettlCurrFxRateCalc field enumeration values.
 type SettlCurrFxRateCalc string
 
 const (
@@ -4152,7 +4152,7 @@ const (
 	SettlCurrFxRateCalc_MULTIPLY SettlCurrFxRateCalc = "M"
 )
 
-//Enum values for SettlDeliveryType
+// SettlDeliveryType field enumeration values.
 type SettlDeliveryType string
 
 const (
@@ -4162,7 +4162,7 @@ const (
 	SettlDeliveryType_HOLD_IN_CUSTODY        SettlDeliveryType = "3"
 )
 
-//Enum values for SettlInstMode
+// SettlInstMode field enumeration values.
 type SettlInstMode string
 
 const (
@@ -4174,7 +4174,7 @@ const (
 	SettlInstMode_REQUEST_REJECT                         SettlInstMode = "5"
 )
 
-//Enum values for SettlInstReqRejCode
+// SettlInstReqRejCode field enumeration values.
 type SettlInstReqRejCode string
 
 const (
@@ -4184,7 +4184,7 @@ const (
 	SettlInstReqRejCode_OTHER                                     SettlInstReqRejCode = "99"
 )
 
-//Enum values for SettlInstSource
+// SettlInstSource field enumeration values.
 type SettlInstSource string
 
 const (
@@ -4193,7 +4193,7 @@ const (
 	SettlInstSource_INVESTOR                  SettlInstSource = "3"
 )
 
-//Enum values for SettlInstTransType
+// SettlInstTransType field enumeration values.
 type SettlInstTransType string
 
 const (
@@ -4203,7 +4203,7 @@ const (
 	SettlInstTransType_RESTATE SettlInstTransType = "T"
 )
 
-//Enum values for SettlLocation
+// SettlLocation field enumeration values.
 type SettlLocation string
 
 const (
@@ -4216,7 +4216,7 @@ const (
 	SettlLocation_PARTICIPANT_TRUST_COMPANY    SettlLocation = "PTC"
 )
 
-//Enum values for SettlMethod
+// SettlMethod field enumeration values.
 type SettlMethod string
 
 const (
@@ -4224,7 +4224,7 @@ const (
 	SettlMethod_PHYSICAL_SETTLEMENT_REQUIRED SettlMethod = "P"
 )
 
-//Enum values for SettlObligMode
+// SettlObligMode field enumeration values.
 type SettlObligMode string
 
 const (
@@ -4232,7 +4232,7 @@ const (
 	SettlObligMode_FINAL       SettlObligMode = "2"
 )
 
-//Enum values for SettlObligSource
+// SettlObligSource field enumeration values.
 type SettlObligSource string
 
 const (
@@ -4241,7 +4241,7 @@ const (
 	SettlObligSource_INVESTOR                     SettlObligSource = "3"
 )
 
-//Enum values for SettlObligTransType
+// SettlObligTransType field enumeration values.
 type SettlObligTransType string
 
 const (
@@ -4251,7 +4251,7 @@ const (
 	SettlObligTransType_RESTATE SettlObligTransType = "T"
 )
 
-//Enum values for SettlPriceType
+// SettlPriceType field enumeration values.
 type SettlPriceType string
 
 const (
@@ -4259,7 +4259,7 @@ const (
 	SettlPriceType_THEORETICAL SettlPriceType = "2"
 )
 
-//Enum values for SettlSessID
+// SettlSessID field enumeration values.
 type SettlSessID string
 
 const (
@@ -4269,7 +4269,7 @@ const (
 	SettlSessID_REGULAR_TRADING_HOURS    SettlSessID = "RTH"
 )
 
-//Enum values for SettlType
+// SettlType field enumeration values.
 type SettlType string
 
 const (
@@ -4287,7 +4287,7 @@ const (
 	SettlType_FX_SPOT_NEXT_SETTLEMENT SettlType = "C"
 )
 
-//Enum values for SettlmntTyp
+// SettlmntTyp field enumeration values.
 type SettlmntTyp string
 
 const (
@@ -4304,7 +4304,7 @@ const (
 	SettlmntTyp_T_PLUS_1           SettlmntTyp = "A"
 )
 
-//Enum values for ShortSaleReason
+// ShortSaleReason field enumeration values.
 type ShortSaleReason string
 
 const (
@@ -4316,7 +4316,7 @@ const (
 	ShortSaleReason_QSR_OR_AGU_CONTRA_SIDE_SOLD_SHORT_EXEMPT ShortSaleReason = "5"
 )
 
-//Enum values for Side
+// Side field enumeration values.
 type Side string
 
 const (
@@ -4338,7 +4338,7 @@ const (
 	Side_BORROW             Side = "G"
 )
 
-//Enum values for SideMultiLegReportingType
+// SideMultiLegReportingType field enumeration values.
 type SideMultiLegReportingType string
 
 const (
@@ -4347,7 +4347,7 @@ const (
 	SideMultiLegReportingType_MULTILEG_SECURITY                     SideMultiLegReportingType = "3"
 )
 
-//Enum values for SideTrdSubTyp
+// SideTrdSubTyp field enumeration values.
 type SideTrdSubTyp string
 
 const (
@@ -4364,7 +4364,7 @@ const (
 	SideTrdSubTyp_TRANSACTION_FROM_EXERCISE                       SideTrdSubTyp = "9"
 )
 
-//Enum values for SideValueInd
+// SideValueInd field enumeration values.
 type SideValueInd string
 
 const (
@@ -4372,7 +4372,7 @@ const (
 	SideValueInd_SIDE_VALUE_2 SideValueInd = "2"
 )
 
-//Enum values for SolicitedFlag
+// SolicitedFlag field enumeration values.
 type SolicitedFlag string
 
 const (
@@ -4380,7 +4380,7 @@ const (
 	SolicitedFlag_YES SolicitedFlag = "Y"
 )
 
-//Enum values for StandInstDbType
+// StandInstDbType field enumeration values.
 type StandInstDbType string
 
 const (
@@ -4391,7 +4391,7 @@ const (
 	StandInstDbType_ACCOUNTNET         StandInstDbType = "4"
 )
 
-//Enum values for StatsType
+// StatsType field enumeration values.
 type StatsType string
 
 const (
@@ -4401,7 +4401,7 @@ const (
 	StatsType_TURNOVER      StatsType = "4"
 )
 
-//Enum values for StatusValue
+// StatusValue field enumeration values.
 type StatusValue string
 
 const (
@@ -4411,7 +4411,7 @@ const (
 	StatusValue_IN_PROCESS      StatusValue = "4"
 )
 
-//Enum values for StipulationType
+// StipulationType field enumeration values.
 type StipulationType string
 
 const (
@@ -4499,7 +4499,7 @@ const (
 	StipulationType_YIELD_TO_MATURITY                                  StipulationType = "YTM"
 )
 
-//Enum values for StrategyParameterType
+// StrategyParameterType field enumeration values.
 type StrategyParameterType string
 
 const (
@@ -4534,7 +4534,7 @@ const (
 	StrategyParameterType_PRICEOFFSET         StrategyParameterType = "9"
 )
 
-//Enum values for StreamAsgnAckType
+// StreamAsgnAckType field enumeration values.
 type StreamAsgnAckType string
 
 const (
@@ -4542,7 +4542,7 @@ const (
 	StreamAsgnAckType_ASSIGNMENT_REJECTED StreamAsgnAckType = "1"
 )
 
-//Enum values for StreamAsgnRejReason
+// StreamAsgnRejReason field enumeration values.
 type StreamAsgnRejReason string
 
 const (
@@ -4553,7 +4553,7 @@ const (
 	StreamAsgnRejReason_OTHER                            StreamAsgnRejReason = "99"
 )
 
-//Enum values for StreamAsgnReqType
+// StreamAsgnReqType field enumeration values.
 type StreamAsgnReqType string
 
 const (
@@ -4561,7 +4561,7 @@ const (
 	StreamAsgnReqType_STREAM_ASSIGNMENT_FOR_EXISTING_CUSTOMER StreamAsgnReqType = "2"
 )
 
-//Enum values for StreamAsgnType
+// StreamAsgnType field enumeration values.
 type StreamAsgnType string
 
 const (
@@ -4570,7 +4570,7 @@ const (
 	StreamAsgnType_TERMINATE_UNASSIGN StreamAsgnType = "3"
 )
 
-//Enum values for StrikePriceBoundaryMethod
+// StrikePriceBoundaryMethod field enumeration values.
 type StrikePriceBoundaryMethod string
 
 const (
@@ -4581,7 +4581,7 @@ const (
 	StrikePriceBoundaryMethod_GREATER_THAN_UNDERLYING_IS_IN_THE_MONEY                    StrikePriceBoundaryMethod = "5"
 )
 
-//Enum values for StrikePriceDeterminationMethod
+// StrikePriceDeterminationMethod field enumeration values.
 type StrikePriceDeterminationMethod string
 
 const (
@@ -4591,7 +4591,7 @@ const (
 	StrikePriceDeterminationMethod_STRIKE_SET_TO_OPTIMAL_VALUE                                                        StrikePriceDeterminationMethod = "4"
 )
 
-//Enum values for SubscriptionRequestType
+// SubscriptionRequestType field enumeration values.
 type SubscriptionRequestType string
 
 const (
@@ -4600,7 +4600,7 @@ const (
 	SubscriptionRequestType_DISABLE_PREVIOUS_SNAPSHOT_PLUS_UPDATE_REQUEST SubscriptionRequestType = "2"
 )
 
-//Enum values for SymbolSfx
+// SymbolSfx field enumeration values.
 type SymbolSfx string
 
 const (
@@ -4608,7 +4608,7 @@ const (
 	SymbolSfx_WHEN_ISSUED_FOR_A_SECURITY_TO_BE_REISSUED_UNDER_AN_OLD_CUSIP_OR_ISIN SymbolSfx = "WI"
 )
 
-//Enum values for TargetStrategy
+// TargetStrategy field enumeration values.
 type TargetStrategy string
 
 const (
@@ -4618,7 +4618,7 @@ const (
 	TargetStrategy_MININIZE_MARKET_IMPACT                                        TargetStrategy = "3"
 )
 
-//Enum values for TaxAdvantageType
+// TaxAdvantageType field enumeration values.
 type TaxAdvantageType string
 
 const (
@@ -4655,7 +4655,7 @@ const (
 	TaxAdvantageType_OTHER                            TaxAdvantageType = "999"
 )
 
-//Enum values for TerminationType
+// TerminationType field enumeration values.
 type TerminationType string
 
 const (
@@ -4665,7 +4665,7 @@ const (
 	TerminationType_OPEN      TerminationType = "4"
 )
 
-//Enum values for TestMessageIndicator
+// TestMessageIndicator field enumeration values.
 type TestMessageIndicator string
 
 const (
@@ -4673,7 +4673,7 @@ const (
 	TestMessageIndicator_YES TestMessageIndicator = "Y"
 )
 
-//Enum values for TickDirection
+// TickDirection field enumeration values.
 type TickDirection string
 
 const (
@@ -4683,7 +4683,7 @@ const (
 	TickDirection_ZERO_MINUS_TICK TickDirection = "3"
 )
 
-//Enum values for TickRuleType
+// TickRuleType field enumeration values.
 type TickRuleType string
 
 const (
@@ -4694,7 +4694,7 @@ const (
 	TickRuleType_SETTLED_AS_A_SPREAD_LEG TickRuleType = "4"
 )
 
-//Enum values for TimeInForce
+// TimeInForce field enumeration values.
 type TimeInForce string
 
 const (
@@ -4710,7 +4710,7 @@ const (
 	TimeInForce_AT_CROSSING           TimeInForce = "9"
 )
 
-//Enum values for TimeUnit
+// TimeUnit field enumeration values.
 type TimeUnit string
 
 const (
@@ -4723,7 +4723,7 @@ const (
 	TimeUnit_YEAR   TimeUnit = "Yr"
 )
 
-//Enum values for TradSesEvent
+// TradSesEvent field enumeration values.
 type TradSesEvent string
 
 const (
@@ -4733,7 +4733,7 @@ const (
 	TradSesEvent_CHANGE_OF_TRADING_STATUS     TradSesEvent = "3"
 )
 
-//Enum values for TradSesMethod
+// TradSesMethod field enumeration values.
 type TradSesMethod string
 
 const (
@@ -4742,7 +4742,7 @@ const (
 	TradSesMethod_TWO_PARTY   TradSesMethod = "3"
 )
 
-//Enum values for TradSesMode
+// TradSesMode field enumeration values.
 type TradSesMode string
 
 const (
@@ -4751,7 +4751,7 @@ const (
 	TradSesMode_PRODUCTION TradSesMode = "3"
 )
 
-//Enum values for TradSesStatus
+// TradSesStatus field enumeration values.
 type TradSesStatus string
 
 const (
@@ -4764,7 +4764,7 @@ const (
 	TradSesStatus_REQUEST_REJECTED TradSesStatus = "6"
 )
 
-//Enum values for TradSesStatusRejReason
+// TradSesStatusRejReason field enumeration values.
 type TradSesStatusRejReason string
 
 const (
@@ -4772,7 +4772,7 @@ const (
 	TradSesStatusRejReason_OTHER                               TradSesStatusRejReason = "99"
 )
 
-//Enum values for TradeAllocIndicator
+// TradeAllocIndicator field enumeration values.
 type TradeAllocIndicator string
 
 const (
@@ -4784,7 +4784,7 @@ const (
 	TradeAllocIndicator_ALLOCATION_TO_CLAIM_ACCOUNT            TradeAllocIndicator = "5"
 )
 
-//Enum values for TradeCondition
+// TradeCondition field enumeration values.
 type TradeCondition string
 
 const (
@@ -4867,7 +4867,7 @@ const (
 	TradeCondition_ADJUSTED_ETH                            TradeCondition = "z"
 )
 
-//Enum values for TradeHandlingInstr
+// TradeHandlingInstr field enumeration values.
 type TradeHandlingInstr string
 
 const (
@@ -4879,7 +4879,7 @@ const (
 	TradeHandlingInstr_TWO_PARTY_REPORT_FOR_CLAIM        TradeHandlingInstr = "5"
 )
 
-//Enum values for TradePublishIndicator
+// TradePublishIndicator field enumeration values.
 type TradePublishIndicator string
 
 const (
@@ -4888,7 +4888,7 @@ const (
 	TradePublishIndicator_DEFERRED_PUBLICATION TradePublishIndicator = "2"
 )
 
-//Enum values for TradeReportRejectReason
+// TradeReportRejectReason field enumeration values.
 type TradeReportRejectReason string
 
 const (
@@ -4900,7 +4900,7 @@ const (
 	TradeReportRejectReason_OTHER                         TradeReportRejectReason = "99"
 )
 
-//Enum values for TradeReportTransType
+// TradeReportTransType field enumeration values.
 type TradeReportTransType string
 
 const (
@@ -4912,7 +4912,7 @@ const (
 	TradeReportTransType_CANCEL_DUE_TO_BACK_OUT_OF_TRADE TradeReportTransType = "5"
 )
 
-//Enum values for TradeReportType
+// TradeReportType field enumeration values.
 type TradeReportType string
 
 const (
@@ -4934,7 +4934,7 @@ const (
 	TradeReportType_INVALID_CMTA                TradeReportType = "9"
 )
 
-//Enum values for TradeRequestResult
+// TradeRequestResult field enumeration values.
 type TradeRequestResult string
 
 const (
@@ -4949,7 +4949,7 @@ const (
 	TradeRequestResult_OTHER                            TradeRequestResult = "99"
 )
 
-//Enum values for TradeRequestStatus
+// TradeRequestStatus field enumeration values.
 type TradeRequestStatus string
 
 const (
@@ -4958,7 +4958,7 @@ const (
 	TradeRequestStatus_REJECTED  TradeRequestStatus = "2"
 )
 
-//Enum values for TradeRequestType
+// TradeRequestType field enumeration values.
 type TradeRequestType string
 
 const (
@@ -4969,7 +4969,7 @@ const (
 	TradeRequestType_ADVISORIES_THAT_MATCH_CRITERIA                       TradeRequestType = "4"
 )
 
-//Enum values for TradeType
+// TradeType field enumeration values.
 type TradeType string
 
 const (
@@ -4979,7 +4979,7 @@ const (
 	TradeType_RISK_TRADE       TradeType = "R"
 )
 
-//Enum values for TradedFlatSwitch
+// TradedFlatSwitch field enumeration values.
 type TradedFlatSwitch string
 
 const (
@@ -4987,7 +4987,7 @@ const (
 	TradedFlatSwitch_YES TradedFlatSwitch = "Y"
 )
 
-//Enum values for TradingSessionID
+// TradingSessionID field enumeration values.
 type TradingSessionID string
 
 const (
@@ -4999,7 +4999,7 @@ const (
 	TradingSessionID_AFTER_HOURS TradingSessionID = "6"
 )
 
-//Enum values for TradingSessionSubID
+// TradingSessionSubID field enumeration values.
 type TradingSessionSubID string
 
 const (
@@ -5012,7 +5012,7 @@ const (
 	TradingSessionSubID_QUIESCENT                  TradingSessionSubID = "7"
 )
 
-//Enum values for TrdRegTimestampType
+// TrdRegTimestampType field enumeration values.
 type TrdRegTimestampType string
 
 const (
@@ -5025,7 +5025,7 @@ const (
 	TrdRegTimestampType_SUBMISSION_TO_CLEARING TrdRegTimestampType = "7"
 )
 
-//Enum values for TrdRptStatus
+// TrdRptStatus field enumeration values.
 type TrdRptStatus string
 
 const (
@@ -5034,7 +5034,7 @@ const (
 	TrdRptStatus_ACCEPTED_WITH_ERRORS TrdRptStatus = "3"
 )
 
-//Enum values for TrdSubType
+// TrdSubType field enumeration values.
 type TrdSubType string
 
 const (
@@ -5078,7 +5078,7 @@ const (
 	TrdSubType_TRANSACTION_FROM_EXERCISE                       TrdSubType = "9"
 )
 
-//Enum values for TrdType
+// TrdType field enumeration values.
 type TrdType string
 
 const (
@@ -5139,7 +5139,7 @@ const (
 	TrdType_PRIOR_REFERENCE_PRICE_TRADE          TrdType = "9"
 )
 
-//Enum values for TriggerAction
+// TriggerAction field enumeration values.
 type TriggerAction string
 
 const (
@@ -5148,7 +5148,7 @@ const (
 	TriggerAction_CANCEL   TriggerAction = "3"
 )
 
-//Enum values for TriggerOrderType
+// TriggerOrderType field enumeration values.
 type TriggerOrderType string
 
 const (
@@ -5156,7 +5156,7 @@ const (
 	TriggerOrderType_LIMIT  TriggerOrderType = "2"
 )
 
-//Enum values for TriggerPriceDirection
+// TriggerPriceDirection field enumeration values.
 type TriggerPriceDirection string
 
 const (
@@ -5164,7 +5164,7 @@ const (
 	TriggerPriceDirection_TRIGGER_IF_THE_PRICE_OF_THE_SPECIFIED_TYPE_GOES_UP_TO_OR_THROUGH_THE_SPECIFIED_TRIGGER_PRICE   TriggerPriceDirection = "U"
 )
 
-//Enum values for TriggerPriceType
+// TriggerPriceType field enumeration values.
 type TriggerPriceType string
 
 const (
@@ -5176,7 +5176,7 @@ const (
 	TriggerPriceType_BEST_MID                 TriggerPriceType = "6"
 )
 
-//Enum values for TriggerPriceTypeScope
+// TriggerPriceTypeScope field enumeration values.
 type TriggerPriceTypeScope string
 
 const (
@@ -5186,7 +5186,7 @@ const (
 	TriggerPriceTypeScope_GLOBAL   TriggerPriceTypeScope = "3"
 )
 
-//Enum values for TriggerType
+// TriggerType field enumeration values.
 type TriggerType string
 
 const (
@@ -5196,7 +5196,7 @@ const (
 	TriggerType_PRICE_MOVEMENT            TriggerType = "4"
 )
 
-//Enum values for UnderlyingCashType
+// UnderlyingCashType field enumeration values.
 type UnderlyingCashType string
 
 const (
@@ -5204,7 +5204,7 @@ const (
 	UnderlyingCashType_FIXED UnderlyingCashType = "FIXED"
 )
 
-//Enum values for UnderlyingFXRateCalc
+// UnderlyingFXRateCalc field enumeration values.
 type UnderlyingFXRateCalc string
 
 const (
@@ -5212,7 +5212,7 @@ const (
 	UnderlyingFXRateCalc_MULTIPLY UnderlyingFXRateCalc = "M"
 )
 
-//Enum values for UnderlyingPriceDeterminationMethod
+// UnderlyingPriceDeterminationMethod field enumeration values.
 type UnderlyingPriceDeterminationMethod string
 
 const (
@@ -5222,7 +5222,7 @@ const (
 	UnderlyingPriceDeterminationMethod_AVERAGE_VALUE     UnderlyingPriceDeterminationMethod = "4"
 )
 
-//Enum values for UnderlyingSettlementType
+// UnderlyingSettlementType field enumeration values.
 type UnderlyingSettlementType string
 
 const (
@@ -5231,7 +5231,7 @@ const (
 	UnderlyingSettlementType_T_PLUS_4 UnderlyingSettlementType = "5"
 )
 
-//Enum values for UnitOfMeasure
+// UnitOfMeasure field enumeration values.
 type UnitOfMeasure string
 
 const (
@@ -5250,7 +5250,7 @@ const (
 	UnitOfMeasure_TONS               UnitOfMeasure = "tn"
 )
 
-//Enum values for UnsolicitedIndicator
+// UnsolicitedIndicator field enumeration values.
 type UnsolicitedIndicator string
 
 const (
@@ -5258,7 +5258,7 @@ const (
 	UnsolicitedIndicator_YES UnsolicitedIndicator = "Y"
 )
 
-//Enum values for Urgency
+// Urgency field enumeration values.
 type Urgency string
 
 const (
@@ -5267,7 +5267,7 @@ const (
 	Urgency_BACKGROUND Urgency = "2"
 )
 
-//Enum values for UserRequestType
+// UserRequestType field enumeration values.
 type UserRequestType string
 
 const (
@@ -5277,7 +5277,7 @@ const (
 	UserRequestType_REQUEST_INDIVIDUAL_USER_STATUS UserRequestType = "4"
 )
 
-//Enum values for UserStatus
+// UserStatus field enumeration values.
 type UserStatus string
 
 const (
@@ -5291,7 +5291,7 @@ const (
 	UserStatus_SESSION_SHUTDOWN_WARNING       UserStatus = "8"
 )
 
-//Enum values for ValuationMethod
+// ValuationMethod field enumeration values.
 type ValuationMethod string
 
 const (
@@ -5302,7 +5302,7 @@ const (
 	ValuationMethod_FUTURES_STYLE_WITH_AN_ATTACHED_CASH_ADJUSTMENT             ValuationMethod = "FUTDA"
 )
 
-//Enum values for VenueType
+// VenueType field enumeration values.
 type VenueType string
 
 const (
@@ -5311,7 +5311,7 @@ const (
 	VenueType_EX_PIT     VenueType = "X"
 )
 
-//Enum values for WorkingIndicator
+// WorkingIndicator field enumeration values.
 type WorkingIndicator string
 
 const (
@@ -5319,7 +5319,7 @@ const (
 	WorkingIndicator_YES WorkingIndicator = "Y"
 )
 
-//Enum values for YieldType
+// YieldType field enumeration values.
 type YieldType string
 
 const (

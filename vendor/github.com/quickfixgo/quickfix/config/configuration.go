@@ -2,7 +2,7 @@ package config
 
 //NOTE: Additions to this file should be made to both config/doc.go and http://www.quickfixgo.org/docs/
 
-//Const configuration settings
+// Const configuration settings
 const (
 	BeginString                  string = "BeginString"
 	SenderCompID                 string = "SenderCompID"
@@ -47,6 +47,7 @@ const (
 	LogoutTimeout                string = "LogoutTimeout"
 	LogonTimeout                 string = "LogonTimeout"
 	HeartBtInt                   string = "HeartBtInt"
+	HeartBtIntOverride           string = "HeartBtIntOverride"
 	FileLogPath                  string = "FileLogPath"
 	FileStorePath                string = "FileStorePath"
 	SQLStoreDriver               string = "SQLStoreDriver"
@@ -54,6 +55,7 @@ const (
 	SQLStoreConnMaxLifetime      string = "SQLStoreConnMaxLifetime"
 	MongoStoreConnection         string = "MongoStoreConnection"
 	MongoStoreDatabase           string = "MongoStoreDatabase"
+	MongoStoreReplicaSet         string = "MongoStoreReplicaSet"
 	ValidateFieldsOutOfOrder     string = "ValidateFieldsOutOfOrder"
 	ResendRequestChunkSize       string = "ResendRequestChunkSize"
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -35,7 +36,7 @@ func sqlString(raw string, placeholder placeholderFunc) string {
 	idx := 0
 	return rePlaceholder.ReplaceAllStringFunc(raw, func(s string) string {
 		new := placeholder(idx)
-		idx += 1
+		idx++
 		return new
 	})
 }
@@ -271,6 +272,49 @@ func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
 
 	return err
+}
+
+func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	s := store.sessionID
+
+	tx, err := store.db.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	_, err = tx.Exec(sqlString(`INSERT INTO messages (
+			msgseqnum, message,
+			beginstring, session_qualifier,
+			sendercompid, sendersubid, senderlocid,
+			targetcompid, targetsubid, targetlocid)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, store.placeholder),
+		seqNum, string(msg),
+		s.BeginString, s.Qualifier,
+		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
+	if err != nil {
+		return err
+	}
+
+	next := store.cache.NextSenderMsgSeqNum() + 1
+	_, err = tx.Exec(sqlString(`UPDATE sessions SET outgoing_seqnum = ?
+		WHERE beginstring=? AND session_qualifier=?
+		AND sendercompid=? AND sendersubid=? AND senderlocid=?
+		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+		next, s.BeginString, s.Qualifier,
+		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
+	if err != nil {
+		return err
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return err
+	}
+
+	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
 func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
