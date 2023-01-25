@@ -6,7 +6,6 @@ import (
 
 	"github.com/quickfixgo/enum"
 	"github.com/quickfixgo/field"
-	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/traderui/oms"
 	"github.com/quickfixgo/traderui/secmaster"
 
@@ -18,9 +17,11 @@ import (
 	fix50nos "github.com/quickfixgo/fix50/newordersingle"
 
 	fix42cxl "github.com/quickfixgo/fix42/ordercancelrequest"
+
+	"github.com/quickfixgo/quickfix"
 )
 
-//FIXFactory builds vanilla fix messages, implements traderui.fixFactory
+// FIXFactory builds vanilla fix messages, implements traderui.fixFactory
 type FIXFactory struct{}
 
 func (FIXFactory) NewOrderSingle(order oms.Order) (msg quickfix.Messagable, err error) {

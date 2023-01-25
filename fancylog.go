@@ -6,6 +6,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/gosuri/uitable"
+
 	"github.com/quickfixgo/quickfix"
 )
 

@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: [1.16, 1.15]
+        go: [1.19]
     steps:
       - name: Setup
         uses: actions/setup-go@v2

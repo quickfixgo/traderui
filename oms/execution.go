@@ -2,7 +2,7 @@ package oms
 
 import "github.com/quickfixgo/enum"
 
-//Execution is the execution type
+// Execution is the execution type
 type Execution struct {
 	ID       int       `json:"id"`
 	Symbol   string    `json:"symbol"`

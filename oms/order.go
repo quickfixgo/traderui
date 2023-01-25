@@ -4,11 +4,12 @@ import (
 	"errors"
 
 	"github.com/quickfixgo/enum"
-	"github.com/quickfixgo/quickfix"
 	"github.com/shopspring/decimal"
+
+	"github.com/quickfixgo/quickfix"
 )
 
-//Order is the order type
+// Order is the order type
 type Order struct {
 	ID                 int                `json:"id"`
 	SessionID          quickfix.SessionID `json:"-"`
@@ -37,7 +38,7 @@ type Order struct {
 	StrikePriceDecimal decimal.Decimal    `json:"-"`
 }
 
-//Init initialized computed fields on order from user input
+// Init initialized computed fields on order from user input
 func (order *Order) Init() error {
 	var err error
 	if order.QuantityDecimal, err = decimal.NewFromString(order.Quantity); err != nil {

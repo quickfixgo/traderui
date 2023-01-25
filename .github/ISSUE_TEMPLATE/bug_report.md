@@ -19,7 +19,7 @@ A clear and concise description of what you expected to happen.
 
 **system information:**
  - OS: [e.g. Linux]
- - Go version [e.g. Go 1.16.5]
+ - Go version [e.g. Go 1.19]
  - QF/Go Version [e.g. @main]
 
 **Additional context**

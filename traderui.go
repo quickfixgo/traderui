@@ -12,10 +12,11 @@ import (
 	"text/template"
 
 	"github.com/gorilla/mux"
-	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/traderui/basic"
 	"github.com/quickfixgo/traderui/oms"
 	"github.com/quickfixgo/traderui/secmaster"
+
+	"github.com/quickfixgo/quickfix"
 )
 
 type fixFactory interface {

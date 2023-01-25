@@ -5,42 +5,43 @@ import (
 
 	"github.com/quickfixgo/enum"
 	"github.com/quickfixgo/field"
-	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/tag"
 	"github.com/quickfixgo/traderui/oms"
+
+	"github.com/quickfixgo/quickfix"
 )
 
-//FIXApplication implements a basic quickfix.Application
+// FIXApplication implements a basic quickfix.Application
 type FIXApplication struct {
 	SessionIDs map[string]quickfix.SessionID
 	*oms.OrderManager
 }
 
-//OnLogon is ignored
+// OnLogon is ignored
 func (a *FIXApplication) OnLogon(sessionID quickfix.SessionID) {}
 
-//OnLogout is ignored
+// OnLogout is ignored
 func (a *FIXApplication) OnLogout(sessionID quickfix.SessionID) {}
 
-//ToAdmin is ignored
+// ToAdmin is ignored
 func (a *FIXApplication) ToAdmin(msg *quickfix.Message, sessionID quickfix.SessionID) {}
 
-//OnCreate initialized SessionIDs
+// OnCreate initialized SessionIDs
 func (a *FIXApplication) OnCreate(sessionID quickfix.SessionID) {
 	a.SessionIDs[sessionID.String()] = sessionID
 }
 
-//FromAdmin is ignored
+// FromAdmin is ignored
 func (a *FIXApplication) FromAdmin(msg *quickfix.Message, sessionID quickfix.SessionID) (reject quickfix.MessageRejectError) {
 	return
 }
 
-//ToApp is ignored
+// ToApp is ignored
 func (a *FIXApplication) ToApp(msg *quickfix.Message, sessionID quickfix.SessionID) (err error) {
 	return
 }
 
-//FromApp listens for just execution reports
+// FromApp listens for just execution reports
 func (a *FIXApplication) FromApp(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	msgType, err := msg.MsgType()
 	if err != nil {
