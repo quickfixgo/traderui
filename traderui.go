@@ -288,7 +288,7 @@ func main() {
 		return
 	}
 
-	logFactory := quickfix.NewScreenLogFactory()
+	logFactory := NewFancyLog()
 
 	var fixApp quickfix.Application
 	app := newTradeClient(basic.FIXFactory{}, new(basic.ClOrdIDGenerator))
@@ -297,7 +297,7 @@ func main() {
 		OrderManager: app.OrderManager,
 	}
 
-	initiator, err := quickfix.NewInitiator(fixApp, quickfix.NewFileStoreFactory(appSettings), appSettings, logFactory)
+	initiator, err := quickfix.NewInitiator(fixApp, quickfix.NewMemoryStoreFactory(), appSettings, logFactory)
 	if err != nil {
 		log.Fatalf("Unable to create Initiator: %s\n", err)
 	}

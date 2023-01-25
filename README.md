@@ -4,11 +4,8 @@
 To install the QuickFIX/Go example trading client, use `go get`:
 
 ```sh
-$ go get github.com/quickfixgo/traderui
+go get github.com/quickfixgo/traderui
 ```
-
-### Staying up to date
-To update the example trading client to the latest version, use `go get -u github.com/quickfixgo/traderui`.
 
 ## Building the Client
 ```sh
