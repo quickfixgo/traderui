@@ -3,7 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/quickfixgo/traderui?status.png)](https://godoc.org/github.com/quickfixgo/traderui) 
 [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/traderui)](https://goreportcard.com/report/github.com/quickfixgo/traderui)
 
-![Screenshot](./screenshot.png)
+<img alt="Screnshot" src='screenshot.png' width='70%'>
 
 
 ## About
