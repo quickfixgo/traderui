@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: [1.19]
+        go: [1.21]
     steps:
       - name: Setup
         uses: actions/setup-go@v2
@@ -40,5 +40,7 @@ jobs:
           go-version: ${{ matrix.go }}
       - name: Check out source
         uses: actions/checkout@v2
+      - name: Get Deps
+        run: go mod vendor
       - name: Build
         run: make build
