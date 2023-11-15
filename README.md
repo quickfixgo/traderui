@@ -1,11 +1,10 @@
 # UI Trader Example Client
 
-## Installation
-To install the QuickFIX/Go example trading client, use `go get`:
+![Screenshot](./screenshot.png)
 
-```sh
-go get github.com/quickfixgo/traderui
-```
+
+## About
+This repo contains an example of a quickfix Initiator service with a web UI that can interact with a quickfix Acceptor service and transmit common FIX messages back and forth. The messages are assembled and displayed in the UI in a way that will be familiar and informative to those wishing to explore basic quickfix capabilities. An acceptor to use as a local counterparty can be found in the [examples repo.](https://github.com/quickfixgo/examples)
 
 ## Building the Client
 ```sh
