@@ -12,20 +12,21 @@ on:
       - main
 jobs:
   golangci:
+    permissions:
+      contents: read  # for actions/checkout to fetch code
+      pull-requests: read  # for golangci/golangci-lint-action to fetch pull requests
     name: lint
     runs-on: ubuntu-latest
     steps:
-      - name: Setup
-        uses: actions/setup-go@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
         with:
-          go-version: ${{ matrix.go }}
-      - uses: actions/checkout@v2
-      - name: Get Deps
-        run: go mod vendor
-      - name: Lint
-        uses: golangci/golangci-lint-action@v2
+          go-version: '1.21'
+          cache: false
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
         with:
-          version: v1.50.1
+          version: v1.51
 
   build:
     name: build
