@@ -193,7 +193,7 @@ func (c tradeClient) getExecutions(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, outgoingJSON)
 }
 
-func (c tradeClient) newSecurityDefintionRequest(w http.ResponseWriter, r *http.Request) {
+func (c tradeClient) newSecurityDefinitionRequest(w http.ResponseWriter, r *http.Request) {
 	var secDefRequest secmaster.SecurityDefinitionRequest
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&secDefRequest)
@@ -318,7 +318,7 @@ func main() {
 	router.HandleFunc("/executions", app.getExecutions).Methods("GET")
 	router.HandleFunc("/executions/{id:[0-9]+}", app.getExecution).Methods("GET")
 
-	router.HandleFunc("/securitydefinitionrequest", app.newSecurityDefintionRequest).Methods("POST")
+	router.HandleFunc("/securitydefinitionrequest", app.newSecurityDefinitionRequest).Methods("POST")
 
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	router.HandleFunc("/", app.traderView)
